@@ -1,0 +1,4 @@
+f = +fi_g-fox_a+dnl_i-gngf_o-fox_s
+c = ci_g+gngf_i+gngp_i-cox_a-dnl_o-cox_s
+p = pi_g-gngp_o-pox_a-pox_s
+at = atf

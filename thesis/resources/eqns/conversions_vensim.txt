@@ -1,0 +1,85 @@
+dnl=
+	ci * effect of glycogen on dnl * cal dens c
+	~	kcal/Day
+	~		|
+
+dnl out=
+	min( dnl / cal dens c , carb / TIME STEP )
+	~	g/Day
+	~		|
+
+gng fat=
+	gng fat endog + gng fat exog
+	~	kcal/Day
+	~		|
+
+gng fat in=
+	gng fat / cal dens c
+	~	g/Day
+	~		|
+
+gng fat out=
+	min( gng fat / cal dens f , fat / TIME STEP )
+	~	g/Day
+	~		|
+
+gng protein out=
+	MAX( 0 , gng protein / cal dens p)
+	~	g/Day
+	~		|
+
+dnl i=
+	dnl / cal dens f
+	~	g/Day
+	~		|
+
+eff ci on gng p=
+	0.506 * normalized change in carbohydrate intake
+	~	Dmnl
+	~		|
+
+gngp i=
+	gng protein / cal dens c
+	~	g/Day
+	~		|
+
+gng fat endog=
+	baseline gng fat endog * normalized lipolysis rate
+	~	kcal/Day
+	~		|
+
+gng fat exog=
+	exog glycerol per kcal fat intake * fat intake * cal dens c
+	~	kcal/Day
+	~		|
+
+effect of glycogen on dnl=
+	normalized glycogen ratio ^ hill dnl / 
+	( k dnl ^ hill dnl + normalized glycogen ratio ^ hill dnl )
+	~	Dmnl
+	~		|
+
+norm p ratio=
+	protein / baseline protein
+	~	Dmnl
+	~		|
+
+eff pi on gng p=
+	0.306 * normalized change in protein intake
+	~	Dmnl
+	~		|
+
+normalized glycogen ratio=
+	carb / base carb
+	~	Dmnl
+	~		|
+
+metabolism of conversions=
+	( 1 - efficiency dnl ) * dnl + ( 1- efficiency gng ) * ( gng fat + gng protein )
+	~	kcal/Day
+	~		|
+
+gng protein=
+	MAX( 0 , base gng p * ( norm p ratio - eff ci on gng p + eff pi on gng p ) )
+	~	kcal/Day
+	~		|

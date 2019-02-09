@@ -1,0 +1,40 @@
+metabolism of body cells=
+	basal rmr of lean tissues * ( cell mass - mass brain ) + base rmr brain * mass brain\
+		 + base rmr fat * fat
+	~	kcal/Day
+	~		|
+
+cell mass=
+	intracel solids + carb + protein + intracel water
+	~	g
+	~		|
+
+baseline basal rmr of lean tissues=
+	0.0239374
+	~	kcal/(g*Day)
+	~		|
+
+basal rmr efficiency=
+	1 + ( 1 - thermogenesis effect on pae vs rmr ) * adaptive thermogenesis
+	~	Dmnl
+	~		|
+
+base rmr fat=
+	0.0045
+	~	kcal/(g*Day)
+	~		|
+
+base rmr brain=
+	0.24
+	~	kcal/g/Day
+	~		|
+
+basal rmr of lean tissues=
+	baseline basal rmr of lean tissues * basal rmr efficiency
+	~	kcal/g/Day
+	~		|
+
+mass brain=
+	1400
+	~	g
+	~		|

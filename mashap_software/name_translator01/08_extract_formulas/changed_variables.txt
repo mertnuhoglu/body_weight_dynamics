@@ -1,0 +1,40 @@
+activ time
+base carb
+baseline activity energy per body weight
+baseline bodyweight
+baseline carbohydrate intake
+baseline ecw
+baseline fat
+baseline fat intake
+baseline lean mass
+baseline protein
+baseline protein intake
+carb
+carbohydrate intake
+dnl
+eff of carb intake on carb oxidation
+eff of carb intake on carb oxidation
+eff pi on gng p
+effect of carb intake on lipolysis
+fat
+fat intake
+fat term
+glycogenolysis
+gng fat endog
+gng protein
+intracel water
+lipolysis
+metabolism of body cells
+normalized glycogenolysis
+pri carbox kcal
+pri fatox kcal
+pri protox kcal
+protein
+protein intake
+proteolysis
+read from data
+thermic effect of food
+total energy expenditure
+total ox
+weighting of oxidation for glycogenolysis
+weighting of oxidation for lipolysis

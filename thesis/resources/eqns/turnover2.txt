@@ -1,0 +1,132 @@
+metabolism of turnovers=
+	( deg cost p + dep cost p ) * proteolysis +
+	dep cost fat * lipolysis +
+	dep cost c * glycogenolysis
+Units: kcal/Day
+
+**************************************************************
+deg cost p=
+	0.172727
+Units: kcal/g
+
+**************************************************************
+dep cost c=
+	0.211111
+Units: kcal/g
+
+**************************************************************
+dep cost fat=
+	0.176744
+Units: kcal/g
+
+**************************************************************
+dep cost p=
+	0.863636
+Units: kcal/g
+
+**************************************************************
+glycogenolysis=
+	base deg c * carb / base carb
+Units: g/Day
+
+**************************************************************
+base carb=
+	400
+Units: g
+
+**************************************************************
+base deg c=
+	180
+Units: g/Day
+
+**************************************************************
+lipolysis=
+	base molar lipolysis * normalized lipolysis rate * mass tg
+Units: g/Day
+
+**************************************************************
+base molar lipolysis=
+	0.16
+Units: mol/Day
+
+**************************************************************
+mass tg=
+	860
+Units: g/mol
+
+**************************************************************
+normalized lipolysis rate=
+	effect of carb intake on lipolysis * effect of obesity on lipolysis
+Units: Dmnl
+
+**************************************************************
+effect of carb intake on lipolysis=
+	1 + ( ( lipol max - lipol min )  * EXP( -k lip * ci * cal dens c / baseline carbohydrate intake
+ )
+	+ lipol min - 1 )
+	/ MAX( 1 , effect of obesity on lipolysis )
+Units: Dmnl
+
+**************************************************************
+effect of obesity on lipolysis=
+	(fat / baseline fat)^(2/3)
+Units: Dmnl
+
+**************************************************************
+lipol max=
+	3.1
+Units: Dmnl
+
+**************************************************************
+lipol min=
+	0.9
+Units: Dmnl
+
+**************************************************************
+k lip=
+	LN( ( lipol max - lipol min ) /
+	( 1 - lipol min )
+	)
+Units: Dmnl
+
+**************************************************************
+cal dens c=
+	4.18
+Units: kcal/g
+
+**************************************************************
+baseline carbohydrate intake=
+	ci 0
+Units: kcal/Day
+
+**************************************************************
+baseline fat=
+	baseline bodyweight - baseline lean mass
+Units: g
+
+**************************************************************
+proteolysis=
+	baseline proteolysis * protein / baseline protein
+Units: g/Day
+
+**************************************************************
+baseline protein=
+	cell mass b - icw b - intracel solids - base carb
+Units: g
+
+**************************************************************
+baseline proteolysis=
+	molar baseline proteolysis * aminoacid mass
+Units: g/Day
+
+**************************************************************
+aminoacid mass=
+	110
+Units: g/mol
+
+**************************************************************
+molar baseline proteolysis=
+	2.73
+Units: mol/Day
+
+**************************************************************

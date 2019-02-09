@@ -1,0 +1,6 @@
+thermogenesis_adaptation=( therm_const * effect_of_metabolizable_energy_intake_on_thermogenesis - adaptive_thermogenesis) / delay_in_adaptive_thermogenesis
+therm_const=0.8
+delay_in_adaptive_thermogenesis=7.0
+effect_of_metabolizable_energy_intake_on_thermogenesis=( metabolizable_energy_intake - baseline_metabolizable_energy_intake ) / baseline_metabolizable_energy_intake
+baseline_metabolizable_energy_intake=baseline_carbohydrate_intake + baseline_fat_intake +baseline_protein_intake
+metabolizable_energy_intake=carbohydrate_intake + fat_intake + protein_intake

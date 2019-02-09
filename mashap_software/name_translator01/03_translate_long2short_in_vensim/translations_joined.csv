@@ -1,0 +1,174 @@
+102,.2/3,sl,,,,,
+53,metabolism of conversions,part of ebar,metabolism_of_conversions,,(1-dnleff)*dnl+(1-gngeff)*(gngp+gngf),mc,mc
+160,gap fatox,,gap_fatox,,,gap_f,gap f
+84,activity efficiency,(1+dactiv_eff),activity_efficiency,,,acteff,acteff
+91,thermogenesis adaptation,d/dt (therm),thermogenesis_adaptation,,,atf,atf
+19,molar caloric dens glycerol,rho_c*glycerol_mass,molar_caloric_dens_glycerol,,,molar_caloric_dens_glycerol,molar caloric dens glycerol
+52,metabolism of body cells,part of ebar,metabolism_of_body_cells,,smr_l*(cm-mbrain) + smr_brain*mbrain + smr_f * f,mbc,mbc
+71,frac fatox,fatfrac,frac_fatox,,,ff,ff
+64,base deg c,glycogenol_b*g_mass,base_deg_c,180,,dc_b,dc b
+123,extracel water,ecw,extracel_water,,,ecw,ecw
+95,base molar lipolysis,lipol_b,base_molar_lipolysis,0.16,,df_mol_b,df mol b
+13,base rmr brain,smr_brain,base_rmr_brain,0.0239374,,rmr_b_b,rmr b b
+60,eff of glycogenolysis on carb oxidation,part of carb_term,eff_of_glycogenolysis_on_carb_oxidation,,wg*glycogenol,eff_dg_cox,eff dg cox
+161,gap total,,gap_total,,,gap,gap
+38,carbohydrate intake,cin,carbohydrate_intake,,,ci_k,ci k
+134,.0.306,gng_pi,0,0.306,,,
+105,normalized change in carbohydrate intake,dcin/cin_b,normalized_change_in_carbohydrate_intake,,,ndci,ndci
+99,effect of carb intake on lipolysis,lipol_diet,effect_of_carb_intake_on_lipolysis,,,eff_ci_df,eff ci df
+172,resting metabolic rate,,resting_metabolic_rate,,,rmr,rmr
+83,baseline activity energy per body weight,activ_b,baseline_activity_energy_per_body_weight,0.0256755,,acteng_bw_b,acteng bw b
+148,carb sufficiency,,carb_sufficiency,,,suff_c,suff c
+96,lipolysis,lipol_rate,lipolysis,,,df,df
+166,is sufficient carb,,is_sufficient_carb,,,is_sufficient_carb,is sufficient carb
+7,activ time,activ_time,activ_time,,,activ_time,activ time
+69,fat term,fat_term,fat_term,,,fat_term,fat term
+142,actual carbox,,actual_carbox,,,cox_a,cox a
+51,tef f,tef_f,tef_f,0.025,,tef_f,tef f
+48,tef c,tef_c,tef_c,0.075,,tef_c,tef c
+169,pri carbox kcal,,pri_carbox_kcal,,,cox_k,cox k
+183,total pri ox,,total_pri_ox,,,ox_p,ox p
+47,tef p,tef_p,tef_p,0.25,,tef_p,tef p
+1,cal dens p,rho_p,cal_dens_p,4.7,,cal_p,cal p
+144,actual protox,,actual_protox,,,pox_a,pox a
+3,molar baseline proteolysis,proteol_b,molar_baseline_proteolysis,2.73,,dp_mol_b,dp mol b
+131,baseline protein,p_ave,baseline_protein,,,p_b,p b
+76,sensitivity of oxidation to pi changes,spi,sensitivity_of_oxidation_to_pi_changes,15.0253,,spi,spi
+153,desired fatox,,desired_fatox,,,fox_d,fox d
+35,cal dens c,rho_c,cal_dens_c,4.18,,cal_c,cal c
+36,cal dens f,rho_f,cal_dens_f,9.44,,cal_f,cal f
+100,lipol max,lipol_max,lipol_max,3.1,,lipol_max,lipol max
+128,baseline fat,f_ave,baseline_fat,9050,,f_b,f b
+126,baseline bodyweight,bw_ave,baseline_bodyweight,67533,,bw_b,bw b
+63,glycogenolysis,glycogenol_rate,glycogenolysis,,,dc,dc
+21,baseline metabolizable energy intake,me_b,baseline_metabolizable_energy_intake,,,mei_b,mei b
+77,weighting of oxidation for basal pi,wpi,weighting_of_oxidation_for_basal_pi,0.1,,wpi,wpi
+165,gng protein out,,gng_protein_out,,,gngp_o,gngp o
+44,ec,ec,ec,-268.404,,ec,ec
+59,carb term,carb_term,carb_term,,,carb_term,carb term
+31,normalized proteolysis,proteol,normalized_proteolysis,,,ndp,ndp
+15,aminoacid mass,aa_mass,aminoacid_mass,110,,massaa,massaa
+138,read from data,,read_from_data,,,read_from_data,read from data
+39,mass of glycerol,glycerol_mass,mass_of_glycerol,92,,mass_of_glycerol,mass of glycerol
+121,lean tissues,l,lean_tissues,,,lean,lean
+28,metabolizable energy intake,me,metabolizable_energy_intake,,,mei,mei
+25,dep cost fat,eta_f,dep_cost_fat,0.176744,,depc_f,depc f
+54,metabolism of turnovers,part of ebar,metabolism_of_turnovers,,(eta_p + eps_p)*(proteol_rate) + eta_f*lipol_rate + eta_g*glycogenol_rate,mt,mt
+78,sensitivity to physical activity,(activ_max*activ_ave/activ_b-activ_min) veya 4,sensitivity_to_physical_activity,4,,sa,sa
+106,effect of glycogen on dnl,part of dnl,effect_of_glycogen_on_dnl,,(g/g_ave)^hill_dnl/(kdnl^hill_dnl + (g/g_ave)^hill_dnl),eff_c_dnl,eff c dnl
+89,therm const,therm_const,therm_const,0.8,,tc,tc
+107,eff pi on gng p,part of gngp,eff_pi_on_gng_p,,gng_pi*dpin/pin_b,eff_pi_gngp,eff pi gngp
+32,baseline protein intake,pin_b,baseline_protein_intake,457.38,,pi_b,pi b
+73,prot term,prot_term,prot_term,,,prot_term,prot term
+17,baseline fat intake,fin_b,baseline_fat_intake,1332.52,,fi_b,fi b
+164,gng protein in,,gng_protein_in,,,gngp_in,gngp in
+70,weighting of oxidation for lipolysis,wf,weighting_of_oxidation_for_lipolysis,4.23519,,wf,wf
+16,change in protein intake,dpin,change_in_protein_intake,,,dpi,dpi
+23,mass of fat free acid,ffa_mass,mass_of_fat_free_acid,,,mass_of_fat_free_acid,mass of fat free acid
+125,body weight,bw,body_weight,,,bw,bw
+111,gng fat,gngf,gng_fat,,,gngf,gngf
+175,sec fatox,,sec_fatox,,,fox_s,fox s
+119,constant intracellular water,kicw,constant_intracellular_water,12051.9,,constant_intracellular_water,constant intracellular water
+103,eff ci on gng p,part of gngp,eff_ci_on_gng_p,,gng_ci*dcin/cin_b,eff_ci_gngp,eff ci gngp
+152,desired carbox,,desired_carbox,,,cox_d,cox d
+5,norm p ratio,proteol,norm_p_ratio,,,np,np
+145,carb,g,carb,,,c,c
+146,fat,f,fat,,,f,f
+108,gng fat endog,gngf_endog,gng_fat_endog,,,gngf_end,gngf end
+168,possible fatox,,possible_fatox,,,fox_p,fox p
+143,actual fatox,,actual_fatox,,,fox_a,fox a
+180,sec protox,,sec_protox,,,pox_s,pox s
+9,basal rmr efficiency,(1+dsmrl_eff),basal_rmr_efficiency,,,rmreff,rmreff
+40,mass tg,tg_mass,mass_tg,860,,mass_tg,mass tg
+113,hill dnl,hill_dnl,hill_dnl,4,,hill_dnl,hill dnl
+110,gng protein,gngp,gng_protein,,,gngp,gngp
+120,intracel solids,ics,intracel_solids,3967.28,,ics,ics
+181,sec protox kcal,,sec_protox_kcal,,,pox_s_k,pox s k
+176,sec fatox kcal,,sec_fatox_kcal,,,fox_s_k,fox s k
+173,sec carbox,,sec_carbox,,,cox_s,cox s
+135,carbohydrate intake param,,carbohydrate_intake_param,,,carbohydrate_intake_param,carbohydrate intake param
+115,k dnl,kdnl,k_dnl,2,,k_dnl,k dnl
+130,baseline lean mass,l_ave,baseline_lean_mass,,,lean_b,lean b
+98,effect of obesity on lipolysis,part of lipol,effect_of_obesity_on_lipolysis,,(f/f_ave)^sl,eff_obes_df,eff obes df
+124,cell mass,cm,cell_mass,,,cell_mass,cell mass
+88,delay in adaptive thermogenesis,tau_therm,delay_in_adaptive_thermogenesis,7,,del_at,del at
+65,normalized glycogen ratio,glycogenol,normalized_glycogen_ratio,,,nc,nc
+184,total sec ox,,total_sec_ox,,,ox_s,ox s
+114,k lip,k_lip,k_lip,,,k_lip,k lip
+12,base rmr fat,smr_f,base_rmr_fat,0.0045,,rmr_f_b,rmr f b
+4,proteolysis,proteol_rate,proteolysis,,,dp,dp
+82,activity energy spent per body weight,activ,activity_energy_spent_per_body_weight,,,acteng_bw_at,acteng bw at
+2,baseline proteolysis,proteol* aa_mass,baseline_proteolysis,,,dp_b,dp b
+158,eff of possible fatox,,eff_of_possible_fatox,,,eff_fox_p,eff fox p
+87,adaptive thermogenesis,therm,adaptive_thermogenesis,,,at,at
+118,protein hydration coefficient,hp,protein_hydration_coefficient,2,,hp,hp
+116,intracel water,part of cm,intracel_water,,kicw+p*hp+g*hg,icw,icw
+34,baseline carbohydrate intake,cin_b,baseline_carbohydrate_intake,1811.51,,ci_b,ci b
+112,dnl,dnl,dnl,,,dnl,dnl
+149,ci,,ci,,,ci_g,ci g
+94,baseline gng fat endog,gngf_bendog,baseline_gng_fat_endog,,,gngf_end_b,gngf end b
+139,change in carbohydrate intake,,change_in_carbohydrate_intake,,,dci,dci
+163,gng fat out,,gng_fat_out,,,gngf_o,gngf o
+177,sec frac carb,,sec_frac_carb,,,fc_s,fc s
+132,protein fraction of cell mass,pfraccm,protein_fraction_of_cell_mass,0.2,,protein_fraction_of_cell_mass,protein fraction of cell mass
+151,pi,,pi,,,pi_g,pi g
+92,gng fat exog,gngf_exog,gng_fat_exog,,,gngf_ex,gngf ex
+155,dnl in,,dnl_in,,,dnl_in,dnl in
+50,thermic effect of food,tef,thermic_effect_of_food,,,tef,tef
+57,desired protox,part of d/dt (p),desired_protox,,protfrac*(tee-gngp- gngf),pox_d,pox d
+97,normalized lipolysis rate,lipol,normalized_lipolysis_rate,,,ndf,ndf
+8,frac carbox,carbfrac,frac_carbox,,,fc,fc
+159,gap carbox,,gap_carbox,,,gap_c,gap c
+68,sensitivity of oxidation to ci changes,sci,sensitivity_of_oxidation_to_ci_changes,0.761188,,sci,sci
+11,baseline basal rmr of lean tissues,smr_lb,baseline_basal_rmr_of_lean_tissues,,,rmr_lean_b,rmr lean b
+170,pri fatox kcal,,pri_fatox_kcal,,,fox_k,fox k
+90,effect of metabolizable energy intake on thermogenesis,part of d/dt (therm),effect_of_metabolizable_energy_intake_on_thermogenesis,,(me-me_b)/me_b,ndmei,ndmei
+174,sec carbox kcal,,sec_carbox_kcal,,,cox_s_k,cox s k
+49,z,z,z,,,z,z
+67,weighting of oxidation for basal ci,wci,weighting_of_oxidation_for_basal_ci,3.31414,,wci,wci
+61,weighting of oxidation for glycogenolysis,wg,weighting_of_oxidation_for_glycogenolysis,1.74429,,wg,wg
+156,dnl out,,dnl_out,,,dnl_o,dnl o
+136,fat intake param,,fat_intake_param,,,fat_intake_param,fat intake param
+127,baseline ecw,ecw_ave,baseline_ecw,,,ecw_b,ecw b
+182,total ox,,total_ox,,,ox,ox
+33,protein intake,pin,protein_intake,,,pi_k,pi k
+66,eff of carb intake on carb oxidation,part of carb_term,eff_of_carb_intake_on_carb_oxidation,,wci*(1+sci*dcin/cin_b),eff_ci_cox,eff ci cox
+20,molar caloric dens tg,rho_f*tg_mass,molar_caloric_dens_tg,,,molar_caloric_dens_tg,molar caloric dens tg
+18,normalized change in protein intake,dpin/pin_b,normalized_change_in_protein_intake,,,ndpi,ndpi
+147,protein,p,protein,,,p,p
+45,total energy expenditure,tee,total_energy_expenditure,,,tee,tee
+86,thermogenesis effect on pae vs rmr,activ_vs_rest,thermogenesis_effect_on_pae_vs_rmr,0.52,,ateff,ateff
+101,lipol min,lipol_min,lipol_min,0.9,,lipol_min,lipol min
+154,diff bw ox and tee,,diff_bw_ox_and_tee,,,d_ox_tee,d ox tee
+75,eff of physical activity on prot oxidation,part of prot_term,eff_of_physical_activity_on_prot_oxidation,,((activ_max*activ_ave/activ_b-activ_min)*exp(-k_act*activ_tsb/activ_b) + activ_min,eff_act_pox,eff act pox
+72,frac protox,protfrac,frac_protox,,,fp,fp
+117,glycogen hydration coefficient,hg,glycogen_hydration_coefficient,2.7,,hc,hc
+137,protein intake param,,protein_intake_param,,,protein_intake_param,protein intake param
+109,base gng p,gngp_b,base_gng_p,100,,gngp_b,gngp b
+162,gng fat in,,gng_fat_in,,,gngf_i,gngf i
+14,basal rmr of lean tissues,smr_l,basal_rmr_of_lean_tissues,,,rmr_lean,rmr lean
+178,sec frac fat,,sec_frac_fat,,,ff_s,ff s
+167,is sufficient fat,,is_sufficient_fat,,,is_sufficient_fat,is sufficient fat
+24,deg cost p,eps_p,deg_cost_p,0.172727,,degc_p,degc p
+41,net fat intake,3*ffa_mass/tg_mass*fin,net_fat_intake,,,fi_net_k,fi net k
+81,activity energy per body weight,activ_tsb,activity_energy_per_body_weight,,,acteng_bw,acteng bw
+85,physical activity energy,part of ebar,physical_activity_energy,,activ*bw,pae,pae
+157,eff of carb sufficiency on carbox,,eff_of_carb_sufficiency_on_carbox,,,eff_suff_c,eff suff c
+80,normalized activity energy per body weight,part of prot_term,normalized_activity_energy_per_body_weight,,activ_tsb/activ_b,nacteng_bw,nacteng bw
+93,exog glycerol per kcal fat intake,glycerol_exog,exog_glycerol_per_kcal_fat_intake,,,exog_glycerol_per_kcal_fat_intake,exog glycerol per kcal fat intake
+150,fi,,fi,,,fi_g,fi g
+62,normalized glycogenolysis,glycogenol,normalized_glycogenolysis,,,ndc,ndc
+122,base bone mass,bm,base_bone_mass,,,bm_b,bm b
+22,mass brain,mbrain,mass_brain,1400,,massb,massb
+26,dep cost c,eta_g,dep_cost_c,0.211111,,depc_c,depc c
+37,fat intake,fin,fat_intake,,,fi_k,fi k
+74,eff of prot intake on prot oxidation,part of prot_term,eff_of_prot_intake_on_prot_oxidation,,wpi*(1+spi*dpin/pin_b),eff_pi_pox,eff pi pox
+171,pri protox kcal,,pri_protox_kcal,,,pox_k,pox k
+129,base carb,g_ave,base_carb,500,,c_b,c b
+30,efficiency dnl,dnleff,efficiency_dnl,0.8,,dnleff,dnleff
+55,shared energy expenditure,part of d/dt,shared_energy_expenditure,,(tee-gngp - gngf),see,see
+29,efficiency gng,gngeff,efficiency_gng,0.8,,gngeff,gngeff
+27,dep cost p,eta_p,dep_cost_p,0.863636,,depc_p,depc p
+140,y,,y,,,y,y
+141,activ time param,,activ_time_param,,,activ_time_param,activ time param
+179,sec frac prot,,sec_frac_prot,,,fp_s,fp s

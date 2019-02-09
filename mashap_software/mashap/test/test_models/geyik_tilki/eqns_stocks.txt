@@ -1,0 +1,2 @@
+geyikler = gd-go
+tilki = td-to

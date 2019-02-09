@@ -1,0 +1,26 @@
+model.xml:
+    <reservoir text-id="Fat">
+        <init-value>10125</init-value>
+        <inflows>
+            <biflow>Flow_F</biflow>
+        </inflows>
+    </reservoir>
+
+    <rate text-id="Flow_F">
+        <value>(fi_calories+gng.dnl-gng.fatox)/rho_f</value>
+    </rate>
+
+out.txt
+    dFat =  + Flow_F
+    Flow_F = (fi_calories+gng.dnl-gng.fatox)/rho_f
+    eff_f_on_d_f = (main.Fat/f_base)^(2/3)
+
+odeint argument
+    def dX_dt(X, t=0):
+        """ Return the growth rate of fox and rabbit populations. """
+        return array([ a*X[0] -   b*X[0]*X[1] ,
+                      -c*X[1] + d*b*X[0]*X[1] ])
+
+conversions required
+    "Fat" replaced -> "X[i]"
+    array[i] = dFat

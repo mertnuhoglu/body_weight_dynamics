@@ -1,0 +1,77 @@
+
+***********************************************
+ERROR:  No units specified for - c init
+
+***********************************************
+ERROR:  No units specified for - cell mass b
+
+***********************************************
+ERROR:  No units specified for - ci 0
+
+***********************************************
+ERROR:  No units specified for - dnl b
+
+***********************************************
+ERROR:  No units specified for - eff c dnl b
+
+***********************************************
+Warning: units in equation for - eff of carb sufficiency on carbox 
+Lookup -#eff of carb sufficiency on carbox#- used with dimensioned argument
+ Day
+
+***********************************************
+ERROR:  No units specified for - f init
+
+***********************************************
+ERROR:  No units specified for - fetw
+
+***********************************************
+ERROR:  No units specified for - fi 0
+
+***********************************************
+ERROR:  No units specified for - fiew
+
+***********************************************
+ERROR:  No units specified for - fw
+
+***********************************************
+ERROR:  No units specified for - fwcm
+
+***********************************************
+ERROR:  No units specified for - gng fat
+
+***********************************************
+ERROR:  No units specified for - gngf b
+
+***********************************************
+ERROR:  No units specified for - gngf ex b
+
+***********************************************
+ERROR:  No units specified for - icw b
+
+***********************************************
+ERROR:  No units specified for - kc
+
+***********************************************
+ERROR:  No units specified for - kf
+
+***********************************************
+ERROR:  No units specified for - kp
+
+***********************************************
+ERROR:  No units specified for - p init
+
+***********************************************
+ERROR:  No units specified for - pi 0
+
+***********************************************
+ERROR:  No units specified for - see b
+
+***********************************************
+ERROR:  No units specified for - tee b
+
+***********************************************
+ERROR:  No units specified for - z check 0
+
+***********************************************
+ERROR:  No units specified for - z check 1

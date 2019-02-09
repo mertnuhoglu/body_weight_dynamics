@@ -1,0 +1,36 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>Define Outputs</title>
+</head>
+<body>
+
+<ul>
+    <li><a href="{% url define_new_output_group %}">New Output Group</a></li>
+    <li><a href="{% url define_game_management_settings %}">Game Management Settings</a></li>
+</ul>
+
+<table>
+    <tr>
+        <th>
+            Name
+        </th>
+        <th>
+            Show in advanced panel
+        </th>
+    </tr>
+{%for output_group in object_list %}
+    <tr>
+        <td>
+           {{output_group.name}}
+        </td>
+        <td>
+           {{output_group.is_advanced}}
+        </td>
+    </tr>
+{% endfor %}
+</table>
+
+</body>
+</html>

@@ -1,0 +1,38 @@
+\begin{tabular}{|r|r|r|r|r|r|r|r|r|}
+\hline
+ scenario& $ci$ & $pi$ & $fi$ & $total\_mei$ & $ci_b$ & $pi_b$ & $fi_b$ & $bw_b$\\
+\hline
+Base run & 1500 & 500 & 1000 & 3000 & 1500 & 500 & 1000 & 85000\\
+\hline
+Overweight & 1500 & 500 & 1000 & 3000 & 1500 & 500 & 1000 & 135320\\
+\hline
+Underweight & 1500 & 500 & 1000 & 3000 & 1500 & 500 & 1000 & 53720\\
+\hline
+Over eating & 1884 & 556 & 728 & 3168 & 1884 & 556 & 728 & 82280\\
+\hline
+Increased food intake & 1750 & 600 & 1300 & 3650 & 1500 & 500 & 1000 & 85000\\
+\hline
+Decreased food intake & 1250 & 350 & 750 & 2350 & 1500 & 500 & 1000 & 85000\\
+\hline
+Decreased activity & 1500 & 500 & 1000 & 3000 & 1500 & 500 & 1000 & 85000\\
+\hline
+Extreme activity up & 1500 & 500 & 1000 & 3000 & 1500 & 500 & 1000 & 85000\\
+\hline
+Extreme activity down & 1500 & 500 & 1000 & 3000 & 1500 & 500 & 1000 & 85000\\
+\hline
+Extreme pi up & 1500 & 2000 & 1000 & 4500 & 1500 & 500 & 1000 & 85000\\
+\hline
+Extreme pi down & 1500 & 0 & 1000 & 2500 & 1500 & 500 & 1000 & 85000\\
+\hline
+Extreme fi up & 1500 & 500 & 8000 & 10000 & 1500 & 500 & 1000 & 85000\\
+\hline
+Extreme fi down & 1500 & 500 & 0 & 2000 & 1500 & 500 & 1000 & 85000\\
+\hline
+Extreme ci up & 10000 & 500 & 1000 & 11500 & 1500 & 500 & 1000 & 85000\\
+\hline
+Extreme ci down & 0 & 500 & 1000 & 1500 & 1500 & 500 & 1000 & 85000\\
+\hline
+Outbalanced start & 1500 & 500 & 1000 & 3000 & 1500 & 500 & 1000 & 85000\\
+\hline
+\end{tabular}
+

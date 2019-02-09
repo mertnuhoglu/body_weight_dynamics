@@ -1,0 +1,358 @@
+INFO:testmaker:		r = c.get('/mashap/', {'prof': ''})
+INFO:testmaker:		self.assertEqual(r.status_code, 302)
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["logging_show_hints"]), u"True")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["query_time"]), u"0.0")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["logging_show_metrics"]), u"True")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["logging_log_sql"]), u"False")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["query_percentage"]), u"0.0")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["levels"]), u"[(0, 'NOTSET'), (10, 'DEBUG'), (20, 'INFO'), (30, 'WARNING'), (40, 'ERROR'), (50, 'CRITICAL')]")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["elapsed_time"]), u"2453.00006866")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["records"]), u"[]")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["query_count"]), u"2")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["LANGUAGE_CODE"]), u"en-us")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["hints"]), u"{}")
+INFO:testmaker:
+	def test_faviconico_126036803405(self): 
+INFO:testmaker:		r = c.get('/favicon.ico', {})
+INFO:testmaker:		self.assertEqual(r.status_code, 404)
+INFO:testmaker:
+	def test_mashap_126044659019(self): 
+INFO:testmaker:		r = c.get('/mashap/', {'prof': ''})
+INFO:testmaker:		self.assertEqual(r.status_code, 302)
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["logging_show_hints"]), u"True")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["query_time"]), u"16.0")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["logging_show_metrics"]), u"True")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["logging_log_sql"]), u"False")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["query_percentage"]), u"0.144430401705")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["levels"]), u"[(0, 'NOTSET'), (10, 'DEBUG'), (20, 'INFO'), (30, 'WARNING'), (40, 'ERROR'), (50, 'CRITICAL')]")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["elapsed_time"]), u"11078.0000687")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["records"]), u"[]")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["query_count"]), u"2")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["LANGUAGE_CODE"]), u"en-us")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["hints"]), u"{}")
+INFO:testmaker:
+	def test_accountslogin_126044660295(self): 
+INFO:testmaker:		r = c.get('/accounts/login/', {'next': '/mashap/?prof'})
+INFO:testmaker:		self.assertEqual(r.status_code, 200)
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["logging_show_hints"]), u"True")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["query_time"]), u"0.0")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["logging_show_metrics"]), u"True")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["logging_log_sql"]), u"False")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["query_percentage"]), u"0.0")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["levels"]), u"[(0, 'NOTSET'), (10, 'DEBUG'), (20, 'INFO'), (30, 'WARNING'), (40, 'ERROR'), (50, 'CRITICAL')]")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["elapsed_time"]), u"500.0")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["records"]), u"[]")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["query_count"]), u"3")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["LANGUAGE_CODE"]), u"en-us")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["hints"]), u"{}")
+INFO:testmaker:		tmpl = template.Template(u"""{% load i18n %}{% trans 'Log in' %}""")
+INFO:testmaker:		context = template.Context({})
+INFO:testmaker:		self.assertEqual(tmpl.render(context), u"Log in")
+INFO:testmaker:		tmpl = template.Template(u"""{% load i18n %}{% trans "Forgot password" %}""")
+INFO:testmaker:		context = template.Context({})
+INFO:testmaker:		self.assertEqual(tmpl.render(context), u"Forgot password")
+INFO:testmaker:		tmpl = template.Template(u"""{% load i18n %}{% trans "Not member" %}""")
+INFO:testmaker:		context = template.Context({})
+INFO:testmaker:		self.assertEqual(tmpl.render(context), u"Not member")
+INFO:testmaker:
+	def test_stylecss_126044660386(self): 
+INFO:testmaker:		r = c.get('/style.css', {})
+INFO:testmaker:		self.assertEqual(r.status_code, 404)
+INFO:testmaker:
+	def test_accountslogin_126044663405(self): 
+INFO:testmaker:		r = c.post('/accounts/login/', {'username': 'admin''password': 'admin''next': '/mashap/?prof'})
+INFO:testmaker:
+	def test_mashap_126044663427(self): 
+INFO:testmaker:		r = c.get('/mashap/', {'prof': ''})
+INFO:testmaker:		self.assertEqual(r.status_code, 302)
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["logging_show_hints"]), u"True")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["query_time"]), u"0.0")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["logging_show_metrics"]), u"True")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["logging_log_sql"]), u"False")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["query_percentage"]), u"0.0")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["levels"]), u"[(0, 'NOTSET'), (10, 'DEBUG'), (20, 'INFO'), (30, 'WARNING'), (40, 'ERROR'), (50, 'CRITICAL')]")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["elapsed_time"]), u"47.000169754")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["records"]), u"[]")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["query_count"]), u"2")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["LANGUAGE_CODE"]), u"en-us")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["hints"]), u"{}")
+INFO:testmaker:
+	def test_mashap_126044665878(self): 
+INFO:testmaker:		r = c.post('/mashap/', {'upload_button': 'Upload'})
+INFO:testmaker:
+	def test_mashapverify_model_126044666292(self): 
+INFO:testmaker:		r = c.get('/mashap/verify_model/', {})
+INFO:testmaker:		self.assertEqual(r.status_code, 302)
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["logging_show_hints"]), u"True")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["logging_log_sql"]), u"False")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["logging_show_metrics"]), u"True")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["levels"]), u"[(0, 'NOTSET'), (10, 'DEBUG'), (20, 'INFO'), (30, 'WARNING'), (40, 'ERROR'), (50, 'CRITICAL')]")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["elapsed_time"]), u"0.0")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["records"]), u"[]")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["query_count"]), u"2")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["LANGUAGE_CODE"]), u"en-us")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["hints"]), u"{}")
+INFO:testmaker:
+	def test_mashapverify_model_126044669364(self): 
+INFO:testmaker:		r = c.post('/mashap/verify_model/', {'game_description': 'test01 description''name': 'test01''submit': 'Submit''purpose': 'purpose test01'})
+INFO:testmaker:
+	def test_mashapdefine_initial_params_126044669381(self): 
+INFO:testmaker:		r = c.get('/mashap/define_initial_params/', {})
+INFO:testmaker:		self.assertEqual(r.status_code, 302)
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["logging_show_hints"]), u"True")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["logging_log_sql"]), u"False")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["logging_show_metrics"]), u"True")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["levels"]), u"[(0, 'NOTSET'), (10, 'DEBUG'), (20, 'INFO'), (30, 'WARNING'), (40, 'ERROR'), (50, 'CRITICAL')]")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["elapsed_time"]), u"0.0")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["records"]), u"[]")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["query_count"]), u"2")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["LANGUAGE_CODE"]), u"en-us")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["hints"]), u"{}")
+INFO:testmaker:
+	def test_mashapdefine_initial_params_12604467940(self): 
+INFO:testmaker:		r = c.post('/mashap/define_initial_params/', {'initial_params': '18''submit': 'Submit'})
+INFO:testmaker:
+	def test_mashapdefine_time_settings_126044679961(self): 
+INFO:testmaker:		r = c.get('/mashap/define_time_settings/', {})
+INFO:testmaker:		self.assertEqual(r.status_code, 302)
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["logging_show_hints"]), u"True")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["logging_log_sql"]), u"False")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["logging_show_metrics"]), u"True")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["levels"]), u"[(0, 'NOTSET'), (10, 'DEBUG'), (20, 'INFO'), (30, 'WARNING'), (40, 'ERROR'), (50, 'CRITICAL')]")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["elapsed_time"]), u"0.0")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["records"]), u"[]")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["query_count"]), u"2")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["LANGUAGE_CODE"]), u"en-us")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["hints"]), u"{}")
+INFO:testmaker:
+	def test_mashapdefine_time_settings_126044681814(self): 
+INFO:testmaker:		r = c.post('/mashap/define_time_settings/', {'record_period': '1''time_step': '0.5''total_game_time': '100''time_between_decision_steps': '7''submit': 'Submit'})
+INFO:testmaker:
+	def test_mashapdefine_decision_params_126044681834(self): 
+INFO:testmaker:		r = c.get('/mashap/define_decision_params/', {})
+INFO:testmaker:		self.assertEqual(r.status_code, 302)
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["logging_show_hints"]), u"True")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["logging_log_sql"]), u"False")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["logging_show_metrics"]), u"True")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["levels"]), u"[(0, 'NOTSET'), (10, 'DEBUG'), (20, 'INFO'), (30, 'WARNING'), (40, 'ERROR'), (50, 'CRITICAL')]")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["elapsed_time"]), u"0.0")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["records"]), u"[]")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["query_count"]), u"2")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["LANGUAGE_CODE"]), u"en-us")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["hints"]), u"{}")
+INFO:testmaker:
+	def test_mashapdefine_decision_params_126044684319(self): 
+INFO:testmaker:		r = c.post('/mashap/define_decision_params/', {'decision_params': '75''submit': 'Submit'})
+INFO:testmaker:
+	def test_mashapdefine_outputs_126044684873(self): 
+INFO:testmaker:		r = c.get('/mashap/define_outputs/', {})
+INFO:testmaker:		self.assertEqual(r.status_code, 302)
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["logging_show_hints"]), u"True")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["logging_log_sql"]), u"False")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["logging_show_metrics"]), u"True")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["levels"]), u"[(0, 'NOTSET'), (10, 'DEBUG'), (20, 'INFO'), (30, 'WARNING'), (40, 'ERROR'), (50, 'CRITICAL')]")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["elapsed_time"]), u"0.0")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["records"]), u"[]")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["query_count"]), u"2")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["LANGUAGE_CODE"]), u"en-us")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["hints"]), u"{}")
+INFO:testmaker:
+	def test_mashapdefine_new_output_group_126044685225(self): 
+INFO:testmaker:		r = c.get('/mashap/define_new_output_group/', {})
+INFO:testmaker:		self.assertEqual(r.status_code, 302)
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["logging_show_hints"]), u"True")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["query_time"]), u"0.0")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["logging_show_metrics"]), u"True")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["logging_log_sql"]), u"False")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["query_percentage"]), u"0.0")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["levels"]), u"[(0, 'NOTSET'), (10, 'DEBUG'), (20, 'INFO'), (30, 'WARNING'), (40, 'ERROR'), (50, 'CRITICAL')]")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["elapsed_time"]), u"15.9997940063")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["records"]), u"[]")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["query_count"]), u"2")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["LANGUAGE_CODE"]), u"en-us")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["hints"]), u"{}")
+INFO:testmaker:
+	def test_mashapdefine_new_output_group_126044686766(self): 
+INFO:testmaker:		r = c.post('/mashap/define_new_output_group/', {'variables': '86''name': 'body weight''submit': 'Submit'})
+INFO:testmaker:
+	def test_mashapdefine_outputs_126044686784(self): 
+INFO:testmaker:		r = c.get('/mashap/define_outputs/', {})
+INFO:testmaker:		self.assertEqual(r.status_code, 302)
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["logging_show_hints"]), u"True")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["logging_log_sql"]), u"False")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["logging_show_metrics"]), u"True")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["levels"]), u"[(0, 'NOTSET'), (10, 'DEBUG'), (20, 'INFO'), (30, 'WARNING'), (40, 'ERROR'), (50, 'CRITICAL')]")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["elapsed_time"]), u"0.0")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["records"]), u"[]")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["query_count"]), u"2")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["LANGUAGE_CODE"]), u"en-us")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["hints"]), u"{}")
+INFO:testmaker:
+	def test_mashapdefine_game_management_settings_12604468713(self): 
+INFO:testmaker:		r = c.get('/mashap/define_game_management_settings/', {})
+INFO:testmaker:		self.assertEqual(r.status_code, 302)
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["logging_show_hints"]), u"True")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["logging_log_sql"]), u"False")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["logging_show_metrics"]), u"True")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["levels"]), u"[(0, 'NOTSET'), (10, 'DEBUG'), (20, 'INFO'), (30, 'WARNING'), (40, 'ERROR'), (50, 'CRITICAL')]")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["elapsed_time"]), u"0.0")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["records"]), u"[]")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["query_count"]), u"2")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["LANGUAGE_CODE"]), u"en-us")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["hints"]), u"{}")
+INFO:testmaker:
+	def test_mashapdefine_game_management_settings_126044688109(self): 
+INFO:testmaker:		r = c.post('/mashap/define_game_management_settings/', {'notification_email_address': 'mm@mm.com''submit': 'Submit'})
+INFO:testmaker:
+	def test_mashapaccess_data_126044688133(self): 
+INFO:testmaker:		r = c.get('/mashap/access_data/', {})
+INFO:testmaker:		self.assertEqual(r.status_code, 302)
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["logging_show_hints"]), u"True")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["logging_log_sql"]), u"False")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["logging_show_metrics"]), u"True")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["levels"]), u"[(0, 'NOTSET'), (10, 'DEBUG'), (20, 'INFO'), (30, 'WARNING'), (40, 'ERROR'), (50, 'CRITICAL')]")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["elapsed_time"]), u"0.0")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["records"]), u"[]")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["query_count"]), u"2")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["LANGUAGE_CODE"]), u"en-us")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["hints"]), u"{}")
+INFO:testmaker:
+	def test_mashapintroduce_game200912101404_test01_126044688673(self): 
+INFO:testmaker:		r = c.get('/mashap/introduce_game/200912101404_test01/', {})
+INFO:testmaker:		self.assertEqual(r.status_code, 302)
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["logging_show_hints"]), u"True")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["logging_log_sql"]), u"False")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["logging_show_metrics"]), u"True")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["levels"]), u"[(0, 'NOTSET'), (10, 'DEBUG'), (20, 'INFO'), (30, 'WARNING'), (40, 'ERROR'), (50, 'CRITICAL')]")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["elapsed_time"]), u"0.0")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["records"]), u"[]")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["query_count"]), u"2")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["LANGUAGE_CODE"]), u"en-us")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["hints"]), u"{}")
+INFO:testmaker:
+	def test_mashapinput_initial_values_126044689102(self): 
+INFO:testmaker:		r = c.get('/mashap/input_initial_values/', {})
+INFO:testmaker:		self.assertEqual(r.status_code, 302)
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["logging_show_hints"]), u"True")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["query_time"]), u"16.0")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["logging_show_metrics"]), u"True")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["logging_log_sql"]), u"False")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["query_percentage"]), u"99.9997973446")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["levels"]), u"[(0, 'NOTSET'), (10, 'DEBUG'), (20, 'INFO'), (30, 'WARNING'), (40, 'ERROR'), (50, 'CRITICAL')]")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["elapsed_time"]), u"16.0000324249")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["records"]), u"[]")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["query_count"]), u"2")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["LANGUAGE_CODE"]), u"en-us")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["hints"]), u"{}")
+INFO:testmaker:
+	def test_mashapinput_initial_values_126044690345(self): 
+INFO:testmaker:		r = c.post('/mashap/input_initial_values/', {'pi_0': '500''ci_0': '1500''submit': 'Submit''fi_0': '1000''baseline_bodyweight': '73000'})
+INFO:testmaker:
+	def test_mashapgame_basic_126044690727(self): 
+INFO:testmaker:		r = c.get('/mashap/game_basic/', {})
+INFO:testmaker:		self.assertEqual(r.status_code, 302)
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["logging_show_hints"]), u"True")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["logging_log_sql"]), u"False")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["logging_show_metrics"]), u"True")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["levels"]), u"[(0, 'NOTSET'), (10, 'DEBUG'), (20, 'INFO'), (30, 'WARNING'), (40, 'ERROR'), (50, 'CRITICAL')]")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["elapsed_time"]), u"0.0")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["records"]), u"[]")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["query_count"]), u"2")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["LANGUAGE_CODE"]), u"en-us")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["hints"]), u"{}")
+INFO:testmaker:
+	def test_mashapgame_basic_126044692341(self): 
+INFO:testmaker:		r = c.post('/mashap/game_basic/', {'pi_input': '1000''ci_input': '1200''activity_level': '60''fi_input': '300''submit': 'Submit'})
+INFO:testmaker:
+	def test_mashapgame_basic_12604469277(self): 
+INFO:testmaker:		r = c.get('/mashap/game_basic/', {})
+INFO:testmaker:		self.assertEqual(r.status_code, 302)
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["logging_show_hints"]), u"True")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["logging_log_sql"]), u"False")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["logging_show_metrics"]), u"True")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["levels"]), u"[(0, 'NOTSET'), (10, 'DEBUG'), (20, 'INFO'), (30, 'WARNING'), (40, 'ERROR'), (50, 'CRITICAL')]")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["elapsed_time"]), u"0.0")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["records"]), u"[]")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["query_count"]), u"2")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["LANGUAGE_CODE"]), u"en-us")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["hints"]), u"{}")
+INFO:testmaker:
+	def test_site_mediaimagesbody_weight_1png_126044692802(self): 
+INFO:testmaker:		r = c.get('/site_media/images/body_weight_1.png', {})
+INFO:testmaker:		self.assertEqual(r.status_code, 200)
+INFO:testmaker:
+	def test_mashapgame_basic_12604469402(self): 
+INFO:testmaker:		r = c.post('/mashap/game_basic/', {'pi_input': '950''ci_input': '1200''activity_level': '45''fi_input': '340''submit': 'Submit'})
+INFO:testmaker:
+	def test_mashapgame_basic_126044694338(self): 
+INFO:testmaker:		r = c.get('/mashap/game_basic/', {})
+INFO:testmaker:		self.assertEqual(r.status_code, 302)
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["logging_show_hints"]), u"True")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["logging_log_sql"]), u"False")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["logging_show_metrics"]), u"True")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["levels"]), u"[(0, 'NOTSET'), (10, 'DEBUG'), (20, 'INFO'), (30, 'WARNING'), (40, 'ERROR'), (50, 'CRITICAL')]")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["elapsed_time"]), u"0.0")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["records"]), u"[]")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["query_count"]), u"2")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["LANGUAGE_CODE"]), u"en-us")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["hints"]), u"{}")
+INFO:testmaker:
+	def test_mashapgame_basic_126044694578(self): 
+INFO:testmaker:		r = c.get('/mashap/game_basic/', {})
+INFO:testmaker:		self.assertEqual(r.status_code, 302)
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["logging_show_hints"]), u"True")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["query_time"]), u"16.0")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["logging_show_metrics"]), u"True")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["logging_log_sql"]), u"False")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["query_percentage"]), u"99.9997973446")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["levels"]), u"[(0, 'NOTSET'), (10, 'DEBUG'), (20, 'INFO'), (30, 'WARNING'), (40, 'ERROR'), (50, 'CRITICAL')]")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["elapsed_time"]), u"16.0000324249")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["records"]), u"[]")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["query_count"]), u"2")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["LANGUAGE_CODE"]), u"en-us")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["hints"]), u"{}")
+INFO:testmaker:
+	def test_site_mediaimagesbody_weight_1png_126044694613(self): 
+INFO:testmaker:		r = c.get('/site_media/images/body_weight_1.png', {})
+INFO:testmaker:		self.assertEqual(r.status_code, 200)
+INFO:testmaker:
+	def test_faviconico_126044694638(self): 
+INFO:testmaker:		r = c.get('/favicon.ico', {})
+INFO:testmaker:		self.assertEqual(r.status_code, 404)
+INFO:testmaker:
+	def test_mashapgame_basic_126044697459(self): 
+INFO:testmaker:		r = c.post('/mashap/game_basic/', {'pi_input': '340''ci_input': '1200''activity_level': '30''fi_input': '490''submit': 'Submit'})
+INFO:testmaker:
+	def test_mashapgame_basic_126044697711(self): 
+INFO:testmaker:		r = c.get('/mashap/game_basic/', {})
+INFO:testmaker:		self.assertEqual(r.status_code, 302)
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["logging_show_hints"]), u"True")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["logging_log_sql"]), u"False")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["logging_show_metrics"]), u"True")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["levels"]), u"[(0, 'NOTSET'), (10, 'DEBUG'), (20, 'INFO'), (30, 'WARNING'), (40, 'ERROR'), (50, 'CRITICAL')]")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["elapsed_time"]), u"0.0")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["records"]), u"[]")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["query_count"]), u"2")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["LANGUAGE_CODE"]), u"en-us")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["hints"]), u"{}")
+INFO:testmaker:
+	def test_mashapgame_basic_126044697869(self): 
+INFO:testmaker:		r = c.get('/mashap/game_basic/', {})
+INFO:testmaker:		self.assertEqual(r.status_code, 302)
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["logging_show_hints"]), u"True")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["logging_log_sql"]), u"False")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["logging_show_metrics"]), u"True")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["levels"]), u"[(0, 'NOTSET'), (10, 'DEBUG'), (20, 'INFO'), (30, 'WARNING'), (40, 'ERROR'), (50, 'CRITICAL')]")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["elapsed_time"]), u"0.0")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["records"]), u"[]")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["query_count"]), u"2")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["LANGUAGE_CODE"]), u"en-us")
+INFO:testmaker:		self.assertEqual(unicode(r.context[-1]["hints"]), u"{}")
+INFO:testmaker:
+	def test_site_mediaimagesbody_weight_1png_12604469790(self): 
+INFO:testmaker:		r = c.get('/site_media/images/body_weight_1.png', {})
+INFO:testmaker:		self.assertEqual(r.status_code, 200)
+INFO:testmaker:
+	def test_faviconico_126044697925(self): 
+INFO:testmaker:		r = c.get('/favicon.ico', {})
+INFO:testmaker:		self.assertEqual(r.status_code, 404)

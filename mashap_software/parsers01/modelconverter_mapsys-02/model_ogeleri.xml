@@ -1,0 +1,18 @@
+stocks and flows
+    <reservoir text-id="Fat">
+        <init-value>10125</init-value>
+        <inflows>
+            <biflow>Flow_F</biflow>
+        </inflows>
+    </reservoir>
+
+formula for flow variables
+    <rate text-id="Flow_F">
+        <value>(fi_calories+gng.dnl-gng.fatox)/rho_f</value>
+    </rate>
+
+auxiliaries
+    <auxiliary text-id="fi_calories">
+        <value>3*m_ffa*fi/m_tg</value>
+    </auxiliary>
+

@@ -1,0 +1,3 @@
+gae-01\etree-01 projesinin kopyasý
+
+mapsys modelini okur ve denklemlerden oluþan metin haline çevirir

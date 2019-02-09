@@ -1,0 +1,2008 @@
+{UTF-8}
+c init=
+	400
+	~	g
+	~		|
+
+p init=
+	8757
+	~	g
+	~		|
+
+f init=
+	5075
+	~	g
+	~		|
+
+kf=
+	( fi 0 + dnl b - gngf b ) / see b
+	~	Dmnl
+	~		|
+
+kp=
+	( pi 0 - base gng p ) / see b
+	~	Dmnl
+	~		|
+
+gngf b=
+	baseline gng fat endog + gngf ex b
+	~	kcal/Day
+	~		|
+
+fetw=
+	3/8
+	~	Dmnl
+	~		|
+
+cell mass b=
+	1/fwcm * icw b
+	~	g
+	~		|
+
+fiew=
+	(1-fetw)/fetw
+	~	Dmnl
+	~		|
+
+gngf ex b=
+	exog glycerol per kcal fat intake * fi 0 * cal dens c
+	~	kcal/Day
+	~		|
+
+see b=
+	tee b - base gng p - gngf b
+	~	kcal/Day
+	~		|
+
+pi 0=
+	500
+	~	kcal/Day
+	~		|
+
+eff c dnl b=
+	1 / ( k dnl ^ hill dnl + 1 )
+	~	Dmnl
+	~		|
+
+fwcm=
+	7/10
+	~	Dmnl
+	~		|
+
+ci 0=
+	1500
+	~	kcal/Day
+	~		|
+
+tee b=
+	baseline metabolizable energy intake
+	~	kcal/Day
+	~		|
+
+fw=
+	7/10
+	~	Dmnl
+	~		|
+
+dnl b=
+	ci 0 * eff c dnl b
+	~	kcal/Day
+	~		|
+
+z check 0=
+	1+weighting of oxidation for basal pi+weighting of oxidation for basal ci+weighting of oxidation for glycogenolysis\
+		+weighting of oxidation for lipolysis
+	~	Dmnl
+	~		|
+
+icw b=
+	fiew * baseline ecw
+	~	g
+	~		|
+
+z check 1=
+	weighting of oxidation for lipolysis/kf
+	~	Dmnl
+	~		|
+
+fi 0=
+	1000
+	~	kcal/Day
+	~		|
+
+kc=
+	( ci 0 - dnl b ) / see b
+	~	Dmnl
+	~		|
+
+eff of possible fatox= WITH LOOKUP (
+	possible fatox / desired fatox,
+		([(0,0)-(3,1)],(0,0),(0.4,0.4),(0.798165,0.627193),(1.30275,0.824561),(2,0.95),(3,1\
+		) ))
+	~	Dmnl
+	~		|
+
+possible fatox=
+	fat / TIME STEP * cal dens f
+	~	kcal/Day
+	~		|
+
+actual fatox=
+	desired fatox / cal dens f * eff of possible fatox
+	~	g/Day
+	~		|
+
+sec protox=
+	sec frac prot * gap total / cal dens p
+	~	g/Day
+	~		|
+
+sec protox kcal=
+	sec protox * cal dens p
+	~	kcal/Day
+	~		|
+
+sec fatox kcal=
+	sec fatox * cal dens f
+	~	kcal/Day
+	~		|
+
+total ox=
+	total pri ox + total sec ox
+	~	kcal/Day
+	~		|
+
+sec carbox=
+	sec frac carb * gap total / cal dens c
+	~	g/Day
+	~		|
+
+sec carbox kcal=
+	sec carbox * cal dens c
+	~	kcal/Day
+	~		|
+
+sec fatox=
+	sec frac fat * gap total / cal dens f
+	~	g/Day
+	~		|
+
+diff bw ox and tee=
+	IF THEN ELSE( total ox - total energy expenditure < 0.1, 0, total ox - total energy expenditure\
+		 )
+	~	kcal/Day [0,0.1]
+	~		|
+
+total sec ox=
+	sec carbox kcal + sec fatox kcal + sec protox kcal
+	~	kcal/Day
+	~		|
+
+y=
+	prot term + is sufficient carb * carb term + is sufficient fat * fat term
+	~	Dmnl
+	~		|
+
+sec frac carb=
+	is sufficient carb * carb term / y
+	~	Dmnl
+	~		|
+
+sec frac fat=
+	is sufficient fat * fat term / y
+	~	Dmnl
+	~		|
+
+sec frac prot=
+	prot term / y
+	~	Dmnl
+	~		|
+
+is sufficient fat=
+	IF THEN ELSE( gap fatox < 0.1 , 1 , 0 )
+	~	Dmnl
+	~		|
+
+is sufficient carb=
+	IF THEN ELSE( gap carbox < 0.1 , 1, 0 )
+	~	Dmnl
+	~		|
+
+actual carbox=
+	desired carbox / cal dens c * eff of carb sufficiency on carbox
+	~	g/Day
+	~		|
+
+desired carbox=
+	frac carbox * shared energy expenditure + gng fat + gng protein
+	~	kcal/Day
+	~		|
+
+carb sufficiency=
+	carb * cal dens c / desired carbox
+	~	Day
+	~		|
+
+eff of carb sufficiency on carbox= WITH LOOKUP (
+	carb sufficiency,
+		([(0,0)-(1,1),(0,0),(0.1,0.6),(0.2,0.85),(0.3,0.95),(0.4,1),(1,1)],(0,0),(0.1,0.6),\
+		(0.2,0.85),(0.3,0.95),(0.4,1),(1,1) ))
+	~	Dmnl
+	~	\!carb sufficiency
+	|
+
+gap total=
+	gap carbox + gap fatox
+	~	kcal/Day
+	~		|
+
+fat= INTEG (
+	+fi-actual fatox+dnl i-gng fat out-sec fatox,
+		f init)
+	~	g
+	~		|
+
+carb= INTEG (
+	ci+gng fat in+gngp i-actual carbox-dnl out-sec carbox,
+		c init)
+	~	g
+	~		|
+
+gap carbox=
+	desired carbox - actual carbox * cal dens c
+	~	kcal/Day
+	~		|
+
+gap fatox=
+	desired fatox - actual fatox * cal dens f
+	~	kcal/Day
+	~		|
+
+pri carbox kcal=
+	actual carbox * cal dens c
+	~	kcal/Day
+	~		|
+
+protein= INTEG (
+	pi-gng protein out-actual protox-sec protox,
+		p init)
+	~	g
+	~		|
+
+pri fatox kcal=
+	actual fatox * cal dens f
+	~	kcal/Day
+	~		|
+
+pri protox kcal=
+	actual protox * cal dens p
+	~	kcal/Day
+	~		|
+
+total pri ox=
+	pri carbox kcal + pri fatox kcal + pri protox kcal
+	~	kcal/Day
+	~		|
+
+ec=
+	-268
+	~	kcal/Day
+	~	double counted baseline metabolic activity
+	|
+
+resting metabolic rate=
+	metabolism of body cells + metabolism of turnovers + metabolism of conversions + ec
+	~	kcal/Day
+	~		|
+
+z=
+	carb term + fat term +prot term
+	~	Dmnl
+	~		|
+
+weighting of oxidation for lipolysis=
+	(1 + weighting of oxidation for basal pi) * kf / kp
+	~	Dmnl
+	~		|
+
+fat term=
+	MAX( 0 , weighting of oxidation for lipolysis * normalized lipolysis rate)
+	~	Dmnl
+	~		|
+
+weighting of oxidation for glycogenolysis=
+	kc / kp * ( 1 + weighting of oxidation for basal pi )- weighting of oxidation for basal ci
+	~	Dmnl
+	~		|
+
+eff of glycogenolysis on carb oxidation=
+	weighting of oxidation for glycogenolysis * normalized glycogenolysis
+	~	Dmnl
+	~		|
+
+eff of physical activity on prot oxidation=
+	sensitivity to physical activity * EXP( - LN(sensitivity to physical activity) * normalized activity energy per body weight\
+		 )
+	~	Dmnl
+	~		|
+
+sensitivity of oxidation to pi changes=
+	15.0253
+	~	Dmnl
+	~	Makalede bu degiken 7.
+	|
+
+sensitivity to physical activity=
+	4
+	~	Dmnl
+	~		|
+
+eff of prot intake on prot oxidation=
+	weighting of oxidation for basal pi * ( 1 + sensitivity of oxidation to pi changes *\
+		 normalized change in protein intake )
+	~	Dmnl
+	~		|
+
+eff of carb intake on carb oxidation=
+	weighting of oxidation for basal ci * ( 1 + sensitivity of oxidation to ci changes *\
+		 normalized change in carbohydrate intake )
+	~	Dmnl
+	~		|
+
+weighting of oxidation for basal pi=
+	0.1
+	~	Dmnl
+	~	relative rate of exogenous to endogenous protein in balanced state (from \
+		model)
+	|
+
+prot term=
+	( normalized proteolysis + MAX( 0, eff of prot intake on prot oxidation )  ) * eff of physical activity on prot oxidation
+	~	Dmnl
+	~		|
+
+sensitivity of oxidation to ci changes=
+	0.761188
+	~	Dmnl
+	~		|
+
+weighting of oxidation for basal ci=
+	3.31414
+	~	Dmnl
+	~		|
+
+carb term=
+	eff of glycogenolysis on carb oxidation + MAX( 0 , eff of carb intake on carb oxidation\
+		 * ( carb / (0.1 + carb) )  )
+	~	Dmnl
+	~		|
+
+efficiency dnl=
+	0.8
+	~	Dmnl
+	~		|
+
+efficiency gng=
+	0.8
+	~	Dmnl
+	~		|
+
+shared energy expenditure=
+	total energy expenditure - gng protein - gng fat
+	~	kcal/Day
+	~		|
+
+desired protox=
+	frac protox * shared energy expenditure
+	~	kcal/Day
+	~		|
+
+desired fatox=
+	frac fatox * shared energy expenditure
+	~	kcal/Day
+	~		|
+
+actual protox=
+	desired protox / cal dens p
+	~	g/Day
+	~		|
+
+baseline gng fat endog=
+	base molar lipolysis * mass of glycerol * cal dens c
+	~	kcal/Day
+	~		|
+
+exog glycerol per kcal fat intake=
+	mass of glycerol / ( cal dens f * mass tg )
+	~	g/kcal
+	~		|
+
+hill dnl=
+	4
+	~	Dmnl
+	~		|
+
+k dnl=
+	2
+	~	Dmnl
+	~		|
+
+change in carbohydrate intake=
+	carbohydrate intake - baseline carbohydrate intake
+	~	kcal/Day
+	~		|
+
+normalized change in carbohydrate intake=
+	change in carbohydrate intake / baseline carbohydrate intake
+	~	Dmnl
+	~		|
+
+normalized change in protein intake=
+	change in protein intake / baseline protein intake
+	~	Dmnl
+	~		|
+
+change in protein intake=
+	protein intake - baseline protein intake
+	~	kcal/Day
+	~		|
+
+base gng p=
+	100
+	~	kcal/Day
+	~		|
+
+thermic effect of food=
+	tef c * cal dens c * ci + tef f * fat intake + tef p * cal dens p * pi
+	~	kcal/Day
+	~		|
+
+tef p=
+	0.25
+	~	Dmnl
+	~		|
+
+tef c=
+	0.075
+	~	Dmnl
+	~		|
+
+tef f=
+	0.025
+	~	Dmnl
+	~		|
+
+activ time=
+	IF THEN ELSE( read from data = 1, activ time data , activ time param )
+	~	Dmnl
+	~		|
+
+activ time data
+	~	Dmnl
+	~		|
+
+activ time param=
+	0
+	~	Dmnl
+	~		|
+
+activity efficiency=
+	1 + thermogenesis effect on pae vs rmr * adaptive thermogenesis
+	~	Dmnl
+	~		|
+
+activity energy per body weight=
+	baseline activity energy per body weight * ( 1 - 0.652218 * activ time )
+	~	kcal/(g*Day)
+	~		|
+
+activity energy spent per body weight=
+	activity energy per body weight * activity efficiency
+	~	kcal/(g*Day)
+	~		|
+
+adaptive thermogenesis= INTEG (
+	thermogenesis adaptation,
+		0)
+	~	Dmnl
+	~		|
+
+physical activity energy=
+	activity energy spent per body weight * body weight
+	~	kcal/Day
+	~		|
+
+therm const=
+	0.8
+	~	Dmnl
+	~		|
+
+normalized activity energy per body weight=
+	activity energy per body weight / baseline activity energy per body weight
+	~	Dmnl
+	~		|
+
+thermogenesis adaptation=
+	( therm const * effect of metabolizable energy intake on thermogenesis - adaptive thermogenesis\
+		 ) / delay in adaptive thermogenesis
+	~	1/Day
+	~		|
+
+baseline activity energy per body weight=
+	0.0256755
+	~	kcal/(g*Day)
+	~		|
+
+thermogenesis effect on pae vs rmr=
+	0.52
+	~	Dmnl
+	~		|
+
+effect of metabolizable energy intake on thermogenesis=
+	( metabolizable energy intake - baseline metabolizable energy intake ) / baseline metabolizable energy intake
+	~	Dmnl
+	~		|
+
+delay in adaptive thermogenesis=
+	7
+	~	Day
+	~		|
+
+lean tissues=
+	base bone mass + extracel water + cell mass
+	~	g
+	~		|
+
+body weight=
+	fat + lean tissues
+	~	g
+	~		|
+
+normalized glycogenolysis=
+	glycogenolysis / base deg c
+	~	Dmnl
+	~		|
+
+base deg c=
+	180
+	~	g/Day
+	~		|
+
+normalized proteolysis=
+	proteolysis / baseline proteolysis
+	~	Dmnl
+	~		|
+
+aminoacid mass=
+	110
+	~	g/mol
+	~		|
+
+molar baseline proteolysis=
+	2.73
+	~	mol/Day
+	~		|
+
+total energy expenditure=
+	physical activity energy + resting metabolic rate + thermic effect of food
+	~	kcal/Day
+	~		|
+
+extracel water=
+	baseline ecw
+	~	g
+	~		|
+
+protein hydration coefficient=
+	2
+	~	Dmnl
+	~		|
+
+glycogen hydration coefficient=
+	2.7
+	~	Dmnl
+	~		|
+
+intracel solids=
+	3967.28
+	~	g
+	~		|
+
+intracel water=
+	glycogen hydration coefficient * carb + protein hydration coefficient * protein + ciw
+	~	g
+	~		|
+
+ciw=
+	 fiew * baseline ecw - ( glycogen hydration coefficient * c init + protein hydration coefficient\
+		 * p init)
+	~	g
+	~		|
+
+fi=
+	fat intake / cal dens f
+	~	g/Day
+	~		|
+
+ci  = 
+	carbohydrate intake / cal dens c
+	~	g/Day
+	~		|
+
+pi  = 
+	protein intake / cal dens p
+	~	g/Day
+	~		|
+
+baseline bodyweight=
+	70000
+	~	g
+	~		|
+
+base bone mass=
+	0.04 * baseline bodyweight
+	~	g
+	~		|
+
+baseline carbohydrate intake=
+	ci 0
+	~	kcal/Day
+	~		|
+
+baseline ecw=
+	fw * fetw * baseline bodyweight
+	~	g
+	~		|
+
+baseline fat=
+	baseline bodyweight - baseline lean mass
+	~	g
+	~		|
+
+baseline fat intake=
+	fi 0
+	~	kcal/Day
+	~		|
+
+base carb=
+	400
+	~	g
+	~		|
+
+baseline lean mass=
+	base bone mass + baseline ecw + cell mass b
+	~	g
+	~		|
+
+baseline metabolizable energy intake=
+	baseline carbohydrate intake + baseline fat intake +baseline protein intake
+	~	kcal/Day
+	~		|
+
+baseline protein=
+	cell mass b - icw b - intracel solids - base carb
+	~	g
+	~		|
+
+baseline protein intake=
+	pi 0
+	~	kcal/Day
+	~		|
+
+molar caloric dens glycerol=
+	cal dens c * mass of glycerol
+	~	kcal/mol
+	~		|
+
+cal dens c=
+	4.18
+	~	kcal/g
+	~		|
+
+cal dens f=
+	9.44
+	~	kcal/g
+	~		|
+
+cal dens p=
+	4.7
+	~	kcal/g
+	~		|
+
+carbohydrate intake=
+	IF THEN ELSE( read from data = 1,Carbohydrate Intake Data , ci input )
+	~	kcal/Day
+	~		|
+
+Carbohydrate Intake Data
+	~	kcal/Day
+	~		|
+
+ci input=
+	1500
+	~	kcal/Day
+	~		|
+
+Protein Intake Data
+	~	kcal/Day
+	~		|
+
+pi input=
+	500
+	~	kcal/Day
+	~		|
+
+fat intake=
+	IF THEN ELSE( read from data = 1, Fat Intake Data , fi input )
+	~	kcal/Day
+	~		|
+
+Fat Intake Data
+	~	kcal/Day
+	~		|
+
+fi input=
+	1000
+	~	kcal/Day
+	~		|
+
+protein fraction of cell mass=
+	0.2
+	~	Dmnl
+	~		|
+
+molar caloric dens tg=
+	cal dens f * mass tg
+	~	kcal/mol
+	~		|
+
+mass tg=
+	860
+	~	g/mol
+	~		|
+
+mass ffa=
+	( cal dens f * mass tg - cal dens c * mass of glycerol ) / ( 3 * cal dens f)
+	~	g/mol
+	~		|
+
+metabolizable energy intake=
+	carbohydrate intake + fat intake + protein intake
+	~	kcal/Day
+	~		|
+
+read from data=
+	0
+	~	Dmnl
+	~		|
+
+mass of glycerol=
+	92
+	~	g/mol
+	~		|
+
+protein intake=
+	IF THEN ELSE( read from data = 1, Protein Intake Data , pi input )
+	~	kcal/Day
+	~		|
+
+frac carbox=
+	carb term / z
+	~	Dmnl
+	~		|
+
+frac fatox=
+	fat term / z
+	~	Dmnl
+	~		|
+
+frac protox=
+	prot term / z
+	~	Dmnl
+	~		|
+
+********************************************************
+	.cells
+********************************************************~
+	|
+
+metabolism of body cells=
+	basal rmr of lean tissues * ( cell mass - mass brain ) + base rmr brain * mass brain\
+		 + base rmr fat * fat
+	~	kcal/Day
+	~		|
+
+cell mass=
+	intracel solids + carb + protein + intracel water
+	~	g
+	~		|
+
+baseline basal rmr of lean tissues=
+	0.0239374
+	~	kcal/(g*Day)
+	~		|
+
+basal rmr efficiency=
+	1 + ( 1 - thermogenesis effect on pae vs rmr ) * adaptive thermogenesis
+	~	Dmnl
+	~		|
+
+base rmr fat=
+	0.0045
+	~	kcal/(g*Day)
+	~		|
+
+base rmr brain=
+	0.24
+	~	kcal/g/Day
+	~		|
+
+basal rmr of lean tissues=
+	baseline basal rmr of lean tissues * basal rmr efficiency
+	~	kcal/g/Day
+	~		|
+
+mass brain=
+	1400
+	~	g
+	~		|
+
+********************************************************
+	.turnover
+********************************************************~
+	|
+
+effect of carb intake on lipolysis=
+	1 + ( ( lipol max - lipol min )  * EXP( -k lip * ci * cal dens c / baseline carbohydrate intake\
+		 )
+	+ lipol min - 1 )
+	/ MAX( 1 , effect of obesity on lipolysis )
+	~	Dmnl
+	~		|
+
+lipolysis=
+	base molar lipolysis * normalized lipolysis rate * mass tg
+	~	g/Day
+	~		|
+
+dep cost fat=
+	0.176744
+	~	kcal/g
+	~		|
+
+deg cost p=
+	0.172727
+	~	kcal/g
+	~		|
+
+dep cost p=
+	0.863636
+	~	kcal/g
+	~		|
+
+dep cost c=
+	0.211111
+	~	kcal/g
+	~		|
+
+effect of obesity on lipolysis=
+	(fat / baseline fat)^(2/3)
+	~	Dmnl
+	~		|
+
+k lip=
+	LN( ( lipol max - lipol min ) /
+	( 1 - lipol min )
+	)
+	~	Dmnl
+	~		|
+
+base molar lipolysis=
+	0.16
+	~	mol/Day
+	~		|
+
+normalized lipolysis rate=
+	effect of carb intake on lipolysis * effect of obesity on lipolysis
+	~	Dmnl
+	~		|
+
+lipol min=
+	0.9
+	~	Dmnl
+	~		|
+
+lipol max=
+	3.1
+	~	Dmnl
+	~		|
+
+baseline proteolysis=
+	molar baseline proteolysis * aminoacid mass
+	~	g/Day
+	~		|
+
+metabolism of turnovers=
+	( deg cost p + dep cost p ) * proteolysis +
+	dep cost fat * lipolysis +
+	dep cost c * glycogenolysis
+	~	kcal/Day
+	~		|
+
+glycogenolysis=
+	base deg c * carb / base carb
+	~	g/Day
+	~		|
+
+proteolysis=
+	baseline proteolysis * protein / baseline protein
+	~	g/Day
+	~		|
+
+********************************************************
+	.conversions
+********************************************************~
+	|
+
+dnl=
+	ci * effect of glycogen on dnl * cal dens c
+	~	kcal/Day
+	~		|
+
+dnl out=
+	min( dnl / cal dens c , carb / TIME STEP )
+	~	g/Day
+	~		|
+
+gng fat=
+	gng fat endog + gng fat exog
+	~	kcal/Day
+	~		|
+
+gng fat in=
+	gng fat / cal dens c
+	~	g/Day
+	~		|
+
+gng fat out=
+	min( gng fat / cal dens f , fat / TIME STEP )
+	~	g/Day
+	~		|
+
+gng protein out=
+	MAX( 0 , gng protein / cal dens p)
+	~	g/Day
+	~		|
+
+dnl i=
+	dnl / cal dens f
+	~	g/Day
+	~		|
+
+eff ci on gng p=
+	0.506 * normalized change in carbohydrate intake
+	~	Dmnl
+	~		|
+
+gngp i=
+	gng protein / cal dens c
+	~	g/Day
+	~		|
+
+gng fat endog=
+	baseline gng fat endog * normalized lipolysis rate
+	~	kcal/Day
+	~		|
+
+gng fat exog=
+	exog glycerol per kcal fat intake * fat intake * cal dens c
+	~	kcal/Day
+	~		|
+
+effect of glycogen on dnl=
+	normalized glycogen ratio ^ hill dnl / 
+	( k dnl ^ hill dnl + normalized glycogen ratio ^ hill dnl )
+	~	Dmnl
+	~		|
+
+norm p ratio=
+	protein / baseline protein
+	~	Dmnl
+	~		|
+
+eff pi on gng p=
+	0.306 * normalized change in protein intake
+	~	Dmnl
+	~		|
+
+normalized glycogen ratio=
+	carb / base carb
+	~	Dmnl
+	~		|
+
+metabolism of conversions=
+	( 1 - efficiency dnl ) * dnl + ( 1- efficiency gng ) * ( gng fat + gng protein )
+	~	kcal/Day
+	~		|
+
+gng protein=
+	MAX( 0 , base gng p * ( norm p ratio - eff ci on gng p + eff pi on gng p ) )
+	~	kcal/Day
+	~		|
+
+********************************************************
+	.Control
+********************************************************~
+		Simulation Control Parameters
+	|
+
+FINAL TIME  = 1000
+	~	Day
+	~	The final time for the simulation.
+	|
+
+INITIAL TIME  = 0
+	~	Day
+	~	The initial time for the simulation.
+	|
+
+SAVEPER  = 
+        TIME STEP
+	~	Day [0,?]
+	~	The frequency with which output is stored.
+	|
+
+TIME STEP  = 1
+	~	Day [0,?]
+	~	The time step for the simulation.
+	|
+
+\\\---/// Sketch information - do not modify anything except names
+V300  Do not put anything below this section - it will be ignored
+*View 1
+$192-192-192,0,@Arial Unicode MS|9||128-0-0|0-0-0|0-0-255|-1--1--1|-1--1--1|96,96,100,0
+10,1,protein,571,103,40,20,3,3,5,0,0,0,0,0
+12,2,48,208,-119,10,8,0,3,7,0,-1,0,0,0
+1,3,5,1,4,7,0,22,0,0,0,-1--1--1,,1|(206,103)|
+1,4,5,2,100,7,0,22,0,0,0,-1--1--1,,1|(206,-79)|
+11,5,48,206,-41,8,6,33,3,7,0,4,0,0,0
+10,6,pi,234,-41,20,11,40,131,7,0,-1,0,0,0
+12,7,48,194,270,10,8,0,3,10,0,-1,0,0,0
+1,8,10,7,4,10,0,22,0,0,0,-1--1--1,,1|(196,223)|
+1,9,10,1,100,10,0,22,0,0,0,-1--1--1,,1|(196,103)|
+11,10,48,196,178,8,6,33,3,10,0,4,0,0,0
+10,11,actual protox,242,178,37,9,40,3,10,0,-1,0,0,0
+10,12,carb,1152,143,68,42,3,3,5,0,0,0,0,0
+12,13,48,895,159,10,8,0,3,5,0,-1,0,0,0
+1,14,16,12,4,5,0,22,0,0,0,-1--1--1,,1|(1031,160)|
+1,15,16,13,100,5,0,22,0,0,0,-1--1--1,,1|(935,160)|
+11,16,48,972,160,6,8,34,3,5,0,1,0,0,0
+10,17,ci,972,179,19,11,40,131,5,0,-1,0,0,0
+12,18,48,1464,120,10,8,0,3,10,0,-1,0,0,0
+1,19,21,18,4,10,0,22,0,0,0,-1--1--1,,1|(1410,122)|
+1,20,21,12,100,10,0,22,0,0,0,-1--1--1,,1|(1287,122)|
+11,21,48,1361,122,6,8,34,3,10,0,1,0,0,0
+10,22,actual carbox,1361,139,39,9,40,3,10,0,-1,0,0,0
+12,23,48,681,519,10,8,0,3,10,0,-1,0,0,0
+1,24,25,23,100,10,0,22,0,0,0,-1--1--1,,1|(681,553)|
+11,25,48,681,586,8,6,33,3,10,0,4,0,0,0
+10,26,fi,713,586,24,18,40,3,10,0,-1,0,0,0
+12,27,48,724,857,10,8,0,3,10,0,-1,0,0,0
+1,28,29,27,4,10,0,22,0,0,0,-1--1--1,,1|(728,818)|
+11,29,48,728,781,8,6,33,3,10,0,4,0,0,0
+10,30,actual fatox,769,781,33,9,40,3,10,0,-1,0,0,0
+10,31,thermic effect of food,705,91,46,16,8,3,7,0,0,0,0,0
+1,32,17,31,1,7,0,0,0,64,0,-1--1--1,,1|(933,116)|
+1,33,6,31,1,7,0,0,0,64,0,-1--1--1,,1|(449,19)|
+10,34,body weight,472,693,45,21,8,3,9,0,0,0,0,0
+10,35,lipolysis,789,327,24,9,8,3,5,0,0,0,0,0
+10,36,metabolism of turnovers,715,254,42,16,8,3,5,0,0,0,0,0
+1,37,35,36,1,5,0,0,0,64,0,-1--1--1,,1|(762,302)|
+10,38,glycogenolysis,897,97,43,9,8,3,5,0,0,0,0,0
+10,39,proteolysis,664,180,32,9,8,3,5,0,0,0,0,0
+1,40,39,36,1,5,0,0,0,64,0,-1--1--1,,1|(696,224)|
+1,41,38,36,1,5,0,0,0,64,0,-1--1--1,,1|(802,105)|
+10,42,resting metabolic rate,571,307,42,16,8,3,5,0,0,0,0,0
+1,43,36,42,1,5,0,0,0,64,0,-1--1--1,,1|(631,278)|
+1,44,1,39,1,5,0,0,0,64,0,-1--1--1,,1|(615,115)|
+1,45,12,38,1,5,0,0,0,64,0,-1--1--1,,1|(1033,100)|
+10,46,fi,400,-88,14,9,8,2,10,3,-1,0,0,0,128-128-128,0-0-0,|9||128-128-128
+10,47,total energy expenditure,1004,923,35,16,8,3,10,0,0,0,0,0
+1,48,42,47,1,10,0,0,0,64,0,-1--1--1,,1|(878,590)|
+1,49,31,47,1,10,0,0,0,64,0,-1--1--1,,1|(986,738)|
+10,50,physical activity energy,488,824,45,16,8,3,9,0,0,0,0,0
+1,51,34,50,1,9,0,0,0,64,0,-1--1--1,,1|(478,752)|
+1,52,50,47,1,10,0,0,0,64,0,-1--1--1,,1|(720,915)|
+12,53,0,321,1458,20,9,8,4,10,0,-1,0,0,0
+ema
+10,54,frac protox,285,461,31,9,8,3,10,2,0,0,0,0,0-0-0,0-0-0,|9||92-92-92
+10,55,frac fatox,941,830,27,9,8,3,10,2,0,0,0,0,0-0-0,0-0-0,|9||92-92-92
+10,56,frac carbox,1437,643,32,9,8,3,10,2,0,0,0,0,0-0-0,0-0-0,|9||92-92-92
+10,57,cal dens p,69,34,37,9,8,2,10,3,-1,0,0,0,128-128-128,0-0-0,|9||128-128-128
+10,58,cal dens c,1221,65,37,9,8,2,10,3,-1,0,0,0,128-128-128,0-0-0,|9||128-128-128
+10,59,cal dens f,800,735,35,9,8,2,10,3,-1,0,0,0,128-128-128,0-0-0,|9||128-128-128
+1,60,59,26,1,10,0,0,0,64,0,-1--1--1,,1|(772,636)|
+1,61,59,30,0,10,0,0,0,64,0,-1--1--1,,1|(788,752)|
+1,62,57,11,1,10,0,0,0,64,0,-1--1--1,,1|(176,109)|
+1,63,57,6,0,10,0,0,0,64,0,-1--1--1,,1|(144,-1)|
+1,64,58,22,1,10,0,0,0,64,0,-1--1--1,,1|(1366,72)|
+1,65,58,17,1,10,0,0,0,64,0,-1--1--1,,1|(1102,119)|
+10,66,protein intake,64,-30,47,9,8,2,10,3,-1,0,0,0,128-128-128,0-0-0,|9||128-128-128
+10,67,carbohydrate intake,1119,-113,44,16,8,2,10,3,-1,0,0,0,128-128-128,0-0-0,|9||128-128-128
+1,68,66,6,1,10,0,0,0,64,0,-1--1--1,,1|(186,-28)|
+1,69,67,17,1,10,0,0,0,64,0,-1--1--1,,1|(1102,-40)|
+10,70,baseline proteolysis,200,-200,36,16,8,2,10,3,-1,0,0,0,128-128-128,0-0-0,|9||128-128-128
+1,71,70,39,0,10,0,0,0,64,0,-1--1--1,,1|(430,-11)|
+10,72,baseline protein,297,-220,54,9,8,2,10,3,-1,0,0,0,128-128-128,0-0-0,|9||128-128-128
+1,73,72,39,0,10,0,0,0,64,0,-1--1--1,,1|(475,-25)|
+10,74,base deg c,911,-42,39,9,8,2,10,3,-1,0,0,0,128-128-128,0-0-0,|9||128-128-128
+10,75,base carb,1050,-53,36,9,8,2,10,3,-1,0,0,0,128-128-128,0-0-0,|9||128-128-128
+1,76,74,38,0,10,0,0,0,64,0,-1--1--1,,1|(904,20)|
+1,77,75,38,0,10,0,0,0,64,0,-1--1--1,,1|(978,17)|
+10,78,fat,663,463,52,32,3,3,5,0,0,0,0,0
+1,79,25,78,4,10,0,22,0,0,0,-1--1--1,,1|(681,537)|
+1,80,29,78,100,10,0,22,0,0,0,-1--1--1,,1|(663,781)|
+10,81,metabolism of body cells,511,476,42,16,8,3,10,0,-1,0,0,0
+10,82,base rmr fat,479,545,42,9,8,2,10,3,-1,0,0,0,128-128-128,0-0-0,|9||128-128-128
+1,83,82,81,0,10,0,0,0,0,0,-1--1--1,,1|(490,520)|
+10,84,base rmr brain,565,360,49,9,8,2,10,3,-1,0,0,0,128-128-128,0-0-0,|9||128-128-128
+1,85,84,81,0,10,0,0,0,0,0,-1--1--1,,1|(542,408)|
+1,86,78,81,0,10,0,0,0,0,0,-1--1--1,,1|(588,468)|
+10,87,mass brain,595,395,40,9,8,2,10,3,-1,0,0,0,128-128-128,0-0-0,|9||128-128-128
+1,88,87,81,0,10,0,0,0,0,0,-1--1--1,,1|(561,427)|
+1,89,81,42,1,10,0,0,0,64,0,-1--1--1,,1|(572,396)|
+10,90,cell mass,358,213,28,9,8,3,10,0,-1,0,0,0
+1,91,12,90,1,10,0,0,0,0,0,-1--1--1,,1|(741,178)|
+10,92,intracel solids,398,445,47,9,8,2,10,3,-1,0,0,0,128-128-128,0-0-0,|9||128-128-128
+1,93,92,90,0,10,0,0,0,0,0,-1--1--1,,1|(379,335)|
+10,94,intracel water,471,393,46,9,8,2,10,3,-1,0,0,0,128-128-128,0-0-0,|9||128-128-128
+1,95,94,90,0,10,0,0,0,0,0,-1--1--1,,1|(418,308)|
+1,96,1,90,1,10,0,0,0,0,0,-1--1--1,,1|(432,166)|
+1,97,90,81,1,10,0,0,0,64,0,-1--1--1,,1|(448,421)|
+1,98,78,34,0,10,0,0,0,0,0,-1--1--1,,1|(567,578)|
+10,99,activity energy spent per body weight,529,1006,61,16,8,3,9,0,0,0,0,0
+10,100,adaptive thermogenesis,527,1186,40,20,3,3,8,0,0,0,0,0
+12,101,48,279,1181,10,8,0,3,8,0,-1,0,0,0
+1,102,104,100,4,8,0,22,0,0,0,-1--1--1,,1|(446,1181)|
+1,103,104,101,68,8,0,22,2,0,0,-1--1--1,|9||255-128-0,1|(341,1181)|
+11,104,48,399,1181,6,8,34,3,8,0,1,0,0,0
+10,105,thermogenesis adaptation,399,1205,44,16,40,3,8,0,-1,0,0,0
+10,106,activity efficiency,543,1113,49,9,8,3,9,0,0,0,0,0
+1,107,100,106,0,9,0,0,0,64,0,-1--1--1,,1|(534,1150)|
+1,108,106,99,1,9,0,0,0,64,0,-1--1--1,,1|(538,1035)|
+10,109,delay in adaptive thermogenesis,518,1311,51,16,8,3,8,0,0,0,0,0
+10,110,therm const,297,1136,36,9,8,3,8,0,0,0,0,0
+10,111,effect of metabolizable energy intake on thermogenesis,299,1280,65,24,8,3,8,0,0,0,0,0
+1,112,110,105,1,8,0,0,0,64,0,-1--1--1,,1|(335,1211)|
+1,113,111,105,1,8,0,0,0,64,0,-1--1--1,,1|(398,1269)|
+1,114,109,105,1,8,0,0,0,64,0,-1--1--1,,1|(480,1272)|
+1,115,100,105,1,8,0,0,0,64,0,-1--1--1,,1|(491,1213)|
+10,116,activity energy per body weight,679,1122,58,16,8,2,10,3,-1,0,0,0,128-128-128,0-0-0,|9||128-128-128
+1,117,116,99,1,10,0,0,0,0,0,-1--1--1,,1|(609,1064)|
+10,118,thermogenesis effect on pae vs rmr,366,969,49,24,8,2,9,3,-1,0,0,0,128-128-128,0-0-0,|9||128-128-128
+1,119,118,106,0,9,0,0,0,0,0,-1--1--1,,1|(457,1044)|
+10,120,baseline metabolizable energy intake,342,1396,63,24,8,2,8,3,-1,0,0,0,128-128-128,0-0-0,|9||128-128-128
+1,121,120,111,0,8,0,0,0,0,0,-1--1--1,,1|(323,1344)|
+10,122,metabolizable energy intake,137,1147,45,16,8,2,8,3,-1,0,0,0,128-128-128,0-0-0,|9||128-128-128
+1,123,122,111,0,8,0,0,0,0,0,-1--1--1,,1|(207,1205)|
+1,124,99,50,1,9,0,0,0,64,0,-1--1--1,,1|(508,890)|
+10,125,lean tissues,391,579,39,9,8,3,10,0,-1,0,0,0
+10,126,base bone mass,533,597,55,9,8,2,10,3,-1,0,0,0,128-128-128,0-0-0,|9||128-128-128
+1,127,126,125,0,10,0,0,0,0,0,-1--1--1,,1|(460,588)|
+1,128,90,125,1,10,0,0,0,0,0,-1--1--1,,1|(352,462)|
+10,129,extracel water,492,646,47,9,8,2,10,3,-1,0,0,0,128-128-128,0-0-0,|9||128-128-128
+1,130,129,125,0,10,0,0,0,0,0,-1--1--1,,1|(447,616)|
+1,131,125,34,1,10,0,0,0,64,0,-1--1--1,,1|(411,623)|
+10,132,basal rmr of lean tissues,202,663,40,16,8,3,10,0,-1,0,0,0
+10,133,baseline basal rmr of lean tissues,67,713,46,26,8,2,10,3,-1,0,0,0,128-128-128,0-0-0,|9||128-128-128
+1,134,133,132,0,10,0,0,0,0,0,-1--1--1,,1|(130,689)|
+10,135,basal rmr efficiency,229,847,33,16,8,3,10,0,-1,0,0,0
+1,136,100,135,1,10,0,0,0,0,0,-1--1--1,,1|(314,980)|
+1,137,135,132,1,10,0,0,0,64,0,-1--1--1,,1|(200,757)|
+1,138,118,135,0,10,0,0,0,64,0,-1--1--1,,1|(298,908)|
+1,139,132,81,1,10,0,0,0,64,0,-1--1--1,,1|(353,520)|
+10,140,deg cost p,927,184,37,9,8,2,10,3,-1,0,0,0,128-128-128,0-0-0,|9||128-128-128
+1,141,140,36,0,10,0,0,0,0,0,-1--1--1,,1|(835,214)|
+10,142,dep cost fat,706,279,40,9,8,2,10,3,-1,0,0,0,128-128-128,0-0-0,|9||128-128-128
+1,143,142,36,0,10,0,0,0,0,0,-1--1--1,,1|(709,270)|
+10,144,dep cost c,747,238,37,9,8,2,10,3,-1,0,0,0,128-128-128,0-0-0,|9||128-128-128
+1,145,144,36,0,10,0,0,0,0,0,-1--1--1,,1|(744,239)|
+10,146,dep cost p,759,213,37,9,8,2,10,3,-1,0,0,0,128-128-128,0-0-0,|9||128-128-128
+1,147,146,36,0,10,0,0,0,0,0,-1--1--1,,1|(746,225)|
+10,148,cal dens c,685,14,37,9,8,2,7,3,-1,0,0,0,128-128-128,0-0-0,|9||128-128-128
+1,149,148,31,0,7,0,0,0,0,0,-1--1--1,,1|(691,42)|
+10,150,cal dens f,820,61,35,9,8,2,7,3,-1,0,0,0,128-128-128,0-0-0,|9||128-128-128
+10,151,cal dens p,792,29,37,9,8,2,7,3,-1,0,0,0,128-128-128,0-0-0,|9||128-128-128
+1,152,151,31,0,7,0,0,0,0,0,-1--1--1,,1|(759,52)|
+10,153,tef c,643,125,20,9,8,2,7,3,-1,0,0,0,128-128-128,0-0-0,|9||128-128-128
+1,154,153,31,0,7,0,0,0,0,0,-1--1--1,,1|(660,114)|
+10,155,tef f,622,72,19,9,8,2,7,3,-1,0,0,0,128-128-128,0-0-0,|9||128-128-128
+1,156,155,31,0,7,0,0,0,0,0,-1--1--1,,1|(643,76)|
+10,157,tef p,658,46,21,9,8,2,7,3,-1,0,0,0,128-128-128,0-0-0,|9||128-128-128
+1,158,157,31,0,7,0,0,0,0,0,-1--1--1,,1|(672,60)|
+10,159,base molar lipolysis,918,313,37,16,8,2,10,3,-1,0,0,0,128-128-128,0-0-0,|9||128-128-128
+1,160,159,35,0,10,0,0,0,0,0,-1--1--1,,1|(853,319)|
+10,161,mass tg,999,205,31,9,8,2,10,3,-1,0,0,0,128-128-128,0-0-0,|9||128-128-128
+1,162,161,35,0,10,0,0,0,0,0,-1--1--1,,1|(900,262)|
+10,163,normalized lipolysis rate,922,339,36,16,8,3,5,0,-1,0,0,0
+10,164,effect of carb intake on lipolysis,1090,321,56,16,8,3,5,0,-1,0,0,0
+10,165,baseline carbohydrate intake,1335,464,41,25,8,2,10,3,-1,0,0,0,128-128-128,0-0-0,|9||128-128-128
+1,166,165,164,0,10,0,0,0,0,0,-1--1--1,,1|(1211,392)|
+10,167,k lip,1068,391,21,9,8,2,10,3,-1,0,0,0,128-128-128,0-0-0,|9||128-128-128
+1,168,167,164,0,10,0,0,0,0,0,-1--1--1,,1|(1074,366)|
+10,169,lipol max,1143,390,36,9,8,2,10,3,-1,0,0,0,128-128-128,0-0-0,|9||128-128-128
+1,170,169,164,1,10,0,0,0,0,0,-1--1--1,,1|(1121,353)|
+10,171,lipol min,1129,431,35,9,8,2,10,3,-1,0,0,0,128-128-128,0-0-0,|9||128-128-128
+1,172,171,164,0,10,0,0,0,0,0,-1--1--1,,1|(1112,386)|
+10,173,effect of obesity on lipolysis,888,459,54,16,8,3,5,0,-1,0,0,0
+10,174,baseline fat,1225,771,43,9,8,2,10,3,-1,0,0,0,128-128-128,0-0-0,|9||128-128-128
+1,175,174,173,0,10,0,0,0,0,0,-1--1--1,,1|(1065,623)|
+1,176,78,173,1,5,0,0,0,0,0,-1--1--1,,1|(788,453)|
+1,177,163,35,1,5,0,0,0,64,0,-1--1--1,,1|(852,320)|
+1,178,164,163,1,5,0,0,0,64,0,-1--1--1,,1|(1013,345)|
+1,179,173,163,1,5,0,0,0,64,0,-1--1--1,,1|(904,425)|
+1,180,17,164,1,5,0,0,0,64,0,-1--1--1,,1|(1053,232)|
+1,181,58,164,1,10,0,0,0,64,0,-1--1--1,,1|(1116,189)|
+10,182,TIME STEP,915,802,25,15,8,2,10,3,-1,0,0,0,128-128-128,0-0-0,|9||128-128-128
+10,183,TIME STEP,1352,200,25,19,8,2,10,3,-1,0,0,0,128-128-128,0-0-0,|9||128-128-128
+10,184,effect of glycogen on dnl,1290,336,41,23,8,3,10,0,0,0,0,0
+10,185,hill dnl,1359,387,32,9,8,2,10,3,-1,0,0,0,128-128-128,0-0-0,|9||128-128-128
+1,186,185,184,0,10,0,0,0,0,0,-1--1--1,,1|(1339,372)|
+10,187,k dnl,1350,424,27,9,8,2,10,3,-1,0,0,0,128-128-128,0-0-0,|9||128-128-128
+1,188,187,184,0,10,0,0,0,0,0,-1--1--1,,1|(1328,392)|
+1,189,190,184,0,10,0,0,0,0,0,-1--1--1,,1|(1300,279)|
+10,190,normalized glycogen ratio,1307,244,41,16,8,3,10,0,-1,0,0,0
+10,191,base carb,1365,305,36,9,8,2,10,3,-1,0,0,0,128-128-128,0-0-0,|9||128-128-128
+1,192,191,190,0,10,0,0,0,0,0,-1--1--1,,1|(1344,283)|
+1,193,12,190,1,10,0,0,0,0,0,-1--1--1,,1|(1295,114)|
+1,194,173,164,1,5,0,0,0,64,0,-1--1--1,,1|(1005,444)|
+10,195,shared energy expenditure,1007,995,42,16,8,3,10,0,0,0,0,0
+1,196,47,195,0,10,0,0,0,64,0,-1--1--1,,1|(1004,952)|
+12,197,48,457,76,10,8,0,3,10,0,-1,0,0,0
+1,198,200,197,4,10,0,22,0,0,0,-1--1--1,,1|(388,77)|
+1,199,200,1,100,10,0,22,0,0,0,-1--1--1,,1|(324,103)|
+11,200,48,324,77,6,8,34,3,10,0,1,0,0,0
+10,201,gng protein out,324,94,43,9,40,3,10,0,-1,0,0,0
+10,202,eff pi on gng p,390,-23,48,9,8,2,10,3,-1,0,0,0,128-128-128,0-0-0,|9||128-128-128
+10,203,norm p ratio,259,19,42,9,8,2,10,3,-1,0,0,0,128-128-128,0-0-0,|9||128-128-128
+1,204,57,201,1,10,0,0,0,64,0,-1--1--1,,1|(198,47)|
+12,205,48,1187,-119,10,8,0,3,10,0,-1,0,0,0
+1,206,208,12,4,10,0,22,0,0,0,-1--1--1,,1|(1189,29)|
+1,207,208,205,100,10,0,22,0,0,0,-1--1--1,,1|(1189,-82)|
+11,208,48,1189,-48,8,6,33,3,10,0,4,0,0,0
+10,209,gngp i,1237,-48,19,9,40,3,10,0,-1,0,0,0
+1,210,58,209,1,10,0,0,0,64,0,-1--1--1,,1|(1236,-28)|
+10,211,desired protox,202,406,41,9,8,131,10,0,0,0,0,0
+1,212,54,211,1,10,0,0,0,0,0,-1--1--1,,1|(241,433)|
+1,213,211,11,1,10,0,0,0,64,0,-1--1--1,,1|(216,271)|
+10,214,gng protein,479,-44,33,9,8,3,10,0,0,0,0,0
+10,215,base gng p,484,-106,40,9,8,2,10,3,-1,0,0,0,128-128-128,0-0-0,|9||128-128-128
+1,216,215,214,1,10,0,0,0,0,0,-1--1--1,,1|(479,-78)|
+10,217,eff pi on gng p,317,-103,48,9,8,2,10,3,-1,0,0,0,128-128-128,0-0-0,|9||128-128-128
+1,218,217,214,0,10,0,0,0,0,0,-1--1--1,,1|(390,-75)|
+10,219,eff ci on gng p,893,-102,47,9,8,2,10,3,-1,0,0,0,128-128-128,0-0-0,|9||128-128-128
+1,220,219,214,1,10,0,0,0,0,0,-1--1--1,,1|(682,-90)|
+10,221,norm p ratio,336,-38,42,9,8,2,10,3,-1,0,0,0,128-128-128,0-0-0,|9||128-128-128
+1,222,221,214,0,10,0,0,0,0,0,-1--1--1,,1|(405,-40)|
+1,223,214,201,1,10,0,0,0,64,0,-1--1--1,,1|(354,37)|
+1,224,214,209,1,10,0,0,0,64,0,-1--1--1,,1|(777,7)|
+10,225,desired fatox,836,860,37,9,8,3,10,0,0,0,0,0
+1,226,195,225,1,10,0,0,0,64,0,-1--1--1,,1|(912,938)|
+1,227,55,225,0,10,0,0,0,0,0,-1--1--1,,1|(897,842)|
+1,228,225,30,1,10,0,0,0,64,0,-1--1--1,,1|(812,817)|
+1,229,195,211,1,10,0,0,0,64,0,-1--1--1,,1|(412,840)|
+10,230,gng fat,1193,565,21,9,8,3,10,0,0,0,0,0
+10,231,gng fat endog,1260,672,52,9,8,2,10,3,-1,0,0,0,128-128-128,0-0-0,|9||128-128-128
+1,232,231,230,0,10,0,0,0,0,0,-1--1--1,,1|(1230,624)|
+10,233,gng fat exog,1112,716,48,9,8,2,10,3,-1,0,0,0,128-128-128,0-0-0,|9||128-128-128
+1,234,233,230,0,10,0,0,0,0,0,-1--1--1,,1|(1148,646)|
+12,235,48,1058,687,10,8,0,3,10,0,-1,0,0,0
+1,236,238,235,4,10,0,22,0,0,0,-1--1--1,,1|(955,688)|
+1,237,238,78,100,10,0,22,0,0,0,-1--1--1,,1|(663,688)|
+11,238,48,856,688,6,8,34,3,10,0,1,0,0,0
+10,239,gng fat out,856,705,31,9,40,3,10,0,-1,0,0,0
+1,240,230,239,1,10,0,0,0,64,0,-1--1--1,,1|(965,688)|
+1,241,59,239,0,10,0,0,0,64,0,-1--1--1,,1|(821,723)|
+1,242,78,239,1,10,0,0,0,0,0,-1--1--1,,1|(755,622)|
+1,243,182,239,0,10,0,0,0,64,0,-1--1--1,,1|(887,756)|
+10,244,dnl,1246,473,24,14,8,3,10,0,0,0,0,0
+10,245,cal dens c,1297,567,37,9,8,2,10,3,-1,0,0,0,128-128-128,0-0-0,|9||128-128-128
+1,246,245,244,0,10,0,0,0,0,0,-1--1--1,,1|(1276,528)|
+1,247,17,244,1,10,0,0,0,0,0,-1--1--1,,1|(1188,324)|
+1,248,184,244,1,10,0,0,0,0,0,-1--1--1,,1|(1287,412)|
+12,249,48,1049,646,10,8,0,3,10,0,-1,0,0,0
+1,250,252,78,4,10,0,22,0,0,0,-1--1--1,,1|(927,463)|
+1,251,252,249,100,10,0,22,0,0,0,-1--1--1,,1|(986,649)|
+11,252,48,927,649,6,8,34,3,10,0,3,0,0,0
+10,253,dnl i,927,632,14,9,40,3,10,0,-1,0,0,0
+1,254,244,253,1,10,0,0,0,64,0,-1--1--1,,1|(1098,573)|
+1,255,59,253,1,10,0,0,0,64,0,-1--1--1,,1|(844,662)|
+12,256,48,1226,274,10,8,0,3,10,0,-1,0,0,0
+1,257,259,256,4,10,0,22,0,0,0,-1--1--1,,1|(1224,230)|
+1,258,259,12,100,10,0,22,0,0,0,-1--1--1,,1|(1224,143)|
+11,259,48,1224,188,8,6,33,3,10,0,4,0,0,0
+10,260,dnl out,1255,188,23,23,40,3,10,0,-1,0,0,0
+1,261,244,260,1,10,0,0,0,64,0,-1--1--1,,1|(1246,339)|
+1,262,183,260,0,10,0,0,0,64,0,-1--1--1,,1|(1309,194)|
+1,263,12,260,0,10,0,0,0,64,0,-1--1--1,,1|(1219,171)|
+1,264,58,260,0,10,0,0,0,64,0,-1--1--1,,1|(1233,112)|
+12,265,48,1150,279,10,8,0,3,10,0,-1,0,0,0
+1,266,268,12,4,10,0,22,0,0,0,-1--1--1,,1|(1148,185)|
+1,267,268,265,100,10,0,22,0,0,0,-1--1--1,,1|(1148,234)|
+11,268,48,1148,192,8,6,33,3,10,0,4,0,0,0
+10,269,gng fat in,1174,192,18,17,40,3,10,0,-1,0,0,0
+1,270,230,269,1,10,0,0,0,64,0,-1--1--1,,1|(1172,396)|
+1,271,58,269,1,10,0,0,0,64,0,-1--1--1,,1|(1160,176)|
+10,272,desired carbox,1354,530,43,9,8,3,10,0,0,0,0,0
+1,273,272,22,1,10,0,0,0,0,0,-1--1--1,,1|(1402,351)|
+1,274,56,272,1,10,0,0,0,0,0,-1--1--1,,1|(1406,590)|
+1,275,195,272,1,10,0,0,0,0,0,-1--1--1,,1|(1239,786)|
+1,276,230,195,1,10,0,0,0,0,0,-1--1--1,,1|(1157,758)|
+10,277,gng protein,1054,1069,40,9,8,2,10,3,-1,0,0,0,128-128-128,0-0-0,|9||128-128-128
+1,278,277,195,0,10,0,0,0,64,0,-1--1--1,,1|(1036,1041)|
+10,279,metabolism of conversions,833,426,42,16,8,3,10,0,0,0,0,0
+1,280,214,279,1,10,0,0,0,64,0,-1--1--1,,1|(736,236)|
+1,281,230,279,1,10,0,0,0,64,0,-1--1--1,,1|(1009,480)|
+1,282,244,279,1,10,0,0,0,64,0,-1--1--1,,1|(1032,435)|
+10,283,efficiency dnl,807,470,45,9,8,2,10,3,-1,0,0,0,128-128-128,0-0-0,|9||128-128-128
+1,284,283,279,0,10,0,0,0,0,0,-1--1--1,,1|(813,457)|
+10,285,efficiency gng,871,485,47,9,8,2,10,3,-1,0,0,0,128-128-128,0-0-0,|9||128-128-128
+1,286,285,279,0,10,0,0,0,0,0,-1--1--1,,1|(858,464)|
+1,287,279,42,1,10,0,0,0,64,0,-1--1--1,,1|(671,344)|
+10,288,prot term,298,505,36,9,8,2,10,3,-1,0,0,0,128-128-128,0-0-0,|9||128-128-128
+1,289,288,54,0,10,0,0,0,0,0,-1--1--1,,1|(293,489)|
+10,290,z,240,501,13,9,8,2,10,3,-1,0,0,0,128-128-128,0-0-0,|9||128-128-128
+1,291,290,54,0,10,0,0,0,0,0,-1--1--1,,1|(256,485)|
+10,292,fat term,881,873,34,9,8,2,10,3,-1,0,0,0,128-128-128,0-0-0,|9||128-128-128
+1,293,292,55,0,10,0,0,0,0,0,-1--1--1,,1|(904,855)|
+10,294,z,939,872,13,9,8,2,10,3,-1,0,0,0,128-128-128,0-0-0,|9||128-128-128
+1,295,294,55,0,10,0,0,0,0,0,-1--1--1,,1|(939,857)|
+10,296,carb term,1339,737,39,9,8,2,10,3,-1,0,0,0,128-128-128,0-0-0,|9||128-128-128
+1,297,296,56,0,10,0,0,0,0,0,-1--1--1,,1|(1382,694)|
+10,298,z,1411,712,13,9,8,2,10,3,-1,0,0,0,128-128-128,0-0-0,|9||128-128-128
+1,299,298,56,0,10,0,0,0,0,0,-1--1--1,,1|(1421,684)|
+10,300,ec,660,466,16,9,8,2,10,3,-1,0,0,0,128-128-128,0-0-0,|9||128-128-128
+1,301,300,42,0,10,0,0,0,0,0,-1--1--1,,1|(620,396)|
+12,302,48,2,66,10,8,0,3,10,0,-1,0,0,0
+1,303,305,302,4,10,0,22,0,0,0,-1--1--1,,1|(50,68)|
+1,304,305,1,100,10,0,22,0,0,0,-1--1--1,,1|(95,103)|
+11,305,48,95,68,6,8,34,3,10,0,1,0,0,0
+10,306,sec protox,95,85,30,9,40,3,10,0,-1,0,0,0
+10,307,gap fatox,907,761,27,9,8,3,10,0,0,0,0,0
+1,308,225,307,1,10,0,0,0,64,0,-1--1--1,,1|(860,802)|
+1,309,30,307,1,10,0,0,0,64,0,-1--1--1,,1|(845,764)|
+1,310,59,307,0,10,0,0,0,64,0,-1--1--1,,1|(850,746)|
+10,311,gap carbox,1553,408,33,9,8,3,10,0,0,0,0,0
+1,312,272,311,1,10,0,0,0,64,0,-1--1--1,,1|(1521,436)|
+1,313,22,311,1,10,0,0,0,64,0,-1--1--1,,1|(1579,309)|
+1,314,58,311,1,10,0,0,0,64,0,-1--1--1,,1|(1626,159)|
+10,315,gap total,1281,967,26,9,8,3,10,0,0,0,0,0
+1,316,307,315,1,10,0,0,0,64,0,-1--1--1,,1|(1090,829)|
+1,317,311,315,1,10,0,0,0,64,0,-1--1--1,,1|(1466,826)|
+12,318,48,664,861,10,8,0,3,10,0,-1,0,0,0
+1,319,321,318,4,10,0,22,0,0,0,-1--1--1,,1|(671,816)|
+1,320,321,78,100,10,0,22,0,0,0,-1--1--1,,1|(671,630)|
+11,321,48,671,772,11,7,33,131,10,0,2,0,0,0
+10,322,sec fatox,651,772,9,8,40,131,10,0,2,0,0,0
+12,323,48,1455,76,10,8,0,3,10,0,-1,0,0,0
+1,324,326,323,4,10,0,22,0,0,0,-1--1--1,,1|(1401,76)|
+1,325,326,12,100,10,0,22,0,0,0,-1--1--1,,1|(1352,143)|
+11,326,48,1352,76,6,8,34,3,10,0,3,0,0,0
+10,327,sec carbox,1352,59,32,9,40,3,10,0,-1,0,0,0
+10,328,carb sufficiency,1465,375,44,9,8,3,10,0,0,0,0,0
+1,329,12,328,1,10,0,0,0,64,0,-1--1--1,,1|(1336,177)|
+1,330,272,328,1,10,0,0,0,64,0,-1--1--1,,1|(1444,439)|
+1,331,58,328,1,10,0,0,0,64,0,-1--1--1,,1|(1463,75)|
+10,332,eff of carb sufficiency on carbox,1508,249,42,24,8,131,10,0,0,0,0,0
+1,333,328,332,1,10,0,0,0,64,0,-1--1--1,,1|(1521,328)|
+1,334,332,22,1,10,0,0,0,64,0,-1--1--1,,1|(1458,165)|
+1,335,214,272,1,10,0,0,0,64,0,-1--1--1,,1|(1417,-16)|
+1,336,230,272,1,10,0,0,0,64,0,-1--1--1,,1|(1238,542)|
+10,337,sec frac carb,1447,-55,44,9,8,2,10,3,-1,0,0,0,128-128-128,0-0-0,|9||128-128-128
+1,338,337,327,1,10,0,0,0,64,0,-1--1--1,,1|(1393,16)|
+10,339,gap total,1474,13,33,9,8,2,10,3,-1,0,0,0,128-128-128,0-0-0,|9||128-128-128
+1,340,339,327,1,10,0,0,0,64,0,-1--1--1,,1|(1420,39)|
+1,341,58,327,0,10,0,0,0,64,0,-1--1--1,,1|(1282,62)|
+1,342,315,322,1,10,0,0,0,64,0,-1--1--1,,1|(683,1038)|
+10,343,sec frac fat,210,1512,38,9,8,2,10,3,-1,0,0,0,128-128-128,0-0-0,|9||128-128-128
+10,344,sec frac fat,546,733,38,9,8,2,10,3,-1,0,0,0,128-128-128,0-0-0,|9||128-128-128
+1,345,344,322,1,10,0,0,0,64,0,-1--1--1,,1|(608,746)|
+1,346,59,322,1,10,0,0,0,64,0,-1--1--1,,1|(710,740)|
+10,347,sec frac prot,-423,-320,42,9,8,2,10,3,-1,0,0,0,128-128-128,0-0-0,|9||128-128-128
+10,348,sec frac prot,12,157,42,9,8,2,10,3,-1,0,0,0,128-128-128,0-0-0,|9||128-128-128
+10,349,gap total,89,207,33,9,8,2,10,3,-1,0,0,0,128-128-128,0-0-0,|9||128-128-128
+1,350,349,306,1,10,0,0,0,64,0,-1--1--1,,1|(88,137)|
+1,351,348,306,1,10,0,0,0,64,0,-1--1--1,,1|(38,117)|
+1,352,57,306,1,10,0,0,0,64,0,-1--1--1,,1|(62,57)|
+10,353,possible fatox,742,1039,40,9,8,3,10,0,0,0,0,0
+1,354,78,353,1,10,0,0,0,64,0,-1--1--1,,1|(658,853)|
+1,355,182,353,1,10,0,0,0,64,0,-1--1--1,,1|(765,930)|
+1,356,59,353,1,10,0,0,0,64,0,-1--1--1,,1|(727,936)|
+10,357,eff of possible fatox,811,961,54,9,8,3,10,0,0,0,0,0
+1,358,353,357,1,10,0,0,0,64,0,-1--1--1,,1|(783,1007)|
+1,359,357,30,1,10,0,0,0,64,0,-1--1--1,,1|(774,852)|
+1,360,225,357,1,10,0,0,0,64,0,-1--1--1,,1|(842,905)|
+10,361,fat intake,705,152,36,9,8,2,7,3,-1,0,0,0,128-128-128,0-0-0,|9||128-128-128
+1,362,361,31,0,7,0,0,0,64,0,-1--1--1,,1|(705,132)|
+10,363,fat intake,770,568,17,9,8,2,10,3,-1,0,0,0,128-128-128,0-0-0,|9||128-128-128
+1,364,363,26,0,10,0,0,0,64,0,-1--1--1,,1|(751,573)|
+10,365,p init,163,150,22,9,8,2,10,3,-1,0,0,0,128-128-128,0-0-0,|9||128-128-128
+1,366,365,1,0,10,0,0,0,64,1,-1--1--1,,1|(351,128)|
+10,367,c init,1231,97,22,9,8,2,10,3,-1,0,0,0,128-128-128,0-0-0,|9||128-128-128
+10,368,f init,776,728,20,9,8,2,10,3,-1,0,0,0,128-128-128,0-0-0,|9||128-128-128
+1,369,367,12,0,10,0,0,0,64,1,-1--1--1,,1|(1224,100)|
+1,370,368,78,0,10,0,0,0,64,1,-1--1--1,,1|(727,613)|
+\\\---/// Sketch information - do not modify anything except names
+V300  Do not put anything below this section - it will be ignored
+*View 2
+$192-192-192,0,@Arial Unicode MS|9||128-0-0|0-0-0|0-0-255|-1--1--1|-1--1--1|96,96,100,0
+10,1,fat intake,751,-1599,29,9,8,3,10,16,0,0,0,0,0-0-0,0-0-0,|9|U|0-0-0
+10,2,mass ffa,412,-1614,25,9,8,3,10,0,0,0,0,0
+10,3,mass tg,212,-1675,57,9,8,3,3,0,0,0,0,0
+10,4,cal dens f,193,-1580,54,9,8,3,3,16,0,0,0,0,0-0-0,0-0-0,|9|U|0-0-0
+10,5,cal dens p,272,-1624,44,16,8,3,3,16,0,0,0,0,0-0-0,0-0-0,|9|U|0-0-0
+10,6,cal dens c,207,-1660,44,16,8,3,10,16,0,0,0,0,0-0-0,0-0-0,|9|U|0-0-0
+10,7,mass of glycerol,398,-1713,47,9,8,3,10,0,0,0,0,0
+1,8,4,2,1,3,0,0,0,64,0,-1--1--1,,1|(323,-1609)|
+1,9,6,2,1,10,0,0,0,64,0,-1--1--1,,1|(307,-1635)|
+1,10,7,2,1,10,0,0,0,64,0,-1--1--1,,1|(415,-1665)|
+1,11,3,2,1,10,0,0,0,64,0,-1--1--1,,1|(318,-1636)|
+10,12,carbohydrate intake,1053,-1613,58,9,8,3,10,16,0,0,0,0,0-0-0,0-0-0,|9|U|0-0-0
+10,13,base carb,229,-1500,54,9,8,3,3,16,0,0,0,0,0-0-0,0-0-0,|9|U|0-0-0
+10,14,baseline fat,320,-1454,36,9,8,3,3,16,0,0,0,0,0-0-0,0-0-0,|9|U|0-0-0
+10,15,baseline lean mass,464,-1401,58,9,8,3,3,0,0,0,0,0
+10,16,baseline bodyweight,422,-1537,60,9,8,3,3,0,0,0,0,0
+10,17,base bone mass,741,-1374,58,9,8,3,4,0,0,0,0,0
+10,18,baseline ecw,573,-1473,42,9,8,3,3,0,0,0,0,0
+10,19,baseline protein,181,-1385,47,9,8,3,3,0,0,0,0,0
+1,20,16,17,0,4,0,0,0,64,0,-1--1--1,,1|(574,-1458)|
+1,21,16,18,1,3,0,0,0,64,0,-1--1--1,,1|(508,-1523)|
+10,22,protein fraction of cell mass,49,-1680,53,16,8,3,3,0,0,0,0,0
+10,23,baseline carbohydrate intake,817,-1757,59,16,8,3,10,0,0,0,0,0
+10,24,baseline fat intake,819,-1801,54,9,8,3,10,0,0,0,0,0
+10,25,metabolizable energy intake,867,-1686,48,16,8,3,10,16,0,0,0,0,0-0-0,0-0-0,|9|BU|0-0-0
+10,26,protein intake,915,-1583,47,9,8,2,10,19,-1,0,0,0,128-128-128,0-0-0,|9|U|128-128-128
+10,27,baseline protein intake,820,-1840,56,19,8,2,10,3,-1,0,0,0,128-128-128,0-0-0,|9||128-128-128
+10,28,baseline metabolizable energy intake,1018,-1791,63,24,8,3,10,0,0,0,0,0
+1,29,27,28,0,10,0,0,0,64,0,-1--1--1,,1|(908,-1818)|
+1,30,24,28,0,10,0,0,0,64,0,-1--1--1,,1|(907,-1796)|
+1,31,23,28,0,10,0,0,0,64,0,-1--1--1,,1|(908,-1771)|
+1,32,1,25,0,10,0,0,0,64,0,-1--1--1,,1|(798,-1634)|
+1,33,26,25,0,10,0,0,0,64,0,-1--1--1,,1|(895,-1624)|
+1,34,12,25,0,10,0,0,0,64,0,-1--1--1,,1|(975,-1643)|
+10,35,molar caloric dens tg,94,-1604,39,16,8,3,3,0,0,0,0,0
+1,36,4,35,0,3,0,0,0,64,0,-1--1--1,,1|(151,-1590)|
+1,37,3,35,0,3,0,0,0,64,0,-1--1--1,,1|(165,-1646)|
+10,38,molar caloric dens glycerol,213,-1743,41,16,8,3,10,0,0,0,0,0
+1,39,6,38,0,10,0,0,0,64,0,-1--1--1,,1|(209,-1694)|
+1,40,7,38,1,10,0,0,0,64,0,-1--1--1,,1|(327,-1744)|
+10,41,Fat Intake Data,685,-1559,43,9,8,3,10,0,0,0,0,0
+10,42,fi input,741,-1528,20,9,8,3,10,0,0,0,0,0
+10,43,Protein Intake Data,877,-1542,54,9,8,3,10,0,0,0,0,0
+10,44,pi input,904,-1520,22,9,8,3,10,0,0,0,0,0
+10,45,Carbohydrate Intake Data,1111,-1563,40,16,8,3,10,0,0,0,0,0
+10,46,ci input,1052,-1528,22,9,8,3,10,0,0,0,0,0
+1,47,41,1,0,10,0,0,0,64,0,-1--1--1,,1|(711,-1575)|
+1,48,42,1,0,10,0,0,0,64,0,-1--1--1,,1|(744,-1556)|
+1,49,46,12,0,10,0,0,0,64,0,-1--1--1,,1|(1052,-1563)|
+1,50,45,12,0,10,0,0,0,64,0,-1--1--1,,1|(1083,-1587)|
+10,51,read from data,857,-1453,48,9,8,3,10,0,0,0,0,0
+1,52,51,1,0,10,0,0,0,64,0,-1--1--1,,1|(808,-1520)|
+1,53,51,12,1,10,0,0,0,64,0,-1--1--1,,1|(984,-1512)|
+10,54,glycogen hydration coefficient,1033,-1150,55,16,8,3,4,0,0,0,0,0
+10,55,protein hydration coefficient,989,-1072,49,16,8,3,4,0,0,0,0,0
+10,56,ciw,834,-1067,11,9,8,3,4,0,0,0,0,0
+10,57,intracel solids,425,-1278,52,9,8,3,3,0,0,0,0,0
+10,58,lean tissues,455,-1152,45,9,8,3,4,16,0,0,0,0,0-0-0,0-0-0,|9|BU|0-0-0
+10,59,extracel water,752,-1253,52,9,8,3,4,0,0,0,0,0
+1,60,59,58,0,4,0,0,0,64,0,-1--1--1,,1|(610,-1204)|
+10,61,intracel water,848,-1156,51,9,8,3,4,0,0,0,0,0
+1,62,54,61,0,4,0,0,0,64,0,-1--1--1,,1|(945,-1152)|
+1,63,55,61,0,4,0,0,0,64,0,-1--1--1,,1|(919,-1113)|
+1,64,56,61,0,4,0,0,0,64,0,-1--1--1,,1|(839,-1104)|
+1,65,18,59,0,4,0,0,0,64,0,-1--1--1,,1|(657,-1368)|
+1,66,17,58,1,4,0,0,0,64,0,-1--1--1,,1|(564,-1250)|
+10,67,carb,826,-1285,34,9,8,2,4,3,-1,0,0,0,128-128-128,0-0-0,|9||128-128-128
+1,68,67,61,1,4,0,0,0,0,0,-1--1--1,,1|(851,-1234)|
+10,69,protein,781,-1217,28,9,8,2,4,3,-1,0,0,0,128-128-128,0-0-0,|9||128-128-128
+1,70,69,61,0,4,0,0,0,0,0,-1--1--1,,1|(808,-1191)|
+10,71,baseline proteolysis,224,-1109,58,9,8,3,10,16,0,0,0,0,0-0-0,0-0-0,|9|U|0-0-0
+10,72,aminoacid mass,140,-1154,48,9,8,3,10,0,0,0,0,0
+1,73,72,71,0,10,0,0,0,64,0,-1--1--1,,1|(175,-1134)|
+10,74,normalized proteolysis,396,-1069,34,16,8,3,4,0,0,0,0,0
+1,75,71,74,1,10,0,0,0,64,0,-1--1--1,,1|(341,-1105)|
+10,76,molar baseline proteolysis,143,-1052,44,16,8,3,10,0,0,0,0,0
+1,77,76,71,0,10,0,0,0,64,0,-1--1--1,,1|(182,-1080)|
+10,78,normalized glycogen ratio,196,-889,45,16,8,3,10,0,0,0,0,0
+10,79,base carb,169,-764,54,14,8,2,10,3,-1,0,0,0,128-128-128,0-0-0,|9||128-128-128
+10,80,carb,242,-801,34,9,8,2,10,3,-1,0,0,0,128-128-128,0-0-0,|9||128-128-128
+1,81,79,78,0,10,0,0,0,64,0,-1--1--1,,1|(180,-818)|
+1,82,80,78,1,10,0,0,0,64,0,-1--1--1,,1|(218,-850)|
+10,83,base deg c,321,-871,44,16,8,3,10,16,0,0,0,0,0-0-0,0-0-0,|9|U|0-0-0
+10,84,normalized glycogenolysis,417,-965,44,16,8,3,4,0,0,0,0,0
+1,85,83,84,1,10,0,0,0,64,0,-1--1--1,,1|(427,-896)|
+10,86,proteolysis,248,-1029,39,9,8,2,10,3,-1,0,0,0,128-128-128,0-0-0,|9||128-128-128
+10,87,glycogenolysis,249,-961,50,9,8,2,10,3,-1,0,0,0,128-128-128,0-0-0,|9||128-128-128
+1,88,87,84,0,10,0,0,0,64,0,-1--1--1,,1|(329,-962)|
+1,89,86,74,0,10,0,0,0,64,0,-1--1--1,,1|(314,-1046)|
+10,90,normalized lipolysis rate,884,-828,41,16,8,3,10,0,0,0,0,0
+10,91,effect of carb intake on lipolysis,998,-762,64,16,8,3,9,0,0,0,0,0
+10,92,effect of obesity on lipolysis,858,-712,55,16,8,3,9,0,0,0,0,0
+10,93,lipol max,894,-673,29,9,8,3,10,0,0,0,0,0
+10,94,lipol min,968,-632,28,9,8,3,10,0,0,0,0,0
+10,95,k lip,1039,-676,14,9,8,3,10,0,0,0,0,0
+1,96,93,95,0,10,0,0,0,64,0,-1--1--1,,1|(967,-673)|
+1,97,94,95,0,10,0,0,0,64,0,-1--1--1,,1|(997,-650)|
+1,98,93,91,0,10,0,0,0,64,0,-1--1--1,,1|(936,-709)|
+1,99,94,91,0,10,0,0,0,64,0,-1--1--1,,1|(980,-686)|
+1,100,95,91,0,10,0,0,0,64,0,-1--1--1,,1|(1023,-709)|
+1,101,92,91,0,9,0,0,0,64,0,-1--1--1,,1|(920,-734)|
+1,102,92,90,1,10,0,0,0,64,0,-1--1--1,,1|(881,-782)|
+1,103,91,90,1,10,0,0,0,64,0,-1--1--1,,1|(947,-791)|
+10,104,base molar lipolysis,554,-890,44,16,8,3,9,0,0,0,0,0
+10,105,dep cost fat,545,-826,46,16,8,3,10,0,0,0,0,0
+10,106,dep cost p,549,-785,53,16,8,3,10,0,0,0,0,0
+10,107,dep cost c,578,-700,53,16,8,3,10,0,0,0,0,0
+10,108,deg cost p,688,-782,51,16,8,3,10,0,0,0,0,0
+10,109,metabolism of body cells,351,-486,41,16,8,3,10,0,0,0,0,0
+10,110,basal rmr of lean tissues,278,-608,40,16,8,3,10,0,0,0,0,0
+10,111,base rmr brain,418,-635,56,9,8,3,10,0,0,0,0,0
+10,112,base rmr fat,535,-573,48,16,8,3,10,0,0,0,0,0
+10,113,mass brain,346,-572,39,9,8,3,10,0,0,0,0,0
+1,114,110,109,1,10,0,0,0,64,0,-1--1--1,,1|(294,-552)|
+1,115,113,109,1,10,0,0,0,64,0,-1--1--1,,1|(353,-521)|
+1,116,111,109,1,10,0,0,0,64,0,-1--1--1,,1|(398,-556)|
+1,117,112,109,1,10,0,0,0,64,0,-1--1--1,,1|(432,-546)|
+10,118,baseline basal rmr of lean tissues,321,-692,60,16,8,3,10,0,0,0,0,0
+10,119,basal rmr efficiency,124,-684,33,16,8,3,10,0,0,0,0,0
+1,120,118,110,1,10,0,0,0,64,0,-1--1--1,,1|(283,-646)|
+1,121,119,110,1,10,0,0,0,64,0,-1--1--1,,1|(200,-657)|
+10,122,cell mass,658,-1157,28,9,8,3,4,0,0,0,0,0
+1,123,57,122,0,4,0,0,0,0,0,-1--1--1,,1|(534,-1220)|
+1,124,61,122,0,4,0,0,0,0,0,-1--1--1,,1|(748,-1156)|
+1,125,69,122,1,4,0,0,0,64,0,-1--1--1,,1|(725,-1191)|
+1,126,67,122,1,4,0,0,0,64,0,-1--1--1,,1|(696,-1218)|
+1,127,122,58,0,4,0,0,0,64,0,-1--1--1,,1|(571,-1155)|
+10,128,cell mass,211,-544,35,9,8,2,10,3,-1,0,0,0,128-128-128,0-0-0,|9||128-128-128
+1,129,128,109,1,10,0,0,0,64,0,-1--1--1,,1|(270,-510)|
+10,130,fat,477,-509,16,9,8,2,10,3,-1,0,0,0,128-128-128,0-0-0,|9||128-128-128
+1,131,130,109,0,10,0,0,0,0,0,-1--1--1,,1|(433,-501)|
+1,132,14,92,1,9,0,0,0,0,0,-1--1--1,,1|(581,-1092)|
+10,133,fat,807,-642,16,9,8,2,10,3,-1,0,0,0,128-128-128,0-0-0,|9||128-128-128
+1,134,133,92,0,10,0,0,0,0,0,-1--1--1,,1|(825,-667)|
+1,135,23,91,1,10,0,0,0,0,0,-1--1--1,,1|(1229,-1340)|
+10,136,thermogenesis effect on pae vs rmr,621,-490,63,16,8,3,10,0,0,0,0,0
+10,137,activity energy per body weight,1029,-535,56,16,8,3,10,16,0,0,0,0,0-0-0,0-0-0,|9|BU|0-0-0
+10,138,baseline activity energy per body weight,1145,-427,49,24,8,3,10,0,0,0,0,0
+10,139,activ time,1156,-537,28,9,8,3,10,0,0,0,0,0
+1,140,138,137,0,10,0,0,0,64,0,-1--1--1,,1|(1088,-480)|
+1,141,139,137,0,10,0,0,0,64,0,-1--1--1,,1|(1113,-536)|
+10,142,normalized activity energy per body weight,986,-438,56,24,8,3,10,0,0,0,0,0
+1,143,137,142,1,10,0,0,0,64,0,-1--1--1,,1|(966,-488)|
+1,144,138,142,0,10,0,0,0,64,0,-1--1--1,,1|(1075,-431)|
+10,145,activ time data,1137,-492,42,9,8,3,10,0,0,0,0,0
+10,146,activ time param,1238,-502,48,9,8,3,10,0,0,0,0,0
+1,147,145,139,0,10,0,0,0,64,0,-1--1--1,,1|(1143,-508)|
+1,148,146,139,0,10,0,0,0,64,0,-1--1--1,,1|(1203,-516)|
+1,149,51,139,1,10,0,0,0,0,0,-1--1--1,,1|(1195,-1016)|
+1,150,136,119,1,10,0,0,0,0,0,-1--1--1,,1|(242,-454)|
+10,151,adaptive thermogenesis,85,-597,49,16,8,2,10,3,-1,0,0,0,128-128-128,0-0-0,|9||128-128-128
+1,152,151,119,0,10,0,0,0,0,0,-1--1--1,,1|(101,-634)|
+10,153,tef f,208,-354,47,9,8,3,10,0,0,0,0,0
+10,154,tef c,205,-320,46,9,8,3,10,0,0,0,0,0
+10,155,tef p,200,-285,42,9,8,3,10,0,0,0,0,0
+1,156,6,91,0,9,0,0,0,0,0,-1--1--1,,1|(597,-1216)|
+10,157,ci,1088,-706,14,9,8,2,10,3,-1,0,0,0,128-128-128,0-0-0,|9||128-128-128
+1,158,157,91,0,10,0,0,0,0,0,-1--1--1,,1|(1054,-726)|
+10,159,base gng p,578,-369,42,16,8,3,10,0,0,0,0,0
+10,160,protein,1052,-127,28,9,8,2,10,3,-1,0,0,0,128-128-128,0-0-0,|9||128-128-128
+10,161,baseline protein,1002,-84,54,9,8,2,10,3,-1,0,0,0,128-128-128,0-0-0,|9||128-128-128
+10,162,norm p ratio,942,-141,38,16,8,3,10,0,0,0,0,0
+1,163,160,162,1,10,0,0,0,64,0,-1--1--1,,1|(1004,-139)|
+1,164,161,162,1,10,0,0,0,64,0,-1--1--1,,1|(977,-109)|
+10,165,eff ci on gng p,441,-229,65,16,8,3,10,0,0,0,0,0
+10,166,baseline carbohydrate intake,676,-103,62,16,8,2,10,3,-1,0,0,0,128-128-128,0-0-0,|9||128-128-128
+10,167,carbohydrate intake,583,-67,44,16,8,2,10,3,-1,0,0,0,128-128-128,0-0-0,|9||128-128-128
+10,168,eff pi on gng p,624,-320,64,16,8,3,10,0,0,0,0,0
+10,169,change in protein intake,967,-328,40,16,8,3,10,0,0,0,0,0
+10,170,change in carbohydrate intake,402,-76,59,16,8,3,10,0,0,0,0,0
+1,171,166,170,1,10,0,0,0,64,0,-1--1--1,,1|(518,-159)|
+1,172,167,170,1,10,0,0,0,64,0,-1--1--1,,1|(489,-56)|
+10,173,normalized change in carbohydrate intake,491,-130,66,16,8,3,10,0,0,0,0,0
+1,174,170,173,0,10,0,0,0,64,0,-1--1--1,,1|(440,-99)|
+1,175,166,173,0,10,0,0,0,64,0,-1--1--1,,1|(592,-115)|
+1,176,173,165,0,10,0,0,0,64,0,-1--1--1,,1|(469,-173)|
+10,177,normalized change in protein intake,801,-311,59,16,8,3,10,0,0,0,0,0
+1,178,169,177,0,10,0,0,0,64,0,-1--1--1,,1|(900,-321)|
+1,179,177,168,0,10,0,0,0,64,0,-1--1--1,,1|(721,-314)|
+10,180,baseline protein intake,956,-241,52,16,8,2,10,3,-1,0,0,0,128-128-128,0-0-0,|9||128-128-128
+1,181,180,177,0,10,0,0,0,0,0,-1--1--1,,1|(884,-273)|
+10,182,baseline protein intake,1108,-346,52,16,8,2,10,3,-1,0,0,0,128-128-128,0-0-0,|9||128-128-128
+1,183,182,169,0,10,0,0,0,0,0,-1--1--1,,1|(1038,-337)|
+10,184,protein intake,1115,-287,47,9,8,2,10,3,-1,0,0,0,128-128-128,0-0-0,|9||128-128-128
+1,185,184,169,0,10,0,0,0,0,0,-1--1--1,,1|(1051,-304)|
+10,186,hill dnl,1207,-173,25,9,8,3,10,0,0,0,0,0
+10,187,k dnl,1203,-137,20,9,8,3,10,0,0,0,0,0
+10,188,gng fat endog,387,-2000,45,9,8,3,10,0,0,0,0,0
+10,189,gng fat exog,506,-1984,41,9,8,3,10,0,0,0,0,0
+10,190,baseline gng fat endog,265,-1939,52,16,8,3,10,0,0,0,0,0
+10,191,exog glycerol per kcal fat intake,463,-1852,52,16,8,3,10,0,0,0,0,0
+1,192,190,188,1,10,0,0,0,64,0,-1--1--1,,1|(311,-1991)|
+1,193,191,189,1,10,0,0,0,64,0,-1--1--1,,1|(480,-1936)|
+1,194,4,191,0,10,0,0,0,0,0,-1--1--1,,1|(319,-1707)|
+1,195,7,191,0,10,0,0,0,0,0,-1--1--1,,1|(425,-1772)|
+1,196,3,191,0,10,0,0,0,0,0,-1--1--1,,1|(326,-1755)|
+1,197,90,188,0,10,0,0,0,0,0,-1--1--1,,1|(636,-1411)|
+1,198,6,189,0,10,0,0,0,0,0,-1--1--1,,1|(354,-1820)|
+1,199,1,189,0,10,0,0,0,0,0,-1--1--1,,1|(632,-1785)|
+1,200,104,190,0,9,0,0,0,0,0,-1--1--1,,1|(411,-1407)|
+1,201,6,190,0,10,0,0,0,0,0,-1--1--1,,1|(234,-1792)|
+1,202,7,190,0,10,0,0,0,0,0,-1--1--1,,1|(337,-1816)|
+10,203,efficiency gng,168,-194,40,9,8,3,10,0,0,0,0,0
+10,204,efficiency dnl,169,-159,38,9,8,3,10,0,0,0,0,0
+10,205,carb term,591,166,32,9,8,3,10,0,0,0,0,0
+10,206,prot term,475,340,29,9,8,3,10,0,0,0,0,0
+10,207,weighting of oxidation for glycogenolysis,216,168,65,16,8,3,10,0,0,0,0,0
+10,208,weighting of oxidation for basal ci,270,266,55,24,8,3,10,0,0,0,0,0
+10,209,weighting of oxidation for basal pi,191,451,55,24,8,3,10,0,0,0,0,0
+10,210,sensitivity of oxidation to ci changes,286,345,43,24,8,3,10,0,0,0,0,0
+10,211,eff of glycogenolysis on carb oxidation,377,57,58,16,8,3,10,0,0,0,0,0
+10,212,eff of carb intake on carb oxidation,453,242,56,16,8,3,10,0,0,0,0,0
+1,213,207,211,0,10,0,0,0,64,0,-1--1--1,,1|(290,116)|
+1,214,211,205,0,10,0,0,0,64,0,-1--1--1,,1|(484,111)|
+1,215,212,205,0,10,0,0,0,64,0,-1--1--1,,1|(521,203)|
+1,216,210,212,0,10,0,0,0,64,0,-1--1--1,,1|(369,293)|
+1,217,208,212,0,10,0,0,0,64,0,-1--1--1,,1|(354,254)|
+10,218,normalized proteolysis,338,408,38,16,8,2,10,3,-1,0,0,0,128-128-128,0-0-0,|9||128-128-128
+10,219,eff of prot intake on prot oxidation,320,572,55,16,8,3,10,0,0,0,0,0
+10,220,eff of physical activity on prot oxidation,510,522,60,16,8,3,10,0,0,0,0,0
+1,221,218,206,1,10,0,0,0,64,0,-1--1--1,,1|(395,374)|
+10,222,sensitivity of oxidation to pi changes,179,599,42,24,8,3,10,0,0,0,0,0
+1,223,222,219,0,10,0,0,0,64,0,-1--1--1,,1|(236,587)|
+1,224,209,219,1,10,0,0,0,64,0,-1--1--1,,1|(239,516)|
+10,225,sensitivity to physical activity,452,667,46,16,8,3,10,0,0,0,0,0
+1,226,225,220,1,10,0,0,0,64,0,-1--1--1,,1|(463,606)|
+10,227,normalized activity energy per body weight,602,651,59,24,8,2,10,3,-1,0,0,0,128-128-128,0-0-0,|9||128-128-128
+1,228,227,220,0,10,0,0,0,64,0,-1--1--1,,1|(557,588)|
+1,229,219,206,1,10,0,0,0,64,0,-1--1--1,,1|(459,462)|
+1,230,220,206,1,10,0,0,0,64,0,-1--1--1,,1|(500,425)|
+1,231,84,211,1,10,0,0,0,0,0,-1--1--1,,1|(236,-198)|
+10,232,carb,649,89,21,9,8,2,10,3,-1,0,0,0,128-128-128,0-0-0,|9||128-128-128
+1,233,232,205,0,10,0,0,0,64,0,-1--1--1,,1|(624,121)|
+10,234,weighting of oxidation for lipolysis,926,199,60,16,8,3,10,0,0,0,0,0
+10,235,fat term,762,129,36,18,8,131,10,0,0,0,0,0
+1,236,234,235,1,10,0,0,0,64,0,-1--1--1,,1|(822,169)|
+10,237,z,656,258,22,18,8,131,10,0,0,0,0,0
+1,238,206,237,0,10,0,0,0,64,0,-1--1--1,,1|(557,301)|
+1,239,205,237,0,10,0,0,0,64,0,-1--1--1,,1|(615,201)|
+1,240,235,237,0,10,0,0,0,64,0,-1--1--1,,1|(713,188)|
+10,241,ec,758,-1999,9,9,8,3,10,0,0,0,0,0
+10,242,y,766,396,24,16,8,3,10,0,0,0,0,0
+10,243,gap carbox,756,607,40,9,8,2,10,3,-1,0,0,0,128-128-128,0-0-0,|9||128-128-128
+10,244,gap fatox,919,471,34,9,8,2,10,3,-1,0,0,0,128-128-128,0-0-0,|9||128-128-128
+1,245,206,242,1,10,0,0,0,64,0,-1--1--1,,1|(646,388)|
+1,246,205,242,1,10,0,0,0,64,0,-1--1--1,,1|(716,264)|
+1,247,235,242,1,10,0,0,0,64,0,-1--1--1,,1|(769,301)|
+10,248,is sufficient fat,878,379,40,9,8,3,10,0,0,0,0,0
+10,249,is sufficient carb,798,542,46,9,8,3,10,0,0,0,0,0
+1,250,243,249,0,10,0,0,0,64,0,-1--1--1,,1|(772,580)|
+1,251,244,248,0,10,0,0,0,64,0,-1--1--1,,1|(901,431)|
+1,252,248,242,1,10,0,0,0,64,0,-1--1--1,,1|(835,373)|
+1,253,249,242,0,10,0,0,0,64,0,-1--1--1,,1|(784,479)|
+10,254,sec frac carb,708,487,37,9,8,3,10,0,0,0,0,0
+1,255,249,254,1,10,0,0,0,64,0,-1--1--1,,1|(733,517)|
+1,256,205,254,1,10,0,0,0,64,0,-1--1--1,,1|(630,340)|
+10,257,sec frac fat,840,274,31,9,8,3,10,0,0,0,0,0
+1,258,248,257,0,10,0,0,0,64,0,-1--1--1,,1|(861,333)|
+1,259,235,257,1,10,0,0,0,64,0,-1--1--1,,1|(804,220)|
+1,260,242,254,0,10,0,0,0,64,0,-1--1--1,,1|(738,439)|
+1,261,242,257,0,10,0,0,0,64,0,-1--1--1,,1|(800,337)|
+10,262,sec frac prot,599,475,35,9,8,3,10,0,0,0,0,0
+1,263,206,262,1,10,0,0,0,64,0,-1--1--1,,1|(572,421)|
+1,264,242,262,1,10,0,0,0,64,0,-1--1--1,,1|(647,439)|
+10,265,pi 0,112,-85,19,9,8,2,10,3,-1,0,0,0,128-128-128,0-0-0,|9||128-128-128
+10,266,see b,148,-128,24,9,8,2,10,3,-1,0,0,0,128-128-128,0-0-0,|9||128-128-128
+10,267,kf,916,93,14,9,8,2,10,3,-1,0,0,0,128-128-128,0-0-0,|9||128-128-128
+1,268,267,234,0,10,0,0,0,64,0,-1--1--1,,1|(919,135)|
+10,269,kp,980,140,16,9,8,2,10,3,-1,0,0,0,128-128-128,0-0-0,|9||128-128-128
+1,270,269,234,0,10,0,0,0,64,0,-1--1--1,,1|(960,160)|
+10,271,kc,167,88,15,9,8,2,10,3,-1,0,0,0,128-128-128,0-0-0,|9||128-128-128
+1,272,271,207,0,10,0,0,0,64,0,-1--1--1,,1|(185,118)|
+10,273,kp,229,73,16,9,8,2,10,3,-1,0,0,0,128-128-128,0-0-0,|9||128-128-128
+1,274,273,207,0,10,0,0,0,64,0,-1--1--1,,1|(223,110)|
+1,275,208,207,0,10,0,0,0,64,0,-1--1--1,,1|(243,219)|
+1,276,209,207,1,10,0,0,0,64,0,-1--1--1,,1|(190,325)|
+10,277,fetw,632,-1354,20,9,8,2,4,3,-1,0,0,0,128-128-128,0-0-0,|9||128-128-128
+1,278,277,18,0,4,0,0,0,64,0,-1--1--1,,1|(605,-1407)|
+10,279,fw,559,-1369,15,9,8,2,4,3,-1,0,0,0,128-128-128,0-0-0,|9||128-128-128
+1,280,279,18,0,4,0,0,0,64,0,-1--1--1,,1|(564,-1414)|
+1,281,17,15,0,5,0,0,0,64,0,-1--1--1,,1|(609,-1386)|
+10,282,cell mass b,531,-1346,40,9,8,2,3,3,-1,0,0,0,128-128-128,0-0-0,|9||128-128-128
+1,283,282,15,0,3,0,0,0,64,0,-1--1--1,,1|(503,-1369)|
+1,284,18,15,1,3,0,0,0,64,0,-1--1--1,,1|(515,-1418)|
+1,285,16,14,0,3,0,0,0,64,0,-1--1--1,,1|(376,-1499)|
+1,286,15,14,0,3,0,0,0,64,0,-1--1--1,,1|(398,-1425)|
+1,287,13,19,0,3,0,0,0,64,0,-1--1--1,,1|(207,-1448)|
+10,288,cell mass b,181,-1291,40,9,8,2,3,3,-1,0,0,0,128-128-128,0-0-0,|9||128-128-128
+1,289,288,19,0,3,0,0,0,64,0,-1--1--1,,1|(181,-1331)|
+1,290,57,19,1,3,0,0,0,64,0,-1--1--1,,1|(282,-1302)|
+10,291,icw b,114,-1321,23,9,8,2,3,3,-1,0,0,0,128-128-128,0-0-0,|9||128-128-128
+1,292,291,19,0,3,0,0,0,64,0,-1--1--1,,1|(141,-1348)|
+1,293,18,56,1,4,0,0,0,64,0,-1--1--1,,1|(541,-1118)|
+10,294,fiew,848,-970,20,9,8,2,4,3,-1,0,0,0,128-128-128,0-0-0,|9||128-128-128
+1,295,294,56,0,4,0,0,0,64,0,-1--1--1,,1|(842,-1011)|
+1,296,54,56,0,4,0,0,0,64,0,-1--1--1,,1|(926,-1105)|
+1,297,55,56,0,4,0,0,0,64,0,-1--1--1,,1|(899,-1069)|
+10,298,ci 0,817,-1725,19,9,8,2,10,3,-1,0,0,0,128-128-128,0-0-0,|9||128-128-128
+1,299,298,23,0,10,0,0,0,64,0,-1--1--1,,1|(817,-1730)|
+10,300,fi 0,740,-1811,17,9,8,2,10,3,-1,0,0,0,128-128-128,0-0-0,|9||128-128-128
+1,301,300,24,0,10,0,0,0,64,0,-1--1--1,,1|(754,-1809)|
+10,302,c init,945,-968,22,9,8,2,4,3,-1,0,0,0,128-128-128,0-0-0,|9||128-128-128
+1,303,302,56,0,4,0,0,0,64,0,-1--1--1,,1|(894,-1012)|
+10,304,p init,978,-1010,22,9,8,2,4,3,-1,0,0,0,128-128-128,0-0-0,|9||128-128-128
+1,305,304,56,0,4,0,0,0,64,0,-1--1--1,,1|(907,-1037)|
+10,306,normalized change in carbohydrate intake,427,949,67,16,8,2,10,3,-1,0,0,0,128-128-128,0-0-0,|9||128-128-128
+10,307,normalized change in carbohydrate intake,406,140,67,16,8,2,10,3,-1,0,0,0,128-128-128,0-0-0,|9||128-128-128
+1,308,307,212,0,10,0,0,0,64,0,-1--1--1,,1|(426,184)|
+10,309,normalized change in protein intake,300,724,60,16,8,2,10,3,-1,0,0,0,128-128-128,0-0-0,|9||128-128-128
+1,310,309,219,0,10,0,0,0,64,0,-1--1--1,,1|(308,654)|
+10,311,weighting of oxidation for basal pi,970,315,64,16,8,2,10,3,-1,0,0,0,128-128-128,0-0-0,|9||128-128-128
+1,312,311,234,0,10,0,0,0,64,0,-1--1--1,,1|(950,263)|
+10,313,normalized lipolysis rate,776,28,40,16,8,2,10,3,-1,0,0,0,128-128-128,0-0-0,|9||128-128-128
+1,314,313,235,0,10,0,0,0,64,0,-1--1--1,,1|(770,70)|
+\\\---/// Sketch information - do not modify anything except names
+V300  Do not put anything below this section - it will be ignored
+*View 3
+$192-192-192,0,Times New Roman|12||0-0-0|0-0-0|0-0-255|-1--1--1|-1--1--1|96,96,100,0
+12,1,1903350,248,152,239,161,3,188,0,0,1,0,0,0
+Stocks
+12,2,2231200,733,151,239,161,3,188,0,0,1,0,0,0
+Body_Weight
+12,3,7539542,1082,327,80,20,3,124,0,0,0,0,0,0
+fi input,0,8000,500
+12,4,3607492,1082,421,80,20,3,124,0,0,0,0,0,0
+ci input,0,10000,500
+12,5,3607512,1082,247,80,20,3,124,0,0,0,0,0,0
+pi input,0,2000,100
+12,6,4066110,252,1146,242,152,3,188,0,0,1,0,0,0
+Activity
+12,7,4328382,246,838,236,144,3,188,0,0,1,0,0,0
+Adaptation
+12,8,1641234,1082,501,80,20,3,124,0,0,0,0,0,0
+activ time param,-3,3,0.2
+12,9,7146944,733,478,239,161,3,188,0,0,1,0,0,0
+Energy
+12,10,6557122,734,856,239,161,3,188,0,0,1,0,0,0
+Oxidations_in_kcal
+12,11,7736722,248,478,239,161,3,188,0,0,1,0,0,0
+Food_Intakes
+\\\---/// Sketch information - do not modify anything except names
+V300  Do not put anything below this section - it will be ignored
+*View 4
+$192-192-192,0,@Arial Unicode MS|11||128-0-0|0-0-0|0-0-255|-1--1--1|-1--1--1|96,96,100,0
+10,1,total pri ox,680,127,35,11,8,131,0,0,0,0,0,0
+10,2,actual carbox,106,230,51,23,8,130,0,3,-1,0,0,0,128-128-128,0-0-0,|11||128-128-128
+10,3,actual fatox,102,129,43,21,8,130,0,3,-1,0,0,0,128-128-128,0-0-0,|11||128-128-128
+10,4,actual protox,114,47,44,24,8,130,0,3,-1,0,0,0,128-128-128,0-0-0,|11||128-128-128
+10,5,pri protox kcal,329,44,47,11,8,3,0,0,0,0,0,0
+10,6,pri fatox kcal,324,117,42,11,8,3,0,0,0,0,0,0
+10,7,pri carbox kcal,330,228,48,11,8,3,0,0,0,0,0,0
+10,8,cal dens p,467,37,43,11,8,2,1,3,-1,0,0,0,128-128-128,0-0-0,|11||128-128-128
+1,9,8,5,0,1,0,0,0,64,0,-1--1--1,,1|(406,39)|
+10,10,cal dens f,277,178,41,11,8,2,1,3,-1,0,0,0,128-128-128,0-0-0,|11||128-128-128
+1,11,10,6,0,1,0,0,0,64,0,-1--1--1,,1|(295,153)|
+10,12,cal dens c,432,260,42,11,8,2,1,3,-1,0,0,0,128-128-128,0-0-0,|11||128-128-128
+1,13,12,7,0,1,0,0,0,64,0,-1--1--1,,1|(387,246)|
+1,14,3,6,0,0,0,0,0,64,0,-1--1--1,,1|(206,123)|
+1,15,4,5,0,0,0,0,0,64,0,-1--1--1,,1|(213,45)|
+1,16,2,7,0,0,0,0,0,64,0,-1--1--1,,1|(212,229)|
+1,17,5,1,0,0,0,0,0,64,0,-1--1--1,,1|(503,84)|
+1,18,6,1,0,0,0,0,0,64,0,-1--1--1,,1|(498,121)|
+1,19,7,1,0,0,0,0,0,64,0,-1--1--1,,1|(499,178)|
+10,20,sec carbox,98,289,45,11,8,2,0,3,-1,0,0,0,128-128-128,0-0-0,|11||128-128-128
+10,21,sec fatox,59,348,39,11,8,2,0,3,-1,0,0,0,128-128-128,0-0-0,|11||128-128-128
+10,22,sec protox,67,418,43,11,8,2,0,3,-1,0,0,0,128-128-128,0-0-0,|11||128-128-128
+10,23,sec carbox kcal,282,288,51,11,8,3,0,0,0,0,0,0
+10,24,sec fatox kcal,234,350,45,11,8,3,0,0,0,0,0,0
+10,25,sec protox kcal,248,418,50,11,8,3,0,0,0,0,0,0
+1,26,20,23,0,0,0,0,0,64,0,-1--1--1,,1|(180,288)|
+1,27,21,24,0,0,0,0,0,64,0,-1--1--1,,1|(136,348)|
+1,28,22,25,0,0,0,0,0,64,0,-1--1--1,,1|(147,418)|
+10,29,total sec ox,666,335,38,11,8,3,0,0,0,0,0,0
+1,30,23,29,0,0,0,0,0,64,0,-1--1--1,,1|(473,311)|
+1,31,24,29,0,0,0,0,0,64,0,-1--1--1,,1|(446,342)|
+1,32,25,29,0,0,0,0,0,64,0,-1--1--1,,1|(456,376)|
+10,33,cal dens f,367,368,41,11,8,2,1,3,-1,0,0,0,128-128-128,0-0-0,|11||128-128-128
+1,34,33,24,0,1,0,0,0,64,0,-1--1--1,,1|(309,360)|
+10,35,cal dens p,335,468,43,11,8,2,1,3,-1,0,0,0,128-128-128,0-0-0,|11||128-128-128
+1,36,35,25,0,1,0,0,0,64,0,-1--1--1,,1|(297,446)|
+10,37,total ox,873,204,25,11,8,3,0,0,0,0,0,0
+1,38,1,37,0,0,0,0,0,64,0,-1--1--1,,1|(770,163)|
+1,39,29,37,0,0,0,0,0,64,0,-1--1--1,,1|(763,273)|
+1,40,12,23,0,0,0,0,0,64,0,-1--1--1,,1|(368,271)|
+10,41,diff bw ox and tee,961,323,58,11,8,3,0,0,0,0,0,0
+1,42,37,41,0,0,0,0,0,64,0,-1--1--1,,1|(912,257)|
+10,43,total energy expenditure,822,380,44,19,8,2,0,3,-1,0,0,0,128-128-128,0-0-0,|11||128-128-128
+1,44,43,41,0,0,0,0,0,64,0,-1--1--1,,1|(893,350)|
+\\\---/// Sketch information - do not modify anything except names
+V300  Do not put anything below this section - it will be ignored
+*View 5
+$192-192-192,0,Times New Roman|12||0-0-0|0-0-0|0-0-255|-1--1--1|-1--1--1|96,96,100,0
+12,1,0,263,182,229,151,3,188,0,0,1,0,0,0
+Gaps_and_Secs
+12,2,0,741,490,229,148,3,188,0,0,1,0,0,0
+Oxidations
+\\\---/// Sketch information - do not modify anything except names
+V300  Do not put anything below this section - it will be ignored
+*View 6
+$192-192-192,0,@Arial Unicode MS|10||128-0-0|0-0-0|0-0-255|-1--1--1|-1--1--1|96,96,100,0
+10,1,ci 0,109,88,13,10,8,3,0,0,0,0,0,0
+10,2,fi 0,153,29,11,10,8,3,0,0,0,0,0,0
+10,3,pi 0,296,79,13,10,8,3,0,0,0,0,0,0
+10,4,dnl b,107,249,16,10,8,3,0,0,0,0,0,0
+10,5,gngf ex b,202,241,29,10,8,3,0,0,0,0,0,0
+10,6,gngf b,292,245,20,10,8,3,0,0,0,0,0,0
+10,7,eff c dnl b,89,305,31,10,8,3,0,0,0,0,0,0
+10,8,hill dnl,65,388,29,10,8,2,0,3,-1,0,0,0,128-128-128,0-0-0,|10||128-128-128
+1,9,8,7,0,0,0,0,0,64,0,-1--1--1,,1|(74,353)|
+10,10,k dnl,28,345,24,10,8,2,0,3,-1,0,0,0,128-128-128,0-0-0,|10||128-128-128
+1,11,10,7,0,0,0,0,0,64,0,-1--1--1,,1|(52,328)|
+1,12,1,4,0,0,0,0,0,64,0,-1--1--1,,1|(108,161)|
+1,13,7,4,0,0,0,0,0,64,0,-1--1--1,,1|(95,283)|
+10,14,cal dens c,274,335,24,10,8,2,0,3,-1,0,0,0,128-128-128,0-0-0,|10||128-128-128
+1,15,14,5,0,0,0,0,0,64,0,-1--1--1,,1|(242,293)|
+10,16,exog glycerol per kcal fat intake,165,353,57,18,8,2,0,3,-1,0,0,0,128-128-128,0-0-0,|10||128-128-128
+1,17,16,5,0,0,0,0,0,64,0,-1--1--1,,1|(181,299)|
+10,18,baseline gng fat endog,355,318,41,10,8,2,0,3,-1,0,0,0,128-128-128,0-0-0,|10||128-128-128
+1,19,18,6,0,0,0,0,0,64,0,-1--1--1,,1|(328,286)|
+1,20,5,6,0,0,0,0,0,64,0,-1--1--1,,1|(244,242)|
+10,21,tee b,492,276,17,10,8,3,0,0,0,0,0,0
+10,22,baseline metabolizable energy intake,479,333,26,10,8,2,0,3,-1,0,0,0,128-128-128,0-0-0,|10||128-128-128
+1,23,22,21,0,0,0,0,0,64,0,-1--1--1,,1|(483,311)|
+10,24,see b,591,235,18,10,8,3,0,0,0,0,0,0
+1,25,6,24,0,0,0,0,0,64,0,-1--1--1,,1|(435,240)|
+10,26,base gng p,604,298,30,10,8,2,0,3,-1,0,0,0,128-128-128,0-0-0,|10||128-128-128
+1,27,26,24,0,0,0,0,0,64,0,-1--1--1,,1|(598,273)|
+1,28,21,24,0,0,0,0,0,64,0,-1--1--1,,1|(534,258)|
+10,29,kc,443,51,9,10,8,3,0,0,0,0,0,0
+10,30,kf,499,102,8,10,8,3,0,0,0,0,0,0
+10,31,kp,584,160,9,10,8,3,0,0,0,0,0,0
+1,32,1,29,0,0,0,0,0,64,0,-1--1--1,,1|(271,69)|
+1,33,4,29,0,0,0,0,0,64,0,-1--1--1,,1|(272,151)|
+1,34,24,29,0,0,0,0,0,64,0,-1--1--1,,1|(521,148)|
+1,35,4,30,0,0,0,0,0,64,0,-1--1--1,,1|(299,176)|
+1,36,6,30,0,0,0,0,0,64,0,-1--1--1,,1|(392,174)|
+1,37,24,30,0,0,0,0,0,64,0,-1--1--1,,1|(549,174)|
+10,38,base gng p,646,205,30,10,8,2,0,3,-1,0,0,0,128-128-128,0-0-0,|10||128-128-128
+1,39,38,31,0,0,0,0,0,64,0,-1--1--1,,1|(618,184)|
+1,40,3,31,0,0,0,0,0,64,0,-1--1--1,,1|(435,117)|
+1,41,24,31,0,0,0,0,0,64,0,-1--1--1,,1|(588,204)|
+10,42,z check 0,743,408,31,10,8,3,0,0,0,0,0,0
+10,43,z check 1,688,444,31,10,8,3,0,0,0,0,0,0
+10,44,weighting of oxidation for basal ci,809,431,20,10,8,2,0,3,-1,0,0,0,128-128-128,0-0-0,|10||128-128-128
+1,45,44,42,0,0,0,0,0,64,0,-1--1--1,,1|(786,424)|
+10,46,weighting of oxidation for lipolysis,809,461,17,10,8,2,0,3,-1,0,0,0,128-128-128,0-0-0,|10||128-128-128
+1,47,46,42,0,0,0,0,0,64,0,-1--1--1,,1|(781,438)|
+10,48,weighting of oxidation for glycogenolysis,853,449,18,10,8,2,0,3,-1,0,0,0,128-128-128,0-0-0,|10||128-128-128
+1,49,48,42,1,0,0,0,0,64,0,-1--1--1,,1|(825,385)|
+10,50,weighting of oxidation for basal pi,843,413,20,10,8,2,0,3,-1,0,0,0,128-128-128,0-0-0,|10||128-128-128
+1,51,50,42,0,0,0,0,0,64,0,-1--1--1,,1|(805,410)|
+1,52,30,43,0,0,0,0,0,64,0,-1--1--1,,1|(589,266)|
+10,53,weighting of oxidation for lipolysis,747,484,17,10,8,2,0,3,-1,0,0,0,128-128-128,0-0-0,|10||128-128-128
+1,54,53,43,0,0,0,0,0,64,0,-1--1--1,,1|(723,467)|
+10,55,fw,131,470,9,10,8,3,0,0,0,0,0,0
+10,56,fetw,248,465,14,10,8,3,0,0,0,0,0,0
+10,57,fiew,118,525,14,10,8,3,0,0,0,0,0,0
+10,58,fwcm,252,514,18,10,8,3,0,0,0,0,0,0
+1,59,56,57,0,0,0,0,0,64,0,-1--1--1,,1|(189,491)|
+10,60,icw b,163,596,17,10,8,3,0,0,0,0,0,0
+10,61,cell mass b,263,598,36,10,8,3,0,0,0,0,0,0
+10,62,baseline ecw,95,627,27,10,8,2,0,3,-1,0,0,0,128-128-128,0-0-0,|10||128-128-128
+1,63,62,60,0,0,0,0,0,64,0,-1--1--1,,1|(124,612)|
+1,64,57,60,0,0,0,0,0,64,0,-1--1--1,,1|(136,554)|
+1,65,58,61,0,0,0,0,0,64,0,-1--1--1,,1|(256,549)|
+1,66,60,61,0,0,0,0,0,64,0,-1--1--1,,1|(196,596)|
+1,67,2,5,0,0,0,0,0,64,0,-1--1--1,,1|(175,128)|
+1,68,2,30,0,0,0,0,0,64,0,-1--1--1,,1|(320,64)|
+10,69,p init,737,79,16,10,8,3,0,0,0,0,0,0
+10,70,f init,823,75,15,10,8,3,0,0,0,0,0,0
+10,71,c init,780,138,16,10,8,3,0,0,0,0,0,0
+///---\\\
+:GRAPH Stocks
+:TITLE Stocks
+:SCALE
+:VAR c
+:VAR p
+:VAR f
+
+:GRAPH Body_Weight
+:TITLE Body Weight
+:SCALE
+:VAR bw
+:Y-MIN 0
+:SCALE
+:VAR mei
+
+:GRAPH Oxidations
+:TITLE Oxidations
+:SCALE
+:VAR cox a
+:VAR pox a
+:VAR fox a
+
+:GRAPH Activity
+:TITLE Activity
+:SCALE
+:VAR activ time param
+:SCALE
+:VAR pae
+:SCALE
+:VAR acteng bw
+
+:GRAPH Adaptation
+:TITLE Adaptation
+:SCALE
+:VAR acteff
+:Y-MIN 0
+:Y-MAX 2
+:VAR at
+
+:GRAPH Energy
+:TITLE Energy
+:SCALE
+:VAR tee
+:VAR pae
+:VAR rmr
+:VAR tef
+:VAR mei
+:VAR ox
+
+:GRAPH Oxidations_in_kcal
+:TITLE Oxidations in kcal
+:SCALE
+:VAR cox k
+:VAR pox k
+:VAR fox k
+:VAR cox s k
+:VAR pox s k
+:VAR fox s k
+
+:GRAPH Gaps_and_Secs
+:TITLE Gaps and Secs
+:SCALE
+:VAR gap c
+:VAR gap f
+:VAR cox s k
+:VAR pox s k
+:VAR fox s k
+
+:GRAPH Food_Intakes
+:TITLE Food Intakes
+:SCALE
+:VAR ci k
+:Y-MIN 0
+:Y-MAX 6000
+:VAR pi k
+:VAR fi k
+:L<%^E!@
+9:07050404
+22:$,Dollar,Dollars,$s
+22:Day,Days
+22:g
+22:Hour,Hours
+22:kcal
+22:mol
+22:Month,Months
+22:Person,People,Persons
+22:Week,Weeks
+22:Year,Years
+13:carb:\projects\cinar-agaci-01\ari-kovani-01\mapsys\tez-vensim-02\proteinintake,carb:\projects\cinar-agaci-01\ari-kovani-01\mapsys\tez-vensim-02\fatintake,carb:\projects\cinar-agaci-01\ari-kovani-01\mapsys\tez-vensim-02\extracel water.vdf,carb:\projects\cinar-agaci-01\ari-kovani-01\mapsys\tez-vensim-02\carbohydrate.vdf,carb:\projects\cinar-agaci-01\ari-kovani-01\mapsys\tez-vensim-02\activ_time.vdf
+15:0,0,0,0,0,0
+19:100,0
+27:2,
+34:0,
+4:Time
+5:proteolysis
+24:0
+25:1000
+26:1000

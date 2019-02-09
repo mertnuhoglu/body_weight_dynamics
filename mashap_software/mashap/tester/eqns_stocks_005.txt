@@ -1,0 +1,7 @@
+Protein =  + Flow_P
+T =  + dT_dt
+Fat =  + Flow_F
+Glucose =  + Flow_G
+measured_Flow_F = + change_in_measured_Flow_F
+measured_Flow_G = + change_in_measured_Flow_G
+measured_Flow_P = + change_in_measured_Flow_P

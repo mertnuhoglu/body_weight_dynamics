@@ -1,0 +1,37 @@
+thermogenesis adaptation=
+	( therm const * effect of metabolizable energy intake on thermogenesis - adaptive thermogenesis
+ ) / delay in adaptive thermogenesis
+Units: 1/Day
+
+**************************************************************
+adaptive thermogenesis= INTEG (
+	thermogenesis adaptation,
+		0)
+Units: Dmnl
+
+**************************************************************
+therm const=
+	0.8
+Units: Dmnl
+
+**************************************************************
+delay in adaptive thermogenesis=
+	7
+Units: Day
+
+**************************************************************
+effect of metabolizable energy intake on thermogenesis=
+	( metabolizable energy intake - baseline metabolizable energy intake ) / baseline metabolizable energy intake
+Units: Dmnl
+
+**************************************************************
+baseline metabolizable energy intake=
+	baseline carbohydrate intake + baseline fat intake +baseline protein intake
+Units: kcal/Day
+
+**************************************************************
+metabolizable energy intake=
+	carbohydrate intake + fat intake + protein intake
+Units: kcal/Day
+
+**************************************************************

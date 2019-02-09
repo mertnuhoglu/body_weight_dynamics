@@ -1,0 +1,54 @@
+\sym{$act_{eng,bw,b}$}{Baseline activity energy per body weight}
+\sym{$act_{eng,bw}$}{Activity energy per body weight}
+\sym{$c$}{Carb}
+\sym{$c_b$}{Base carb}
+\sym{$cal_c$}{Cal dens c}
+\sym{$cal_f$}{Cal dens f}
+\sym{$cal_p$}{Cal dens p}
+\sym{$ci$}{Carbohydrate intake}
+\sym{$ci_b$}{Baseline carbohydrate intake}
+\sym{$d_c$}{Glycogenolysis}
+\sym{$d_f$}{Lipolysis}
+\sym{$d_p$}{Proteolysis}
+\sym{$d_{c,b}$}{Base deg c}
+\sym{$d_{f,mol,b}$}{Base molar lipolysis}
+\sym{$d_{p,b}$}{Baseline proteolysis}
+\sym{$dnl$}{Dnl}
+\sym{$eff_{act,pox}$}{Eff of physical activity on prot oxidation}
+\sym{$eff_{ci,cox}$}{Eff of carb intake on carb oxidation}
+\sym{$eff_{ci,d_f}$}{Effect of carb intake on lipolysis}
+\sym{$eff_{dg,cox}$}{Eff of glycogenolysis on carb oxidation}
+\sym{$eff_{pi,pox}$}{Eff of prot intake on prot oxidation}
+\sym{$f$}{Fat}
+\sym{$f_b$}{Baseline fat}
+\sym{$f_c$}{Frac carbox}
+\sym{$f_f$}{Frac fatox}
+\sym{$f_p$}{Frac protox}
+\sym{$fi$}{Fat intake}
+\sym{$gng_f$}{Gng fat}
+\sym{$gng_p$}{Gng protein}
+\sym{$gng_{p,b}$}{Base gng p}
+\sym{$hill_{dnl}$}{Hill dnl}
+\sym{$k_{dnl}$}{K dnl}
+\sym{$m_g$}{Mass of glycerol}
+\sym{$m_{tg}$}{Mass tg}
+\sym{$n_{d_c}$}{Normalized glycogenolysis}
+\sym{$n_{d_f}$}{Normalized lipolysis rate}
+\sym{$n_{d_p}$}{Normalized proteolysis}
+\sym{$p$}{Protein}
+\sym{$p_b$}{Baseline protein}
+\sym{$pi_b$}{Baseline protein intake}
+\sym{$s_{ci}$}{Sensitivity of oxidation to ci changes}
+\sym{$s_{pae}$}{Sensitivity to physical activity}
+\sym{$s_{pi,ox}$}{Sensitivity of oxidation to pi changes}
+\sym{$w_f$}{Weighting of oxidation for lipolysis}
+\sym{$w_g$}{Weighting of oxidation for glycogenolysis}
+\sym{$w_{ci}$}{Weighting of oxidation for basal ci}
+\sym{$w_{pi}$}{Weighting of oxidation for basal pi}
+\sym{$z$}{Z}
+\sym{$\Delta ci$}{Change in carbohydrate intake}
+\sym{$\Delta pi$}{Change in protein intake}
+\sym{$\Gamma_c$}{Coef of eff ci on gng p}
+\sym{$\Gamma_p$}{Coef of eff pi on gng p}
+\sym{$n_{\Delta ci}$}{Normalized change in carbohydrate intake}
+\sym{$n_{\Delta pi}$}{Normalized change in protein intake}

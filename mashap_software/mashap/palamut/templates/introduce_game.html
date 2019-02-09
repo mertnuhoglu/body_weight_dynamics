@@ -1,0 +1,16 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>Game Description for {{game_definition.name}}</title>
+</head>
+<body>
+<p>{{game_definition.game_description}}</p>
+<p>The game lasts for {{game_definition.total_game_time}} steps.</p>
+<p>You will be asked to enter {{game_definition.num_decisions}} decision values at every
+    {{game_definition.time_between_decision_steps}} steps.</p>
+<p>Your purpose is: {{game_definition.purpose}}</p>
+
+<a href="{% url input_initial_values %}">Start Game</a>
+</body>
+</html>

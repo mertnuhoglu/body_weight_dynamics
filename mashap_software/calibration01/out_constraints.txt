@@ -1,0 +1,24 @@
+TEFinit = tef f * Baseline Fat Intake + tef c * Baseline Carbohydrate Intake + tef p * Baseline Protein Intake
+extraFinit = 0	
+BWinit = #R20BW(63)*1000 + extraFinit*1000
+Finit = #R20FM(63)*1000 + extraFinit*1000
+Linit = BWinit - Finit
+ECW_b = 0.7*0.235*Baseline Bodyweight	
+CMinit = (Linit - base bone mass - ECW_b)
+Pinit = Protein Fraction of Cell Mass*(Linit - base bone mass - ECW_b)
+Proteol_init = Molar Baseline Proteolysis*(Pinit/Baseline Protein)
+GNGp_init = base gng p*(Proteol_init/Molar Baseline Proteolysis)
+Sl = 2/3
+Lipol_init = base molar lipolysis*(Finit/Baseline Fat)^Sl
+GNGf_bExog = Exog Glycerol Per Kcal Fat Intake*Baseline Fat Intake*cal dens c
+GNGf_init = Baseline GNG Fat Endog*(Lipol_init/base molar lipolysis) + GNGf_bExog
+Ginit =500
+DNL_init = Baseline Carbohydrate Intake * (Ginit/base carb)^Hill DNL/(K DNL^Hill DNL + (Ginit/base carb)^Hill DNL)
+ATP_P_proteol = 1	
+ATP_kcal = 19		
+Glycogenol_b = 1	
+Glycogenol_init = Glycogenol_b*(Ginit/base carb)
+G_mass = 180	
+Ec = Baseline Metabolizable Energy Intake - (TEFinit + Baseline Activity Energy Per Body Weight * BWinit + Baseline Basal RMR of Lean Tissues*(CMinit-mass brain) + base rmr brain*mass brain + base rmr fat * Finit + (1-efficiency gng)*(GNGp_init+GNGf_init)+(1-efficiency dnl)*DNL_init+ (dep cost p + ATP_P_proteol*ATP_kcal/Aminoacid mass)*Proteol_init*Aminoacid mass + dep cost fat*Lipol_init*mass tg+ dep cost c *Glycogenol_init*G_mass)
+
+

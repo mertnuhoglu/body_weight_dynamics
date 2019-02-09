@@ -1,0 +1,13 @@
+lean_tissues=base_bone_mass + extracel_water + cell_mass
+base_bone_mass=0.04 * baseline_bodyweight
+extracel_water=baseline_ecw
+cell_mass=intracel_solids + carb + protein + intracel_water
+baseline_ecw=fw * fetw * baseline_bodyweight
+fw=7.0/10.0
+fetw=3.0/8.0
+intracel_solids=3967.28
+intracel_water=glycogen_hydration_coefficient * carb + protein_hydration_coefficient * protein+ ciw
+glycogen_hydration_coefficient=2.7
+protein_hydration_coefficient=2.0
+ciw=fiew * baseline_ecw - ( glycogen_hydration_coefficient * c_init + protein_hydration_coefficient* p_init)
+fiew=(1.0-fetw)/fetw

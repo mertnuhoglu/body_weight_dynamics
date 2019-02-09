@@ -1,0 +1,8 @@
+gd=geyikler * gdo
+gdo=0.3
+go=goo * geyikler * tilki
+goo=0.0025
+td=tdo * tilki
+tdo=0.08
+to=too * tilki
+too=0.1

@@ -1,0 +1,8 @@
+sec_frac_prot=prot_term / y
+sec_frac_carb=is_sufficient_carb * carb_term / y
+sec_frac_fat=is_sufficient_fat * fat_term / y
+y=prot_term + is_sufficient_carb * carb_term + is_sufficient_fat * fat_term
+is_sufficient_carb=1.0 if (gap_carbox < 0.1 ) else (0.0 )
+is_sufficient_fat=1.0  if (gap_fatox < 0.1 ) else (0.0 )
+gap_carbox=desired_carbox - actual_carbox * cal_dens_c
+gap_fatox=desired_fatox - actual_fatox * cal_dens_f

@@ -1,0 +1,36 @@
+cell mass=
+	intracel solids + carb + protein + intracel water
+Units: g
+
+**************************************************************
+intracel water=
+	glycogen hydration coefficient * carb + protein hydration coefficient * protein
+ + ciw
+Units: g
+
+**************************************************************
+intracel solids=
+	3967.28
+Units: g
+
+**************************************************************
+lean tissues=
+	base bone mass + extracel water + cell mass
+Units: g
+
+**************************************************************
+base bone mass=
+	0.04 * baseline bodyweight
+Units: g
+
+**************************************************************
+extracel water=
+	baseline ecw
+Units: g
+
+**************************************************************
+body weight=
+	fat + lean tissues
+Units: g
+
+**************************************************************

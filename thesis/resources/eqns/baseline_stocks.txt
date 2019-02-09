@@ -1,0 +1,45 @@
+baseline protein=
+	cell mass b - icw b - intracel solids - base carb
+Units: g
+
+**************************************************************
+base carb=
+	400
+Units: g
+
+**************************************************************
+intracel solids=
+	3967.28
+Units: g
+
+**************************************************************
+cell mass b=
+	1/fwcm * icw b
+Units: g
+
+**************************************************************
+icw b=
+	fiew * baseline ecw
+Units: g
+
+**************************************************************
+baseline fat=
+	baseline bodyweight - baseline lean mass
+Units: g
+
+**************************************************************
+baseline bodyweight=
+	70000
+Units: g
+
+**************************************************************
+baseline lean mass=
+	base bone mass + baseline ecw + cell mass b
+Units: g
+
+**************************************************************
+baseline ecw=
+	fw * fetw * baseline bodyweight
+Units: g
+
+**************************************************************

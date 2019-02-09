@@ -1,0 +1,495 @@
+METHOD AUTO
+STARTTIME = 0
+STOPTIME=371
+DTMIN = 0.001
+DTMAX = 1
+TOLERANCE = 0.001
+DTOUT = 1
+
+{Macronutrient balance model, with protein, fat, and carbohydrate}
+
+fitswitch = 1	
+
+{average values for body composition in grams}
+
+BW_ave = 67533
+F_ave = 9050
+G_ave = 500
+L_ave = BW_ave - F_ave
+BM_ave = 0.04*BW_ave		
+ECW_ave = 0.7*0.235*BW_ave
+P_ave = PfracCM*(L_ave - BM_ave - ECW_ave)
+
+activ_ave = 0.02567
+
+{Differential equations for Fat mass in grams (F), Protein mass in grams (P), and Glycogen mass in grams (G)}
+
+d/dt (F) = (3*FFA_mass/TG_mass*FIn + DNL - fatfrac*(TEE-GNGp- GNGf)) / rho_f 
+d/dt (P) = (PIn - GNGp - protfrac*(TEE-GNGp- GNGf)) / rho_p
+d/dt (G) = (CIn - DNL -GlycerolProd -carbfrac*(TEE-GNGp - GNGf)) / rho_c
+
+init F = Finit	
+init P = Pinit
+init G = Ginit
+
+Finit = #R20FM(63)*1000 + extraFinit*1000
+Ginit =500
+Pinit = PfracCM*(Linit - BM - ECW_b)
+
+extraFinit = 0	
+
+{Lean tissue components}
+BWinit = #R20BW(63)*1000 + extraFinit*1000
+
+BM = 0.04*BW_ave		
+ECW_b = 0.7*0.235*BW_ave	
+Linit = BWinit - Finit
+CMinit = (Linit - BM - ECW_b)
+PfracCM = 0.2			
+ICWfracCM = 0.7		
+hg = 2.7			
+hp = 2				
+KICW = (ICWfracCM-PfracCM*hp)*CMinit - Ginit*hg	
+
+ICS = (1-PfracCM-ICWfracCM)*CMinit - Ginit	
+
+CM = KICW+P*(1+hp)+G*(1+hg)+ICS
+L = BM + ECW + CM
+
+ICW_b = KICW+Pinit*hp+Ginit*hg
+ICW = KICW+(P*hp + G*hg)
+
+ECW = IF (fitswitch =1) THEN ECW_b*#KeysEW(TIME) ELSE ECW_b	
+
+{Fat, protein, and carbohydrate caloric densities in kcal/gram.}
+
+rho_f = 9.44
+rho_p = 4.7
+rho_c = 4.18
+
+ATP_kcal = 19		
+ATP_TG_synth = 8	
+ATP_P_synth = 5	
+ATP_P_proteol = 1	
+AA_mass = 110		
+ATP_G_synth = 2	
+
+G_mass = 180	
+TG_mass = 860	
+Glycerol_mass = 92	
+FFA_mass = (rho_f*TG_mass - rho_c*Glycerol_mass)/(3*rho_f)
+
+Glycerol_exog = Glycerol_mass/(rho_f*TG_mass)		
+
+{Dietary intakes in kcal/day}
+
+CIn_b = MEAN(#R20carb(0), #R20carb(7),#R20carb(14),#R20carb(21),#R20carb(28),#R20carb(35),#R20carb(42),#R20carb(49),#R20carb(56),#R20carb(63))
+
+PIn_b = MEAN(#R20prot(0), #R20prot(7),#R20prot(14),#R20prot(21),#R20prot(28),#R20prot(35),#R20prot(42),#R20prot(49),#R20prot(56),#R20prot(63))
+
+FIn_b = MEAN(#R20fat(0), #R20fat(7),#R20fat(14),#R20fat(21),#R20fat(28),#R20fat(35),#R20fat(42),#R20fat(49),#R20fat(56),#R20fat(63))
+
+
+ME = CIn + PIn + FIn	
+ME_b = CIn_b + PIn_b + FIn_b
+
+percentCarb = 100*CIn/ME
+percentFat = 100*FIn/ME
+percentProt = 100*PIn/ME
+
+
+
+TimeStrt_1 = 315
+TimeStrt_2 = 1000
+
+TimeEnd = STOPTIME
+
+percentDeltCI_1= 50
+percentDeltFI_1 = 100 - percentDeltCI_1 - PercentDeltPI_1
+percentDeltPI_1 = 13
+
+extraCIn_1 = 0
+extraFIn_1 = 0
+extraPIn_1 = 0
+
+deltaME_1 = 0
+deltaCIn_1 = percentDeltCI_1*(ME_b+deltaME_1)/100 - CIn_b +extraCIn_1	
+deltaFIn_1 = percentDeltFI_1*(ME_b+deltaME_1)/100 - FIn_b + extraFIn_1
+deltaPIn_1 = percentDeltPI_1*(ME_b+deltaME_1)/100 - PIn_b + extraPIn_1
+
+percentDeltCI_2= 50
+percentDeltFI_2 = 100 - percentDeltCI_2 - PercentDeltPI_2
+percentDeltPI_2 = 13
+
+extraCIn_2 = 0
+extraFIn_2 = 0
+extraPIn_2 = 0
+
+deltaME_2 = 0
+deltaCIn_2 = percentDeltCI_2*(ME_b+deltaME_2)/100 - CIn_b + extraCIn_2
+deltaFIn_2 = percentDeltFI_2*(ME_b+deltaME_2)/100 - FIn_b + extraFIn_2
+deltaPIn_2 = percentDeltPI_2*(ME_b+deltaME_2)/100 - PIn_b + extraPIn_2
+
+CIn = IF (fitswitch =0) THEN CIn_b + deltaCIn_1*SQUAREPULSE(TimeStrt_1,TimeStrt_2-TimeStrt_1) + deltaCIn_2*SQUAREPULSE(TimeStrt_2,TimeEnd-TimeStrt_2) ELSE #R20carb(TIME) 
+
+PIn = IF (fitswitch =0) THEN PIn_b + deltaPIn_1*SQUAREPULSE(TimeStrt_1,TimeStrt_2-TimeStrt_1) + deltaPIn_2*SQUAREPULSE(TimeStrt_2,TimeEnd-TimeStrt_2) ELSE #R20prot(TIME) 
+
+FIn = IF (fitswitch =0) THEN FIn_b + deltaFIn_1*SQUAREPULSE(TimeStrt_1,TimeStrt_2-TimeStrt_1) + deltaFIn_2*SQUAREPULSE(TimeStrt_2,TimeEnd-TimeStrt_2) ELSE #R20fat(TIME) 
+
+dCIn = CIn-CIn_b
+dPIn = PIn-PIn_b
+dFIn = FIn-FIn_b
+
+{De novo lipogenesis in kcal/day.}
+
+DNL = CIn * (G/G_ave)^hill_dnl/(Kdnl^hill_dnl + (G/G_ave)^hill_dnl)
+hill_dnl = 4
+Kdnl = 2
+
+dnlfrac_b = 1/(1+Kdnl^hill_dnl)
+
+DNL_b = CIn_b*dnlfrac_b
+DNL_init = CIn_b * (Ginit/G_ave)^hill_dnl/(Kdnl^hill_dnl + (Ginit/G_ave)^hill_dnl)
+
+{Glycerol production in kcal/d}
+
+GlycerolProd_init = rho_c*Lipol_init*Glycerol_mass
+
+NumeratorA = Ebar + (eta_g/rho_c)*(CIn-DNL+carbfrac*(GNGp+GNGf)) + (eta_p/rho_p)*(PIn - GNGp + protfrac*(GNGp+GNGf))+(eta_f/rho_f)*(3*FFA_mass/TG_mass*FIn + DNL+ fatfrac*(GNGp+GNGf))
+
+GlycerolProd =  ((Lipol_rate/TG_mass)*rho_c*Glycerol_mass + rho_c*Glycerol_mass/(rho_f*TG_mass)*(3*FFA_mass/TG_mass*FIn + DNL - fatfrac*(NumeratorA/Denom - GNGp - GNGf)))/(1-eta_g*Glycerol_mass/(rho_f*TG_mass)*fatfrac/Denom)
+
+{Lipolysis in g/d}
+
+Lipol = (F/F_ave)^Sl*Lipol_diet
+
+Lipol_diet = ((Lipol_max-Lipol_min)*exp(-K_lip*CIn/CIn_b) + Lipol_min-1)/(MAX(1,(F/F_ave))^Sl)+1
+K_lip = LOGN((Lipol_max-Lipol_min)/(1-Lipol_min))
+Lipol_max = 3.1
+Lipol_min = 0.9
+Sl = 2/3
+
+Lipol_b = 0.16	
+Lipol_init = Lipol_b*(Finit/F_ave)^Sl
+
+Lipol_rate = Lipol_b*Lipol*TG_mass	
+
+{Gluconeogenesis in kcal/d}
+{Linn 2000: GNG increases by 56% with dPIn/PIn_b = 1.5 and dCIn/CIn_b = -0.2}
+{Clore 1995: alanine GNG decreases by 42% with dPIn/PIn_b = 2.1 and dCIn/CIn_b = 2.1}
+
+GNGp_b = 100
+GNGp_init = GNGp_b*(Proteol_init/Proteol_b)
+gng_pi = 0.306	
+gng_ci = 0.506
+GNGp = MAX(0,GNGp_b * (Proteol + gng_pi*dPIn/PIn_b - gng_ci*dCIn/CIn_b))
+GNGf_bEndog = Lipol_b*Glycerol_mass*rho_c
+GNGf_bExog = Glycerol_exog*FIn_b*rho_c
+GNGf_init = GNGf_bEndog*(Lipol_init/Lipol_b) + GNGf_bExog
+GNGf_Endog = GNGf_bEndog * Lipol 
+GNGf_Exog = Glycerol_exog*FIn*rho_c
+
+GNGf = GNGf_Endog + GNGf_Exog
+
+{Proteolysis in g/d}
+
+Proteol_b = 2.73	
+Proteol_init = Proteol_b*(Pinit/P_ave)
+Proteol = P/P_ave
+Proteol_rate = Proteol_b*Proteol* AA_mass 	
+
+{Glycogenolysis in g/d}
+
+Glycogenol = G/G_ave
+Glycogenol_b = 1	
+Glycogenol_init = Glycogenol_b*(Ginit/G_ave)
+Glycogenol_rate = Glycogenol_b*Glycogenol*G_mass	
+
+{Adaptive Thermogenesis}
+
+d/dt (Therm) = (therm_const * (ME-ME_b)/ME_b - Therm) / tau_therm
+init Therm = 0
+
+
+therm_const = 0.8
+tau_therm = 7
+activ_vs_rest = 0.52
+dsmrl_eff = (1-activ_vs_rest)*Therm
+dactiv_eff = activ_vs_rest*Therm
+
+Therm_energy = dsmrl_eff*smr_lb*CM + dactiv_eff*activ_tsb*BW
+RMR_therm_energy = dsmrl_eff*smr_lb*CM
+PA_therm_energy = dactiv_eff*activ_tsb*BW
+
+{Energy expenditure in kcal/day}
+
+Ebar = Ec + TEF + activ*BW + smr_l*(CM-Mbrain) + smr_brain*Mbrain + smr_f * F  + (1-dnleff)*DNL+(1-gngeff)*(GNGp+GNGf) + (eta_p + eps_p)*(Proteol_rate) + eta_f*Lipol_rate + eta_g*Glycogenol_rate
+
+Denom = 1+ (eta_p/rho_p)*protfrac + (eta_f/rho_f)*fatfrac + (eta_g/rho_c)*carbfrac
+
+NumeratorB = Ebar + (eta_g/rho_c)*(CIn-DNL-GlycerolProd+carbfrac*(GNGp+GNGf)) + (eta_p/rho_p)*(PIn - GNGp + protfrac*(GNGp+GNGf))+(eta_f/rho_f)*(3*FFA_mass/TG_mass*FIn + DNL+ fatfrac*(GNGp+GNGf))
+
+TEE = NumeratorB/Denom
+ 
+tef_f = 0.025	
+tef_c = 0.075	
+tef_p = 0.25	
+smr_f = 0.0045	
+dnleff = 0.8	
+gngeff = 0.8	
+
+eta_f = ATP_TG_synth*ATP_kcal/TG_mass	
+eta_p = ATP_P_synth*ATP_kcal/AA_mass	
+eps_p = ATP_P_proteol*ATP_kcal/AA_mass	
+eta_g = ATP_G_synth*ATP_kcal/G_mass	
+
+Mliver = 1800
+Mskmusc = 28000
+Mbrain = 1400
+Mkid = 310
+Mhrt = 330
+Mres = 23200
+
+smr_liver = 0.2
+smr_skmusc = 0.013
+smr_brain = 0.24
+smr_kid = 0.44
+smr_hrt = 0.44
+smr_res = 0.012
+
+smr_lb = (smr_liver*Mliver+smr_skmusc*Mskmusc+smr_kid*Mkid+smr_hrt*Mhrt+smr_res*Mres)/(Mliver+Mskmusc+Mkid+Mhrt+Mres)
+
+smr_l = smr_lb*(1+dsmrl_eff)		
+
+{The activity coefficient (activ) in kcal/day/gram BW}
+
+BW_ss = #R20BW(231)*1000
+CIn_ss = #R20carb(231)
+FIn_ss = #R20fat(231)
+PIn_ss = #R20prot(231)
+
+TEF_ss = tef_c*CIn_ss + tef_f*FIn_ss + tef_p*PIn_ss
+ME_ss = CIn_ss + PIn_ss + FIn_ss
+RMR_ss = #R20RMR(231)
+
+delt_activ_ss = 1- (ME_ss - TEF_ss - RMR_ss)/(activ_b*BW_ss)
+
+delt_activ_1 = 0
+delt_activ_2 = 0
+
+activ_tsb = IF (fitswitch =0) THEN activ_b*(1 + delt_activ_1*SQUAREPULSE(TimeStrt_1,TimeStrt_2-TimeStrt_1) + delt_activ_2*SQUAREPULSE(TimeStrt_2,TimeEnd-TimeStrt_2)) ELSE activ_b*(1 - delt_activ_ss*#activ_time(TIME))
+
+activ = activ_tsb*(1+dactiv_eff)
+
+{Substrate Competition}
+
+carb_term = Wg*Glycogenol+MAX(0,Wci*(1+Sci*dCIn/CIn_b)*G/(Gmin+G))
+prot_term =(Proteol + MAX(0,(Wpi*(1+Spi*dPIn/PIn_b))))*((Activ_max*activ_ave/activ_b-Activ_min)*exp(-K_act*activ_tsb/activ_b) + Activ_min)
+
+K_act = LOGN((Activ_max-Activ_min)/(1-Activ_min))
+Activ_max = 4	
+Activ_min = 0
+
+fat_term = MAX(0,Wf*Lipol)
+Z = carb_term + prot_term + fat_term
+carbfrac = carb_term/Z
+protfrac = prot_term/Z
+fatfrac = fat_term/Z
+Gmin = 0.1	
+Wpi = 0.1	
+
+{Energy Balance constraints} 
+
+RMRinit = #R20RMR(63)
+TEFinit = tef_f * FIn_b + tef_c * CIn_b + tef_p * PIn_b
+
+activ_b = (ME_b - TEFinit - RMRinit)/BWinit
+
+Ec = ME_b - (TEFinit + activ_b * BWinit + smr_lb*(CMinit-Mbrain) + smr_brain*Mbrain + smr_f * Finit + (1-gngeff)*(GNGp_init+GNGf_init)+(1-dnleff)*DNL_init+ (eta_p + ATP_P_proteol*ATP_kcal/AA_mass)*Proteol_init*AA_mass + eta_f*Lipol_init*TG_mass+ eta_g *Glycogenol_init*G_mass)
+
+{Nutrient Balance constraints}
+
+KCbal = (CIn_b - DNL_init -GlycerolProd_init)/(ME_b - GNGp_init - GNGf_init)
+KFbal = (3*FFA_mass/TG_mass*FIn_b+ DNL_init)/(ME_b - GNGp_init - GNGf_init)
+KPbal = (PIn_b - GNGp_init)/(ME_b - GNGp_init - GNGf_init)
+
+Wg = (G_ave/Ginit)*(KCbal/KPbal)*(Pinit/P_ave + Wpi)/(1+(G_ave/Ginit)*Wci_over_Wg)
+Wf = KFbal/(1-KFbal)*(1+KCbal/KPbal)*(Pinit/P_ave + Wpi)*(F_ave/Finit)^Sl
+
+Wci_over_Wg = 1.9
+Wci = Wg*Wci_over_Wg
+
+{Carbohydrate Perturbation Constraint}
+
+Kcarb = 0.5
+delta_CIn = 1500	
+delta_G_CI = Kcarb*delta_CIn/rho_c
+E_delta_CI = ME_b+delta_TEF_CI+delta_PA_CI+delta_RMR_CI
+delta_Therm_CI = therm_const*Delta_CIn/ME_b*(1+tau_therm*(Exp(-1/tau_therm)-1))
+delta_DNL_CI = (CIn_b+delta_CIn)*(1+0.5*delta_G_CI/Ginit)^hill_dnl/(Kdnl^hill_dnl+(1+0.5*delta_G_CI/Ginit)^hill_dnl)-DNL_b
+d_Lipol_CI = (Lipol_max-Lipol_min)*exp(-K_lip*(1+delta_CIn/CIn_b))  + Lipol_min
+
+delta_GNGf_CI = GNGf_bEndog*(d_Lipol_CI-1)
+delta_GNGp_CI = -GNGp_b*gng_ci*delta_CIn/CIn_b 
+delta_GNG_CI = delta_GNGf_CI + delta_GNGp_CI
+
+delta_TEF_CI = tef_c*delta_CIn
+delta_PA_CI = activ_b*BWinit*activ_vs_rest*delta_Therm_CI
+delta_RMR_CI = smr_lb*(1-activ_vs_rest)*CMinit*delta_Therm_CI+ Kcarb*eta_g*delta_CIn/rho_c + (1-dnleff)*delta_DNL_CI+(1-gngeff)*delta_GNG_CI
+
+Theta = (CIn_b + (1-Kcarb)*delta_CIn - (1+ rho_c*Glycerol_mass/(rho_f*TG_mass))*(DNL_b+delta_DNL_CI) - (rho_c*Glycerol_mass/TG_mass)*(Lipol_b*d_Lipol_CI + FIn_b/rho_f))/(E_delta_CI-(GNGp_b+GNGf_bEndog + GNGf_bExog+delta_GNG_CI))
+
+Wf_deltaCIn = Wf*d_Lipol_CI
+Wg_deltaCIn = Wg**(1+0.5*delta_G_CI/Ginit)
+
+Sci = MAX(0, CIn_b/delta_CIn*(-1 + Theta/(1-Theta)*(1+Wpi)/Wci + (Theta+rho_c*Glycerol_mass/(rho_f*TG_mass) )*Wf_deltaCIn/((1-Theta)*Wci)-Wg_deltaCIn/Wci))
+
+{Protein perturbation constraint}
+
+Kprot = 0.07
+delta_PIn2 = 640	{Oddoye and Margen J Nut 1979 isocaloric high and moderate protein diets}
+delta_CIn2 = -310	
+delta_FIn2 = -330
+
+E_delta_PI2 = ME_b+delta_RMR_PI2 + delta_TEF_PI2
+
+delta_TEF_PI2 = tef_c*delta_CIn2 + tef_p*delta_PIn2 + tef_f*delta_FIn2
+
+d_Lipol_PI2 = (Lipol_max-Lipol_min)*exp(-K_lip*(1+delta_CIn2/CIn_b))  + Lipol_min
+
+delta_GNGp_PI2 = GNGp_b*(gng_pi*delta_PIn2/PIn_b - gng_ci*delta_CIn2/CIn_b) 
+delta_GNGf_PI2 = GNGf_bEndog *(d_Lipol_PI2-1) + Glycerol_exog*delta_FIn2*rho_c
+delta_GNG_PI2 = delta_GNGp_PI2 + delta_GNGf_PI2
+delta_G_CI2 = 0		
+delta_DNL_CI2 = (CIn_b+delta_CIn2)*(1+delta_G_CI2/Ginit)^hill_dnl/(Kdnl^hill_dnl+(1+delta_G_CI2/Ginit)^hill_dnl)-DNL_b
+
+delta_RMR_PI2 = Kprot*eta_p*delta_PIn2/rho_p + (1-gngeff)*delta_GNG_PI2+ (1-dnleff)*delta_DNL_CI2
+
+Phi = (PIn_b+(1-Kprot)*delta_PIn2-(GNGp_b+delta_GNGp_PI2))/(E_delta_PI2 - (GNGf_bEndog + GNGf_bExog+ GNGp_b+delta_GNG_PI2))
+
+Wf_PI2 = Wf*d_Lipol_PI2
+Wg_PI2 = Wg*(1 + delta_G_CI2/G_ave) 
+Wci_PI2 = Wci*(1+Sci*delta_CIn2/CIn_b) 
+
+Spi = MAX(0,(PIn_b/delta_PIn2)*(-1-1/Wpi+Phi/(1-Phi)*(Wf_PI2+Wg_PI2+Wci_PI2)/Wpi))
+
+{Miscelaneous model outputs}
+
+BW = F + L
+BWpc_change = 100*(BW-BWinit)/BWinit
+Lpc_change = 100*(L-Linit)/Linit
+Fpc_change = 100*(F-Finit)/Finit
+
+EEact = activ*BW 
+EEbrain = smr_brain*Mbrain
+RMR = TEE -TEF -EEact
+RMRcalc = Ec + smr_l*(CM-Mbrain) + smr_brain *Mbrain + smr_f * F  + (1-dnleff)*DNL+(1-gngeff)*(GNGp+GNGf) + (eta_p + eps_p)*Proteol_rate + eta_f*Lipol_rate + eta_g*Glycogenol_rate +(3*FFA_mass/TG_mass*FIn + DNL - fatfrac*(TEE-GNGp-GNGf))*eta_f / rho_f + (PIn - GNGp - protfrac*(TEE-GNGp-GNGf)) *eta_p/ rho_p + (CIn - DNL -GlycerolProd -carbfrac*(TEE-GNGp-GNGf)) *eta_g/ rho_c
+
+PAL = TEE/RMR
+
+RMRperFFM = RMR/Lkg
+RMRperCM = 1000*RMR/CM
+SMRlean = 1000*smr_l
+ProtTurnCost = (eta_p + ATP_P_proteol*ATP_kcal/AA_mass)*Proteol_rate + (eta_p/rho_p)*(PIn - GNGp - protfrac*(TEE-GNGp-GNGf)) 
+FatTurnCost =  eta_f*Lipol_rate + (eta_f/rho_f)*(3*FFA_mass/TG_mass*FIn + DNL - fatfrac*(TEE-GNGp-GNGf))
+GlycogTurnCost = eta_g*Glycogenol_rate + (eta_g/rho_c)*(CIn - DNL -GlycerolProd -carbfrac*(TEE-GNGp-GNGf))
+
+Prot_synth_rate = Proteol_rate + (PIn - GNGp - protfrac*(TEE-GNGp-GNGf)) /rho_p
+TG_synth_rate = Lipol_rate + (3*FFA_mass/TG_mass*FIn + DNL - fatfrac*(TEE-GNGp-GNGf))/rho_f
+Glyc_synth_rate = Glycogenol_rate + (CIn - DNL -GlycerolProd -carbfrac*(TEE-GNGp-GNGf))/rho_c
+
+TEF = tef_f * FIn + tef_c * CIn + tef_p * PIn 
+
+BWkg = BW/1000
+Lkg = L/1000
+Fkg = F/1000
+Pkg = P/1000
+Gkg = G/1000
+ECWkg = ECW/1000
+CMkg = CM/1000
+BMkg = BM/1000
+ICSkg = ICS/1000
+ICWkg = ICW/1000
+TBWkg = ECWkg + ICWkg
+BWcompare = BWkg-extraFinit
+Fcompare = Fkg-extraFinit
+
+ProtH2Okg = hp*P/1000
+GH2Okg = hg*G/1000
+
+ECWoverICW = ECW/ICW
+ICWoverCM = ICW/CM
+FFMhydration = TBWkg/Lkg
+PoverCM = P/CM
+TBWoverBW = TBWkg/BWkg
+
+FatBal =  (FIn*3*FFA_mass/TG_mass + DNL - FatOx)
+CarbBal = (CIn + GNGp + GNGf - GlycerolProd - DNL - CarbOx)
+ProtBal = (PIn - GNGp - ProtOx)
+EnrgyBal = ME - TEE
+
+Pratio = IF ABS(EnrgyBal) > 200 THEN ProtBal/EnrgyBal ELSE 0
+
+Fatox = fatfrac*(TEE-GNGp- GNGf)
+Protox = protfrac*(TEE-GNGp- GNGf)
+Carbox = carbfrac*(TEE-GNGp- GNGf)+GNGp + GNGf 
+
+Fatox_g = Fatox/rho_f
+Protox_g = Protox/rho_p
+Carbox_g = Carbox/rho_c
+
+percentFatOx = 100*Fatox/TEE
+percentCarbOx = 100*Carbox/TEE
+percentProtOx = 100*Protox/TEE
+
+percentFatIn = 100*FIn/ME
+percentCarbIn = 100*CIn/ME
+percentProtIn = 100*PIn/ME
+
+Nin = PIn/rho_p/6.25
+Nexcr = (Protox + GNGp)/rho_p/6.25
+Nbal = Nin-Nexcr
+Nurine = 0.81*Nexcr	
+
+BodyFat = 100*F/BW
+
+
+
+
+gluc_oxO2 = 0.746/rho_c
+gluc_oxCO2 = 0.746/rho_c
+fat_oxO2 = 2.029/rho_f
+fat_oxCO2 = 1.43/rho_f
+dnlCO2 = 0.23775/rho_c
+gng_pCO2 = -0.126/rho_p
+prot_oxO2 = 0.966/rho_p
+prot_oxCO2 = 0.782/rho_p
+
+gng_fO2 = 0.133/rho_c	
+glycerolprodO2 = -0.133/rho_c	
+
+
+VO2 = (gluc_oxO2*Carbox + fat_oxO2*Fatox + prot_oxO2*Protox + gng_fO2*GNGf + glycerolprodO2*GlycerolProd)/1440
+VCO2 = (gluc_oxCO2*Carbox + fat_oxCO2*Fatox + prot_oxCO2*Protox + dnlCO2*DNL + gng_pCO2*GNGp)/1440
+
+PVCO2 = 6.25*Nexcr*rho_p*prot_oxCO2/1440
+PVO2 = 6.25*Nexcr*rho_p*prot_oxO2/1440
+
+RQ = VCO2/VO2
+NPRQ = (VCO2-PVCO2)/(VO2-PVO2)
+
+{Indirect Calorimetry oxidation equations with no GNG or DNL corrections}
+
+FatOx_IC = rho_f*(1.67*1440*VO2 - 1.67*1440*VCO2 - 1.92*Nexcr) 
+CarbOx_IC = rho_c*(4.55*VCO2*1440 - 3.21*VO2*1440 - 2.87*Nexcr)
+ProtOx_IC = 6.25*Nexcr*rho_p
+
+TEE_IC = FatOx_IC + CarbOx_IC + ProtOx_IC
+
+{Output Parameters}
+
+out_therm_const = therm_const
+out_activ_vs_rest = activ_vs_rest
+out_Activ_max = Activ_max
+out_Wpi = Wpi
+out_Wci = Wci

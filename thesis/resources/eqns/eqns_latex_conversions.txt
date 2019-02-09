@@ -1,0 +1,17 @@
+   \nonumber  \verb|dnl_i|=&\verb|dnl| / \verb|cal_dens_f| \\
+   \nonumber  \verb|dnl_out|=&\verb|min|( \verb|dnl| / \verb|cal_dens_c| , \verb|carb| / \verb|time_step| ) \\
+   \nonumber  \verb|dnl|=&\verb|ci| * \verb|effect_of_glycogen_on_dnl| * \verb|cal_dens_c| \\
+   \nonumber  \verb|eff_ci_on_gng_p|=&0.506 * \verb|normalized_change_in_carbohydrate_intake| \\
+   \nonumber  \verb|eff_pi_on_gng_p|=&0.306 * \verb|normalized_change_in_protein_intake| \\
+   \nonumber  \verb|effect_of_glycogen_on_dnl|=&\verb|normalized_glycogen_ratio| ** \verb|hill_dnl| / ( \verb|k_dnl| ** \verb|hill_dnl| + \verb|normalized_glycogen_ratio| ** \verb|hill_dnl| ) \\
+   \nonumber  \verb|gng_fat_endog|=&\verb|baseline_gng_fat_endog| * \verb|normalized_lipolysis_rate| \\
+   \nonumber  \verb|gng_fat_exog|=&\verb|exog_glycerol_per_kcal_fat_intake| * \verb|fat_intake| * \verb|cal_dens_c| \\
+   \nonumber  \verb|gng_fat_in|=&\verb|gng_fat| / \verb|cal_dens_c| \\
+   \nonumber  \verb|gng_fat_out|=&\verb|min|( \verb|gng_fat| / \verb|cal_dens_f| , \verb|fat| / \verb|time_step| ) \\
+   \nonumber  \verb|gng_fat|=&\verb|gng_fat_endog| + \verb|gng_fat_exog| \\
+   \nonumber  \verb|gng_protein_out|=&\verb|max|( 0.0 , \verb|gng_protein| / \verb|cal_dens_p|) \\
+   \nonumber  \verb|gng_protein|=&\verb|max|( 0.0 , \verb|base_gng_p| * ( \verb|norm_p_ratio| - \verb|eff_ci_on_gng_p| + \verb|eff_pi_on_gng_p| ) ) \\
+   \nonumber  \verb|gngp_i|=&\verb|gng_protein| / \verb|cal_dens_c| \\
+   \nonumber  \verb|metabolism_of_conversions|=&( 1.0 - \verb|efficiency_dnl| ) * \verb|dnl| + ( 1.0- \verb|efficiency_gng| ) * ( \verb|gng_fat| + \verb|gng_protein| ) \\
+   \nonumber  \verb|norm_p_ratio|=&\verb|protein| / \verb|baseline_protein| \\
+   \nonumber  \verb|normalized_glycogen_ratio|=&\verb|carb| / \verb|base_carb| \\

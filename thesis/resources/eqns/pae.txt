@@ -1,0 +1,20 @@
+physical activity energy=
+	activity energy spent per body weight * body weight
+Units: kcal/Day
+
+**************************************************************
+activity energy spent per body weight=
+	activity energy per body weight * activity efficiency
+Units: kcal/(g*Day)
+
+**************************************************************
+activity efficiency=
+	1 + thermogenesis effect on pae vs rmr * adaptive thermogenesis
+Units: Dmnl
+
+**************************************************************
+thermogenesis effect on pae vs rmr=
+	0.52
+Units: Dmnl
+
+**************************************************************

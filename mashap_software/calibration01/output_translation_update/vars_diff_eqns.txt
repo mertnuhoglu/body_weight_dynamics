@@ -1,0 +1,95 @@
+Carbohydrate Intake Param
+Change in Carbohydrate Intake
+Ec
+Fat Intake Param
+Protein Intake Param
+Read From Data
+Y
+activ time param
+actual carbox
+actual fatox
+actual protox
+base bone mass
+base carb
+base deg c
+base gng p
+base molar lipolysis
+base rmr brain
+base rmr fat
+body weight
+carb
+carb sufficiency
+ci
+deg cost p
+dep cost fat
+desired carbox
+desired fatox
+diff bw ox and tee
+dnl
+dnl in
+dnl out
+eff ci on gng p
+eff of carb sufficiency on carbox
+eff of possible fatox
+eff pi on gng p
+effect of carb intake on lipolysis
+effect of glycogen on DNL
+effect of obesity on lipolysis
+efficiency dnl
+efficiency gng
+extracel water
+fat
+fi
+frac carbox
+frac fatox
+frac protox
+gap carbox
+gap fatox
+gap total
+glycogenolysis
+gng fat
+gng fat in
+gng fat out
+gng protein
+gng protein in
+gng protein out
+intracel solids
+intracel water
+is sufficient carb
+is sufficient fat
+lipolysis
+mass brain
+mass tg
+metabolism of body cells
+metabolism of conversions
+metabolism of turnovers
+norm p ratio
+normalized glycogen ratio
+normalized lipolysis rate
+physical activity energy
+pi
+possible fatox
+pri carbox kcal
+pri fatox kcal
+pri protox kcal
+protein
+proteolysis
+resting metabolic rate
+sec carbox
+sec carbox kcal
+sec fatox
+sec fatox kcal
+sec frac carb
+sec frac fat
+sec frac prot
+sec protox
+sec protox kcal
+shared energy expenditure
+tef c
+tef f
+tef p
+thermic effect of food
+total energy expenditure
+total ox
+total pri ox
+total sec ox

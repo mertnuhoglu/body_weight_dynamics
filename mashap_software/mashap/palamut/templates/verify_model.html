@@ -1,0 +1,20 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>Verify Model</title>
+</head>
+<body>
+<form action="." method="post">
+    {{ form_model_python.as_p }}
+</form>
+Please describe your game:
+<form action="." method="post">
+    {{ form_game_definition.as_p }}
+    <input type="submit" value="Submit" name="submit">
+</form>
+<ul>
+</ul>
+
+</body>
+</html>

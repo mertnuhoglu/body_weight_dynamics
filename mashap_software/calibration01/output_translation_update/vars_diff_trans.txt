@@ -1,0 +1,54 @@
+Basal RMR of Adipose Tissues
+Basal RMR of Brain
+Baseline Bone Mass
+Baseline GNG Protein
+Baseline Glucose
+Baseline Glycogenolysis Rate
+Baseline Molar Lipolysis Rate
+Body Weight
+Carb Oxidation
+Constant Energy Expenditure
+DNL
+Degradation Cost of Protein
+Denom
+Ebar
+Effect of Carbohydrate Intake on GNG Protein
+Effect of Carbohydrate Intake on Lipolysis
+Effect of Glycogen on DNL
+Effect of Obesity on Lipolysis
+Effect of Protein Intake on GNG Protein
+Efficiency of DNL
+Efficiency of GNG
+Fat Oxidation
+Fraction of Carb Oxidation
+Fraction of Fat Oxidation
+Fraction of Protein Oxidation
+GNG Fat
+GNG Protein
+Glycerol Production Rate
+Glycogen Inflow
+Glycogenolysis Rate
+Lipolysis Rate
+Mass of Brain
+Mass of Triglyceride
+Metabolism of Body Cells
+Metabolism of Metabolyte Conversions
+Metabolism of Turnovers
+Normalized Glycogen Ratio
+Normalized Lipolysis Rate
+Normalized Protein Ratio
+Oxidation
+Physical Activity Energy
+Protein Oxidation
+Proteolysis Rate
+TEF Ch Fraction
+TEF Fat Fraction
+TEF P Fraction
+Thermic Effect of Food
+Total Energy Expenditure
+dep cost f
+eff of lipolysis on glycerol prod rate
+eff of net fat inflow on glycerol prod rate
+extracellular water
+intracellular solids
+intracellular water

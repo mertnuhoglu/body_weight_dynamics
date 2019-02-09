@@ -1,0 +1,210 @@
+desired protox,protfrac*(TEE-GNGp- GNGf)
+cal dens p,rho_p,4.7
+Baseline Proteolysis,Proteol* AA_mass
+Molar Baseline Proteolysis,Proteol_b,2.73
+proteolysis,Proteol_rate
+norm p ratio,Proteol
+Normalized Proteolysis,Proteol
+activ time,activ_time
+frac carbox,carbfrac
+Basal RMR Efficiency,(1+dsmrl_eff)
+Basal RMR of Lean Tissues,smr_l,0.0239374
+Baseline Basal RMR of Lean Tissues,smr_lb,0.0239374
+base rmr fat,smr_f,0.0045
+base rmr brain,smr_brain,0.0239374
+Basal RMR of Lean Tissues,smr_l
+Aminoacid mass,AA_mass,110
+Change in Protein Intake,dPIn
+Baseline Fat Intake,FIn_b,1332.52
+Normalized Change in Protein Intake,dPIn/PIn_b
+Molar Caloric Dens Glycerol,rho_c*Glycerol_mass
+Molar Caloric Dens TG,rho_f*TG_mass
+Baseline Metabolizable Energy Intake,ME_b
+mass brain,Mbrain,1400
+Mass of Fat Free Acid,FFA_mass
+deg cost p,eps_p,0.172727
+dep cost fat,eta_f,0.176744
+dep cost c,eta_g,0.211111
+dep cost p,eta_p,0.863636
+Metabolizable Energy Intake,ME
+efficiency gng,gngeff,0.8
+efficiency dnl,dnleff,0.8
+Normalized Proteolysis,Proteol
+Baseline Protein Intake,PIn_b,457.38
+Protein Intake,PIn,
+Baseline Carbohydrate Intake,CIn_b,1811.51
+cal dens c,rho_c,4.18
+cal dens f,rho_f,9.44
+Fat Intake,FIn
+Carbohydrate Intake,CIn
+Mass of Glycerol,Glycerol_mass,92
+mass tg,TG_mass,860
+Net Fat Intake,3*FFA_mass/TG_mass*FIn
+1,Denom
+.,Ebar,
+Ec,Ec,-268.404
+total energy expenditure,TEE
+.,GlycerolProd
+tef p,tef_p,0.25
+tef c,tef_c,0.075
+Z,Z
+thermic effect of food,TEF
+tef f,tef_f,0.025
+metabolism of body cells,part of Ebar
+,smr_l*(CM-Mbrain) + smr_brain*Mbrain + smr_f * F
+metabolism of conversions,part of Ebar
+,(1-dnleff)*DNL+(1-gngeff)*(GNGp+GNGf)
+metabolism of turnovers,part of Ebar
+,(eta_p + eps_p)*(Proteol_rate) + eta_f*Lipol_rate + eta_g*Glycogenol_rate
+shared energy expenditure,part of d/dt
+,(TEE-GNGp - GNGf)
+desired carbox,part of d/dt (G)
+,carbfrac*(TEE-GNGp - GNGf)
+desired protox,part of d/dt (P)
+,protfrac*(TEE-GNGp- GNGf)
+desired fatox,part of d/dt (F)
+,protfrac*(TEE-GNGp- GNGf)
+Carb Term,carb_term
+eff of glycogenolysis on carb oxidation,part of carb_term
+,Wg*Glycogenol
+Weighting of Oxidation for Glycogenolysis,Wg,1.74429
+Normalized Glycogenolysis,Glycogenol
+glycogenolysis,Glycogenol_rate
+base deg c,Glycogenol_b*G_mass,180
+normalized glycogen ratio,Glycogenol
+eff of carb intake on carb oxidation,part of carb_term
+,Wci*(1+Sci*dCIn/CIn_b)
+Weighting of Oxidation for Basal CI,Wci,3.31414
+Sensitivity of Oxidation to CI Changes,Sci,0.761188
+Fat Term,fat_term
+Weighting of oxidation for lipolysis,Wf,4.23519
+frac fatox,fatfrac 
+frac protox,protfrac
+Prot Term,prot_term
+eff of prot intake on prot oxidation,part of prot_term
+,Wpi*(1+Spi*dPIn/PIn_b)
+eff of physical activity on prot oxidation,part of prot_term
+,((Activ_max*activ_ave/activ_b-Activ_min)*exp(-K_act*activ_tsb/activ_b) + Activ_min
+Sensitivity of Oxidation to PI Changes,Spi,15.0253
+Weighting of Oxidation for Basal PI,Wpi,0.1
+Sensitivity to Physical Activity,(Activ_max*activ_ave/activ_b-Activ_min) veya 4,4
+LN(Sensitivity to Physical Activity),K_act
+Normalized Activity Energy Per Body Weight,part of prot_term
+,activ_tsb/activ_b
+Activity Energy Per Body Weight,activ_tsb
+Activity Energy Spent Per Body Weight,activ
+Baseline Activity Energy Per Body Weight,activ_b,0.0256755
+Activity Efficiency,(1+dactiv_eff)
+physical activity energy,part of Ebar
+,activ*BW
+
+
+Thermogenesis Effect on PAE vs RMR,activ_vs_rest,0.52
+Adaptive Thermogenesis,Therm
+Delay in Adaptive Thermogenesis,tau_therm,7
+Therm const,therm_const,0.8
+Effect of Metabolizable Energy Intake on Thermogenesis,part of d/dt (Therm)
+,(ME-ME_b)/ME_b
+thermogenesis adaptation,d/dt (Therm)
+
+GNG Fat Exog,GNGf_Exog
+Exog Glycerol Per Kcal Fat Intake,Glycerol_exog
+Baseline GNG Fat Endog,GNGf_bEndog
+base molar lipolysis,Lipol_b,0.16
+lipolysis,Lipol_rate
+normalized lipolysis rate,Lipol
+effect of obesity on lipolysis,part of Lipol
+,(F/F_ave)^Sl
+effect of carb intake on lipolysis,Lipol_diet
+Lipol max,Lipol_max,3.1
+Lipol min,Lipol_min,0.9
+2/3,Sl
+eff ci on gng p,Part of GNGp
+,gng_ci*dCIn/CIn_b
+0.506,gng_ci,0.506
+Normalized Change in Carbohydrate Intake,dCIn/CIn_b
+,dCIn
+effect of glycogen on DNL,part of DNL
+,(G/G_ave)^hill_dnl/(Kdnl^hill_dnl + (G/G_ave)^hill_dnl)
+eff pi on gng p,part of GNGp
+,gng_pi*dPIn/PIn_b
+GNG Fat Endog,GNGf_Endog
+base gng p,GNGp_b,100
+gng protein,GNGp
+gng fat,GNGf
+dnl,DNL
+Hill DNL,hill_dnl,4
+K lip,K_lip
+K DNL,Kdnl,2
+
+intracel water,part of CM
+,KICW+P*hp+G*hg
+glycogen hydration coefficient,hg,2.7
+protein hydration coefficient,hp,2
+constant intracellular water,KICW,12051.9
+intracel solids,ICS,3967.28
+Lean Tissues,L
+base bone mass,BM
+extracel water,ECW
+cell mass,CM
+body weight,BW
+Baseline Bodyweight,BW_ave,67533
+Baseline ECW,ECW_ave
+Baseline Fat,F_ave,9050
+base carb,G_ave,500
+Baseline Lean Mass,L_ave
+Baseline Protein,P_ave
+Protein Fraction of Cell Mass,PfracCM,0.2
+
+0.652218,delt_activ_ss,0.652218
+0.306,gng_pi,0.306
+Carbohydrate Intake Param
+Fat Intake Param
+Protein Intake Param
+Read From Data
+Change in Carbohydrate Intake
+Y
+activ time param
+actual carbox
+actual fatox
+actual protox
+carb,G
+fat,F
+protein,P
+carb sufficiency
+ci
+fi
+pi
+desired carbox
+desired fatox
+diff bw ox and tee
+dnl in
+dnl out
+eff of carb sufficiency on carbox
+eff of possible fatox
+gap carbox
+gap fatox
+gap total
+gng fat in
+gng fat out
+gng protein in
+gng protein out
+is sufficient carb
+is sufficient fat
+possible fatox
+pri carbox kcal
+pri fatox kcal
+pri protox kcal
+resting metabolic rate
+sec carbox
+sec carbox kcal
+sec fatox
+sec fatox kcal
+sec frac carb
+sec frac fat
+sec frac prot
+sec protox
+sec protox kcal
+total ox
+total pri ox
+total sec ox

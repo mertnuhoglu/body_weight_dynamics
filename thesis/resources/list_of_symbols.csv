@@ -1,0 +1,65 @@
+\sym{$cox$;Carbohydrate oxidation}
+\sym{$fox$;Fat oxidation}
+\sym{$pox$;Protein oxidation}
+\sym{$tef$;Thermic effect of food}
+\sym{$pae$;Physical activity energy}
+\sym{$rmr$;Resting metabolic rate}
+\sym{$mbc$;Metabolism of body cells}
+\sym{$mc$;Metabolism of conversions}
+\sym{$mt$;Metabolism of turnovers}
+\sym{$bw$;Body weight}
+\sym{$m_{cell}$;Mass of body cells}
+\sym{$m_{lean}$;Mass of lean tissues}
+\sym{$ecw$;Extracellular water}
+\sym{$icw$;Intracellular water}
+\sym{$ciw$;Constant intracellular water}
+\sym{$ics$;Intracellular solids}
+\sym{$bm$;Bone mass}
+\sym{$hp$;Protein hydration coefficient}
+\sym{$hc$;Carbohydrate hydration coefficient}
+\sym{$fetw$;Fraction of extracellular water to total water}
+\sym{$fw$;Fraction of water to body weight}
+\sym{$fiew$;Fraction of intracellular water to extracellular water}
+\sym{$fwcm$;Fraction of intracellular water to cell mass}
+\sym{$act_{eng,bw}$;Activity energy per body weight}
+\sym{$c$;Carbohydrate}
+\sym{$f$;Fat}
+\sym{$p$;Protein}
+\sym{$cal_c$;Caloric density of carbohydrate}
+\sym{$cal_f$;Caloric density of fat}
+\sym{$cal_p$;Caloric density of protein}
+\sym{$ci$;Carbohydrate intake}
+\sym{$d_c$;Glycogenolysis}
+\sym{$d_f$;Lipolysis}
+\sym{$d_p$;Proteolysis}
+\sym{$d_{f,mol,b}$;Baseline molar lipolysis}
+\sym{$dnl$;De Novo Lipogenesis}
+\sym{$eff_{act,pox}$;Effect of physical activity on protein oxidation}
+\sym{$eff_{ci,cox}$;Effect of carbohydrate intake on carbohydrate oxidation}
+\sym{$eff_{ci,d_f}$;Effect of carbohydrate intake on lipolysis}
+\sym{$eff_{dg,cox}$;Effect of glycogenolysis on carbohydrate oxidation}
+\sym{$eff_{pi,pox}$;Effect of protein intake on protein oxidation}
+\sym{$f_c$;Fraction of carbohydrate oxidation}
+\sym{$f_f$;Fraction of fat oxidation}
+\sym{$f_p$;Fraction of protein oxidation}
+\sym{$fi$;Fat intake}
+\sym{$gng_f$;Gluconeogenesis from fat}
+\sym{$gng_p$;Gluconeogenesis from protein}
+\sym{$m_g$;Mass of glycerol}
+\sym{$m_{tg}$;Mass of triglyceride}
+\sym{$n_{d_c}$;Normalized glycogenolysis}
+\sym{$n_{d_f}$;Normalized lipolysis}
+\sym{$n_{d_p}$;Normalized proteolysis}
+\sym{$s_{ci}$;Sensitivity of carbohydrate oxidation to carbohydrate intake changes}
+\sym{$s_{pae}$;Sensitivity of protein oxidation to physical activity}
+\sym{$s_{pi,ox}$;Sensitivity of protein oxidation to protein intake changes}
+\sym{$w_f$;Weighting of oxidation for lipolysis}
+\sym{$w_g$;Weighting of oxidation for glycogenolysis}
+\sym{$w_{ci}$;Weighting of oxidation for baseline carbohydrate intake}
+\sym{$w_{pi}$;Weighting of oxidation for baseline protein intake}
+\sym{$\Delta ci$;Change in carbohydrate intake}
+\sym{$\Delta pi$;Change in protein intake}
+\sym{$\Gamma_c$;Coefficient for effect of carbohydrate intake on gluconeogenesis from protein}
+\sym{$\Gamma_p$;Coefficient for effect of protein intake on gluconeogenesis from protein}
+\sym{$n_{\Delta ci}$;Normalized change in carbohydrate intake}
+\sym{$n_{\Delta pi}$;Normalized change in protein intake}

@@ -1,0 +1,100 @@
+cal dens p		rho_p
+Molar Baseline Proteolysis	Proteol_b
+proteolysis		Proteol_rate
+norm p ratio	Proteol
+Normalized Proteolysis		Proteol
+activ time			activ_time
+frac carbox			carbfrac
+Basal RMR of Lean Tissues	smr_l
+Baseline Basal RMR of Lean Tissues			smr_lb
+base rmr fat	smr_f
+base rmr brain				smr_brain
+Basal RMR of Lean Tissues	smr_l
+Aminoacid mass		AA_mass
+Change in Protein Intake		dPIn
+Baseline Fat Intake		FIn_b
+Baseline Metabolizable Energy Intake	ME_b
+mass brain				Mbrain
+Mass of Fat Free Acid			FFA_mass
+deg cost p		eps_p
+dep cost fat			eta_f
+dep cost c		eta_g
+dep cost p		eta_p
+Metabolizable Energy Intake		ME
+efficiency gng			gngeff
+efficiency dnl			dnleff
+Normalized Proteolysis			Proteol
+Baseline Protein Intake			PIn_b
+Protein Intake				PIn
+Baseline Carbohydrate Intake		CIn_b
+cal dens c		rho_c
+cal dens f			rho_f
+Fat Intake				FIn
+Carbohydrate Intake			CIn
+Mass of Glycerol			Glycerol_mass
+mass tg			TG_mass
+1				Denom
+Ec		Ec
+total energy expenditure		TEE
+tef p				tef_p
+tef c				tef_c
+Z					Z
+thermic effect of food			TEF
+tef f			tef_f
+Carb Term				carb_term
+Weighting of Oxidation for Glycogenolysis	Wg
+Normalized Glycogenolysis		Glycogenol
+glycogenolysis			Glycogenol_rate
+normalized glycogen ratio		Glycogenol
+Weighting of Oxidation for Basal CI		Wci
+Sensitivity of Oxidation to CI Changes	Sci
+Fat Term				fat_term
+Weighting of oxidation for lipolysis	Wf
+frac fatox			fatfrac
+frac protox		protfrac
+Prot Term				prot_term
+Sensitivity of Oxidation to PI Changes		Spi
+Weighting of Oxidation for Basal PI			Wpi
+Activity Energy Per Body Weight		activ_tsb
+Activity Energy Spent Per Body Weight	activ
+Baseline Activity Energy Per Body Weight	activ_b
+Thermogenesis Effect on PAE vs RMR	activ_vs_rest
+Adaptive Thermogenesis					Therm
+Delay in Adaptive Thermogenesis			tau_therm
+Therm const				therm_const
+GNG Fat Exog				GNGf_Exog
+Exog Glycerol Per Kcal Fat Intake	Glycerol_exog
+Baseline GNG Fat Endog		GNGf_bEndog
+base molar lipolysis		Lipol_b
+lipolysis				Lipol_rate
+normalized lipolysis rate		Lipol
+effect of carb intake on lipolysis	Lipol_diet
+Lipol max				Lipol_max
+Lipol min				Lipol_min
+GNG Fat Endog					GNGf_Endog
+base gng p				GNGp_b
+gng protein					GNGp
+gng fat					GNGf
+dnl						DNL
+Hill DNL						hill_dnl
+K lip						K_lip
+K DNL						Kdnl
+glycogen hydration coefficient		hg
+protein hydration coefficient		hp
+constant intracellular water		KICW
+intracel solids				ICS
+Lean Tissues				L
+base bone mass			BM
+extracel water			ECW
+cell mass				CM
+body weight				BW
+Baseline Bodyweight			BW_ave
+Baseline ECW				ECW_ave
+Baseline Fat				F_ave
+base carb			G_ave
+Baseline Lean Mass			L_ave
+Baseline Protein				P_ave
+Protein Fraction of Cell Mass		PfracCM
+carb			G
+fat			F
+protein		P

@@ -1,0 +1,112 @@
+metabolism of body cells=
+	basal rmr of lean tissues * ( cell mass - mass brain ) + base rmr brain * 
+mass brain + base rmr fat * fat
+Units: kcal/Day
+
+**************************************************************
+base rmr brain=
+	0.24
+Units: kcal/g/Day
+
+**************************************************************
+base rmr fat=
+	0.0045
+Units: kcal/(g*Day)
+
+**************************************************************
+mass brain=
+	1400
+Units: g
+
+**************************************************************
+basal rmr of lean tissues=
+	baseline basal rmr of lean tissues * basal rmr efficiency
+Units: kcal/g/Day
+
+**************************************************************
+baseline basal rmr of lean tissues=
+	0.0239374
+Units: kcal/(g*Day)
+
+**************************************************************
+basal rmr efficiency=
+	1 + ( 1 - thermogenesis effect on pae vs rmr ) * adaptive thermogenesis
+Units: Dmnl
+
+**************************************************************
+thermogenesis effect on pae vs rmr=
+	0.52
+Units: Dmnl
+
+**************************************************************
+cell mass=
+	intracel solids + carb + protein + intracel water
+Units: g
+
+**************************************************************
+intracel solids=
+	3967.28
+Units: g
+
+**************************************************************
+ciw=
+	 fiew * baseline ecw - ( glycogen hydration coefficient * c init + protein hydration coefficient
+ * p init)
+Units: g
+
+**************************************************************
+glycogen hydration coefficient=
+	2.7
+Units: Dmnl
+
+**************************************************************
+protein hydration coefficient=
+	2
+Units: Dmnl
+
+**************************************************************
+fiew=
+	(1-fetw)/fetw
+Units: Dmnl
+
+**************************************************************
+fetw=
+	3/8
+Units: Dmnl
+
+**************************************************************
+baseline ecw=
+	fw * fetw * baseline bodyweight
+Units: g
+
+**************************************************************
+fw=
+	7/10
+Units: Dmnl
+
+**************************************************************
+baseline bodyweight=
+	70000
+Units: g
+
+**************************************************************
+glycogen hydration coefficient=
+	2.7
+Units: Dmnl
+
+**************************************************************
+c init=
+	400
+Units: g
+
+**************************************************************
+protein hydration coefficient=
+	2
+Units: Dmnl
+
+**************************************************************
+p init=
+	8757
+Units: g
+
+**************************************************************

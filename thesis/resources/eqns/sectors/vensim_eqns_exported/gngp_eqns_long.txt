@@ -1,0 +1,7 @@
+gng_protein=max( 0.0 , base_gng_p * ( norm_p_ratio - eff_ci_on_gng_p + eff_pi_on_gng_p ) )
+base_gng_p=100.0
+norm_p_ratio=protein / baseline_protein
+eff_ci_on_gng_p=0.506 * normalized_change_in_carbohydrate_intake
+normalized_change_in_carbohydrate_intake=change_in_carbohydrate_intake / baseline_carbohydrate_intake
+eff_pi_on_gng_p=0.306 * normalized_change_in_protein_intake
+normalized_change_in_protein_intake=change_in_protein_intake / baseline_protein_intake

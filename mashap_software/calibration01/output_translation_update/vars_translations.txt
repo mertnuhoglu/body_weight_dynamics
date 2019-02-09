@@ -1,0 +1,135 @@
+desired protox
+cal dens p
+Baseline Proteolysis
+Molar Baseline Proteolysis
+Proteolysis Rate
+Normalized Protein Ratio
+Normalized Proteolysis
+activ time
+Fraction of Carb Oxidation
+Basal RMR Efficiency
+Basal RMR of Lean Tissues
+Baseline Basal RMR of Lean Tissues
+Basal RMR of Adipose Tissues
+Basal RMR of Brain
+Basal RMR of Lean Tissues
+Aminoacid mass
+Change in Protein Intake
+Baseline Fat Intake
+Normalized Change in Protein Intake
+Glycogen Inflow
+Molar Caloric Dens Glycerol
+Molar Caloric Dens TG
+Baseline Metabolizable Energy Intake
+Mass of Brain
+Mass of Fat Free Acid
+Degradation Cost of Protein
+dep cost f
+dep cost c
+dep cost p
+Metabolizable Energy Intake
+Efficiency of GNG
+Efficiency of DNL
+Normalized Proteolysis
+Baseline Protein Intake
+Protein Intake
+Baseline Carbohydrate Intake
+cal dens c
+cal dens f
+Fat Intake
+Carbohydrate Intake
+Mass of Glycerol
+Mass of Triglyceride
+Net Fat Intake
+eff of lipolysis on glycerol prod rate
+eff of net fat inflow on glycerol prod rate
+Denom
+Ebar
+Constant Energy Expenditure
+Total Energy Expenditure
+Glycerol Production Rate
+TEF P Fraction
+TEF Ch Fraction
+Z
+Thermic Effect of Food
+TEF Fat Fraction
+Metabolism of Body Cells
+Metabolism of Metabolyte Conversions
+Metabolism of Turnovers
+Oxidation
+Carb Oxidation
+Protein Oxidation
+Fat Oxidation
+Carb Term
+eff of glycogenolysis on carb oxidation
+Weighting of Oxidation for Glycogenolysis
+Normalized Glycogenolysis
+Glycogenolysis Rate
+Baseline Glycogenolysis Rate
+Normalized Glycogen Ratio
+eff of carb intake on carb oxidation
+Weighting of Oxidation for Basal CI
+Sensitivity of Oxidation to CI Changes
+Fat Term
+Weighting of oxidation for lipolysis
+Fraction of Fat Oxidation
+Fraction of Protein Oxidation
+Prot Term
+eff of prot intake on prot oxidation
+eff of physical activity on prot oxidation
+Sensitivity of Oxidation to PI Changes
+Weighting of Oxidation for Basal PI
+Sensitivity to Physical Activity
+Normalized Activity Energy Per Body Weight
+Activity Energy Per Body Weight
+Activity Energy Spent Per Body Weight
+Baseline Activity Energy Per Body Weight
+Activity Efficiency
+Physical Activity Energy
+Thermogenesis Effect on PAE vs RMR
+Adaptive Thermogenesis
+Delay in Adaptive Thermogenesis
+Therm const
+Effect of Metabolizable Energy Intake on Thermogenesis
+thermogenesis adaptation
+GNG Fat Exog
+Exog Glycerol Per Kcal Fat Intake
+Baseline Glycogenolysis Rate
+Baseline GNG Fat Endog
+Baseline Molar Lipolysis Rate
+Lipolysis Rate
+Normalized Lipolysis Rate
+Effect of Obesity on Lipolysis
+Effect of Carbohydrate Intake on Lipolysis
+Lipol max
+Lipol min
+Effect of Carbohydrate Intake on GNG Protein
+Normalized Change in Carbohydrate Intake
+Effect of Glycogen on DNL
+Effect of Protein Intake on GNG Protein
+Effect of Carbohydrate Intake on GNG Protein
+GNG Fat Endog
+Baseline GNG Protein
+GNG Protein
+GNG Fat
+DNL
+Hill DNL
+K lip
+K DNL
+intracellular water
+glycogen hydration coefficient
+protein hydration coefficient
+constant intracellular water
+intracellular solids
+Lean Tissues
+Baseline Bone Mass
+extracellular water
+cell mass
+Body Weight
+Baseline Bodyweight
+Baseline ECW
+Baseline Fat
+Baseline Glucose
+Baseline Lean Mass
+Baseline Protein
+Protein Fraction of Cell Mass

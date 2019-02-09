@@ -1,0 +1,87 @@
+effect of carb intake on lipolysis=
+	1 + ( ( lipol max - lipol min )  * EXP( -k lip * ci * cal dens c / baseline carbohydrate intake\
+		 )
+	+ lipol min - 1 )
+	/ MAX( 1 , effect of obesity on lipolysis )
+	~	Dmnl
+	~		|
+
+lipolysis=
+	base molar lipolysis * normalized lipolysis rate * mass tg
+	~	g/Day
+	~		|
+
+dep cost fat=
+	0.176744
+	~	kcal/g
+	~		|
+
+deg cost p=
+	0.172727
+	~	kcal/g
+	~		|
+
+dep cost p=
+	0.863636
+	~	kcal/g
+	~		|
+
+dep cost c=
+	0.211111
+	~	kcal/g
+	~		|
+
+effect of obesity on lipolysis=
+	(fat / baseline fat)^(2/3)
+	~	Dmnl
+	~		|
+
+k lip=
+	LN( ( lipol max - lipol min ) /
+	( 1 - lipol min )
+	)
+	~	Dmnl
+	~		|
+
+base molar lipolysis=
+	0.16
+	~	mol/Day
+	~		|
+
+normalized lipolysis rate=
+	effect of carb intake on lipolysis * effect of obesity on lipolysis
+	~	Dmnl
+	~		|
+
+lipol min=
+	0.9
+	~	Dmnl
+	~		|
+
+lipol max=
+	3.1
+	~	Dmnl
+	~		|
+
+baseline proteolysis=
+	molar baseline proteolysis * aminoacid mass
+	~	g/Day
+	~		|
+
+metabolism of turnovers=
+	( deg cost p + dep cost p ) * proteolysis +
+	dep cost fat * lipolysis +
+	dep cost c * glycogenolysis
+	~	kcal/Day
+	~		|
+
+glycogenolysis=
+	base deg c * carb / base carb
+	~	g/Day
+	~		|
+
+proteolysis=
+	baseline proteolysis * protein / baseline protein
+	~	g/Day
+	~		|
+

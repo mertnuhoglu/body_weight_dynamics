@@ -1,0 +1,9 @@
+baseline_protein=cell_mass_b - icw_b - intracel_solids - base_carb
+base_carb=400.0
+intracel_solids=3967.28
+cell_mass_b=1.0/fwcm * icw_b
+icw_b=fiew * baseline_ecw
+baseline_fat=baseline_bodyweight - baseline_lean_mass
+baseline_bodyweight=70000.0
+baseline_lean_mass=base_bone_mass + baseline_ecw + cell_mass_b
+baseline_ecw=fw * fetw * baseline_bodyweight

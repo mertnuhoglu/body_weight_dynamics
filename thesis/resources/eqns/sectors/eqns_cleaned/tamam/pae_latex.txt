@@ -1,0 +1,4 @@
+physical_activity_energy=activity_energy_spent_per_body_weight * body_weight
+activity_energy_spent_per_body_weight=activity_energy_per_body_weight * activity_efficiency
+activity_efficiency=1.0 + thermogenesis_effect_on_pae_vs_rmr * adaptive_thermogenesis
+thermogenesis_effect_on_pae_vs_rmr=0.52

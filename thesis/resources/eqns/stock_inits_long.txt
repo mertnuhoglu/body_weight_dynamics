@@ -1,0 +1,4 @@
+fat = f_init
+carb = c_init
+protein = p_init
+adaptive_thermogenesis = 0.0

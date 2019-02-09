@@ -1,0 +1,17 @@
+dnl=ci * effect_of_glycogen_on_dnl * cal_dens_c
+dnl_i=dnl / cal_dens_f
+dnl_out=min( dnl / cal_dens_c , carb / time_step )
+eff_ci_on_gng_p=0.506 * normalized_change_in_carbohydrate_intake
+eff_pi_on_gng_p=0.306 * normalized_change_in_protein_intake
+effect_of_glycogen_on_dnl=normalized_glycogen_ratio ** hill_dnl / ( k_dnl ** hill_dnl + normalized_glycogen_ratio ** hill_dnl )
+gng_fat=gng_fat_endog + gng_fat_exog
+gng_fat_endog=baseline_gng_fat_endog * normalized_lipolysis_rate
+gng_fat_exog=exog_glycerol_per_kcal_fat_intake * fat_intake * cal_dens_c
+gng_fat_in=gng_fat / cal_dens_c
+gng_fat_out=min( gng_fat / cal_dens_f , fat / time_step )
+gng_protein=max( 0.0 , base_gng_p * ( norm_p_ratio - eff_ci_on_gng_p + eff_pi_on_gng_p ) )
+gng_protein_out=max( 0.0 , gng_protein / cal_dens_p)
+gngp_i=gng_protein / cal_dens_c
+metabolism_of_conversions=( 1.0 - efficiency_dnl ) * dnl + ( 1.0- efficiency_gng ) * ( gng_fat + gng_protein )
+norm_p_ratio=protein / baseline_protein
+normalized_glycogen_ratio=carb / base_carb

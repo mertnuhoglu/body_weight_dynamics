@@ -1,0 +1,4 @@
+Protein = 7500.0
+T = 0.0
+Fat = 9000.0
+Glucose = 375.0

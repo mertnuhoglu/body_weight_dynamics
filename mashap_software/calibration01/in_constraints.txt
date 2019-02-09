@@ -1,0 +1,2 @@
+Ec = ME_b - (TEFinit + activ_b * BWinit + smr_lb*(CMinit-Mbrain) + smr_brain*Mbrain + smr_f * Finit + (1-gngeff)*(GNGp_init+GNGf_init)+(1-dnleff)*DNL_init+ (eta_p + ATP_P_proteol*ATP_kcal/AA_mass)*Proteol_init*AA_mass + eta_f*Lipol_init*TG_mass+ eta_g *Glycogenol_init*G_mass)
+

@@ -1,0 +1,135 @@
+z=
+	carb term + fat term +prot term
+Units: Dmnl
+
+**************************************************************
+prot term=
+	( normalized proteolysis + MAX( 0, eff of prot intake on prot oxidation )  
+) * eff of physical activity on prot oxidation
+Units: Dmnl
+
+**************************************************************
+normalized proteolysis=
+	proteolysis / baseline proteolysis
+Units: Dmnl
+
+**************************************************************
+eff of physical activity on prot oxidation=
+	sensitivity to physical activity * EXP( - LN(sensitivity to physical activity
+) * normalized activity energy per body weight )
+Units: Dmnl
+
+**************************************************************
+sensitivity to physical activity=
+	4
+Units: Dmnl
+
+**************************************************************
+normalized activity energy per body weight=
+	activity energy per body weight / baseline activity energy per body weight
+Units: Dmnl
+
+**************************************************************
+eff of prot intake on prot oxidation=
+	weighting of oxidation for basal pi * ( 1 + sensitivity of oxidation to pi changes
+ * normalized change in protein intake )
+Units: Dmnl
+
+**************************************************************
+normalized change in protein intake=
+	change in protein intake / baseline protein intake
+Units: Dmnl
+
+**************************************************************
+sensitivity of oxidation to pi changes=
+	15.0253
+Units: Dmnl
+Makalede bu degiken 7.
+
+**************************************************************
+weighting of oxidation for basal pi=
+	0.1
+Units: Dmnl
+relative rate of exogenous to endogenous protein in balanced 
+		state (from model)
+
+**************************************************************
+carb term=
+	eff of glycogenolysis on carb oxidation + MAX( 0 , eff of carb intake on carb oxidation
+ * ( carb / (0.1 + carb) )  )
+Units: Dmnl
+
+**************************************************************
+eff of carb intake on carb oxidation=
+	weighting of oxidation for basal ci * ( 1 + sensitivity of oxidation to ci changes
+ * normalized change in carbohydrate intake )
+Units: Dmnl
+
+**************************************************************
+sensitivity of oxidation to ci changes=
+	0.761188
+Units: Dmnl
+
+**************************************************************
+weighting of oxidation for basal ci=
+	3.31414
+Units: Dmnl
+
+**************************************************************
+eff of glycogenolysis on carb oxidation=
+	weighting of oxidation for glycogenolysis * normalized glycogenolysis
+Units: Dmnl
+
+**************************************************************
+weighting of oxidation for glycogenolysis=
+	kc / kp * ( 1 + weighting of oxidation for basal pi )- weighting of oxidation for basal ci
+Units: Dmnl
+
+**************************************************************
+kp=
+	( pi 0 - base gng p ) / see b
+Units: Dmnl
+
+**************************************************************
+kc=
+	( ci 0 - dnl b ) / see b
+Units: Dmnl
+
+**************************************************************
+normalized change in carbohydrate intake=
+	change in carbohydrate intake / baseline carbohydrate intake
+Units: Dmnl
+
+**************************************************************
+fat term=
+	MAX( 0 , weighting of oxidation for lipolysis * normalized lipolysis rate)
+Units: Dmnl
+
+**************************************************************
+normalized lipolysis rate=
+	effect of carb intake on lipolysis * effect of obesity on lipolysis
+Units: Dmnl
+
+**************************************************************
+weighting of oxidation for lipolysis=
+	(1 + weighting of oxidation for basal pi) * kf / kp
+Units: Dmnl
+
+**************************************************************
+kf=
+	( fi 0 + dnl b - gngf b ) / see b
+Units: Dmnl
+
+**************************************************************
+kp=
+	( pi 0 - base gng p ) / see b
+Units: Dmnl
+
+**************************************************************
+weighting of oxidation for basal pi=
+	0.1
+Units: Dmnl
+relative rate of exogenous to endogenous protein in balanced 
+		state (from model)
+
+**************************************************************

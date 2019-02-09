@@ -1,0 +1,7 @@
+thermic_effect_of_food=tef_c * cal_dens_c * ci + tef_f * fat_intake + tef_p * cal_dens_p * pi
+tef_p=0.25
+tef_f=0.025
+tef_c=0.075
+cal_dens_c=4.18
+cal_dens_p=4.7
+cal_dens_f=9.44

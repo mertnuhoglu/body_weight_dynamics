@@ -1,0 +1,70 @@
+sec protox=
+	sec frac prot * gap total / cal dens p
+Units: g/Day
+
+**************************************************************
+sec frac prot=
+	prot term / y
+Units: Dmnl
+
+**************************************************************
+y=
+	prot term + is sufficient carb * carb term + is sufficient fat * fat term
+Units: Dmnl
+
+**************************************************************
+gap total=
+	gap carbox + gap fatox
+Units: kcal/Day
+
+**************************************************************
+is sufficient fat=
+	IF THEN ELSE( gap fatox < 0.1 , 1 , 0 )
+Units: Dmnl
+
+**************************************************************
+is sufficient carb=
+	IF THEN ELSE( gap carbox < 0.1 , 1, 0 )
+Units: Dmnl
+
+**************************************************************
+gap fatox=
+	desired fatox - actual fatox * cal dens f
+Units: kcal/Day
+
+**************************************************************
+actual fatox=
+	desired fatox / cal dens f * eff of possible fatox
+Units: g/Day
+
+**************************************************************
+desired fatox=
+	frac fatox * shared energy expenditure
+Units: kcal/Day
+
+**************************************************************
+sec frac fat=
+	is sufficient fat * fat term / y
+Units: Dmnl
+
+**************************************************************
+gap carbox=
+	desired carbox - actual carbox * cal dens c
+Units: kcal/Day
+
+**************************************************************
+sec carbox=
+	sec frac carb * gap total / cal dens c
+Units: g/Day
+
+**************************************************************
+sec frac carb=
+	is sufficient carb * carb term / y
+Units: Dmnl
+
+**************************************************************
+desired carbox=
+	frac carbox * shared energy expenditure + gng fat + gng protein
+Units: kcal/Day
+
+**************************************************************

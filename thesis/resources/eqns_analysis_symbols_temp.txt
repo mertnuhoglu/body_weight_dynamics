@@ -1,0 +1,85 @@
+
+	tee = pae + rmr + tef
+	rmr = mbc + mt + mc 
+	mei_b & =  tee_b 
+	& =  pae_b + tef_b + rmr_b 
+	\Longrightarrow 
+	pae_b & =  mei_b - (tef_b + rmr_b) 
+	act_{eng,bw,b} = pae_b bw_b
+	{{dc} \over {dt}}  =  0 , {{df} \over {dt}}  =  0 , {{dp} \over {dt}}  =  0  
+	ci + gng_f + gng_p - cox_a - dnl - cox_s & =  0 
+	fi + dnl - gng_f - fox_a - fox_s & =  0 
+	pi - gng_p - pox_a - pox_s & =  0
+	cox_{s,0}  =  fox_{s,0}  =  pox_{s,0}  =  0
+	cox_{a,0} & =  ci_0 + gng_{f,0} + gng_{p,0} - dnl_0 
+	fox_{a,0} & =  fi_0 + dnl_0 - gng_{f,0} 
+	pox_{a,0} & =  pi_0 - gng_{p,0} 
+	f_p  =  prot\_term z
+	prot\_term  =  n_{d_p} + max(eff_{pi,pox} , 0)  eff_{act,pox}
+	n_{d_p}  =  d_p d_{p,b} 
+	eff_{pi,pox} =  w_{pi}  ( 1.0 + s_{pi}  n_{\Delta pi} )
+	n_{\Delta pi} =  \Delta pi pi_b
+	eff_{act,pox} = sa   e^{ - \ln(sa)   n_{acteng_{bw}} }
+	n_{acteng_{bw}} = act_{eng,bw} act_{eng,bw,b}
+	eff_{act,pox,0} = sa   e^{ - \ln(sa) }  =  1
+	f_{p,0}  =  1+w_{pi} z_0
+	f_f = fat\_term z
+	fat\_term =  w_f   n_{d_f}
+	n_{d_f} = d_f d_{f,b}
+	f_{f,0}  =  w_f z_0
+	f_c = carb\_term z
+	carb\_term = eff_{dg,cox} + max( 0.0 , eff_{ci,cox}  ( c 0.1 + c )  )
+	eff_{dg,cox} = w_g  n_{d_c}
+	n_{d_c} = d_c d_{c,b}
+	eff_{dg,cox} = w_g
+	eff_{ci,cox} = w_{ci}  ( 1.0 + s_{ci}  n_{\Delta ci} )
+	n_{\Delta ci} = \Delta ci ci_b
+	eff_{ci,cox,0} = w_{ci}
+	carb\_term_0 = w_g + w_{ci}
+	f_{c,0} = w_g + w_{ci} z
+	z = carb\_term + fat\_term +prot\_term
+	z_0  =  (w_g + w_{ci}) + (1+w_{pi}) + (w_f)
+	cox_{a,0} & =  f_{c,0}  see_0 + gng_{p,0} + gng_{f,0} 
+	fox_{a,0} & =  f_{f,0}  see_0 
+	pox_{a,0} & =  f_{p,0}  see_0 
+	cox_{a,0} & =  ci_0 + gng_{f,0} + gng_{p,0} - dnl_0 
+	fox_{a,0} & =  fi_0 + dnl_0 - gng_{f,0} 
+	pox_{a,0} & =  pi_0 - gng_{p,0} 
+\Longrightarrow
+	f_{c,0}  see_0 + gng_{p,0} + gng_{f,0} & =  ci_0 + gng_{f,0} + gng_{p,0} - dnl_0 
+	f_{f,0}  see_0 & =  fi_0 + dnl_0 - gng_{f,0} 
+	f_{p,0}  see_0 & =  pi_0 - gng_{p,0} 
+\Longrightarrow
+	f_{c,0}  see_0 & =  ci_0 - dnl_0 
+	f_{f,0}  see_0 & =  fi_0 + dnl_0 - gng_{f,0} 
+	f_{p,0}  see_0 & =  pi_0 - gng_{p,0} 
+\Longrightarrow
+	f_{c,0} & =  ci_0 - dnl_0 see_0 
+	f_{f,0} & =  fi_0 + dnl_0 - gng_{f,0} see_0 
+	f_{p,0} & =  pi_0 - gng_{p,0} see_0 
+	see =  tee - gng_p - gng_f
+	f_{c,0} & =  ci_0 - dnl_0 mei_b - gng_{f,0 - gng_{p,0}} 
+	f_{f,0} & =  fi_0 + dnl_0 - gng_{f,0} mei_b - gng_{f,0 - gng_{p,0}} 
+	f_{p,0} & =  pi_0 - gng_{p,0} mei_b - gng_{f,0 - gng_{p,0}}
+	k_c & =  ci_0 - dnl_0 mei_b - gng_{f,0 - gng_{p,0}} 
+	k_f & =  fi_0 + dnl_0 - gng_{f,0} mei_b - gng_{f,0 - gng_{p,0}} 
+	k_p & =  pi_0 - gng_{p,0} mei_b - gng_{f,0 - gng_{p,0}} 
+	k_c & =  w_g + w_{ci} (1+w_{pi) + (w_f) + (w_g + w_{ci})} 
+	k_f & =  w_f (1+w_{pi) + (w_f) + (w_g + w_{ci})} 
+	k_p & =  1+w_{pi} (1+w_{pi) + (w_f) + (w_g + w_{ci})} 
+	w_f = (1.0 + w_{pi})   k_f k_p 
+	w_g = k_c k_p   ( 1.0 + w_{pi} )- w_{ci}
+	bw = f + m_{lean}
+	m_{lean} = bm_b + ecw + m_{cell}
+	m_{cell} = ics + c + p + icw
+	icw = hc   c + hp   p + ciw
+	ecw_b = fw   fetw   bw_b
+	icw_b = fiew  ecw_b
+	m_{cell,b} = 1.0/fwcm   icw_b
+	m_{lean,b} = bm_b + ecw_b + m_{cell,b}
+	f_b = bw_b - m_{lean,b}
+	p_b = m_{cell,b} - icw_b - ics - c_b
+	icw & =  hc   c + hp   p + ciw 
+	icw_b & =  fiew  ecw_b 
+	\Longrightarrow fiew  ecw_b & =  hc   c_b + hp   p_b + ciw 
+	\Longrightarrow ciw & = fiew   ecw_b - ( hc   c_b + hp   p_b)

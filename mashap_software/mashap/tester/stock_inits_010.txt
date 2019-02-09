@@ -1,0 +1,7 @@
+Protein = 7500.0
+T = 0.0
+Fat = 10125.0
+Glucose = 500.0
+measured_Flow_F = 0
+measured_Flow_P = 0
+measured_Flow_G = 0

@@ -1,0 +1,932 @@
+eff of possible fatox= WITH LOOKUP (
+	possible fatox / desired fatox,
+		([(0,0)-(3,1)],(0,0),(0.4,0.4),(0.798165,0.627193),(1.30275,0.824561),(2,0.95),(3,1\
+		) ))
+	~	Dmnl
+	~		|
+
+possible fatox=
+	fat / TIME STEP * cal dens f
+	~	kcal/Day
+	~		|
+
+actual fatox=
+	desired fatox / cal dens f * eff of possible fatox
+	~	g/Day
+	~		|
+
+sec protox=
+	sec frac prot * gap total / cal dens p
+	~	g/Day
+	~		|
+
+sec protox kcal=
+	sec protox * cal dens p
+	~	kcal/Day
+	~		|
+
+sec fatox kcal=
+	sec fatox * cal dens f
+	~	kcal/Day
+	~		|
+
+total ox=
+	total pri ox + total sec ox
+	~	kcal/Day
+	~		|
+
+sec carbox=
+	sec frac carb * gap total / cal dens c
+	~	g/Day
+	~		|
+
+sec carbox kcal=
+	sec carbox * cal dens c
+	~	kcal/Day
+	~		|
+
+sec fatox=
+	sec frac fat * gap total / cal dens f
+	~	g/Day
+	~		|
+
+diff bw ox and tee=
+	IF THEN ELSE( total ox - total energy expenditure < 0.1, 0, total ox - total energy expenditure\
+		 )
+	~	kcal/Day [0,0.1]
+	~		|
+
+total sec ox=
+	sec carbox kcal + sec fatox kcal + sec protox kcal
+	~	kcal/Day
+	~		|
+
+Y=
+	Prot Term + is sufficient carb * Carb Term + is sufficient fat * Fat Term
+	~	Dmnl
+	~		|
+
+sec frac carb=
+	is sufficient carb * Carb Term / Y
+	~	Dmnl
+	~		|
+
+sec frac fat=
+	is sufficient fat * Fat Term / Y
+	~	Dmnl
+	~		|
+
+sec frac prot=
+	Prot Term / Y
+	~	Dmnl
+	~		|
+
+is sufficient fat=
+	IF THEN ELSE( gap fatox < 0.1 , 1 , 0 )
+	~	Dmnl
+	~		|
+
+is sufficient carb=
+	IF THEN ELSE( gap carbox < 0.1 , 1, 0 )
+	~	Dmnl
+	~		|
+
+actual carbox=
+	desired carbox / cal dens c * eff of carb sufficiency on carbox
+	~	g/Day
+	~		|
+
+desired carbox=
+	frac carbox * shared energy expenditure + gng fat + gng protein
+	~	kcal/Day
+	~		|
+
+carb sufficiency=
+	carb * cal dens c / desired carbox
+	~	Day
+	~		|
+
+eff of carb sufficiency on carbox= WITH LOOKUP (
+	carb sufficiency,
+		([(0,0)-(1,1),(0,0),(0.1,0.6),(0.2,0.85),(0.3,0.95),(0.4,1),(1,1)],(0,0),(0.1,0.6),\
+		(0.2,0.85),(0.3,0.95),(0.4,1),(1,1) ))
+	~	Dmnl
+	~	\!carb sufficiency
+	|
+
+gap total=
+	gap carbox + gap fatox
+	~	kcal/Day
+	~		|
+
+fat= INTEG (
+	+fi-actual fatox+dnl in-gng fat out-sec fatox,
+		9050)
+	~	g
+	~		|
+
+carb= INTEG (
+	ci+gng fat in+gng protein in-actual carbox-dnl out-sec carbox,
+		500)
+	~	g
+	~		|
+
+gap carbox=
+	desired carbox - actual carbox * cal dens c
+	~	kcal/Day
+	~		|
+
+gap fatox=
+	desired fatox - actual fatox * cal dens f
+	~	kcal/Day
+	~		|
+
+pri carbox kcal=
+	actual carbox * cal dens c
+	~	kcal/Day
+	~		|
+
+protein= INTEG (
+	pi-gng protein out-actual protox-sec protox,
+		9000)
+	~	g
+	~		|
+
+pri fatox kcal=
+	actual fatox * cal dens f
+	~	kcal/Day
+	~		|
+
+pri protox kcal=
+	actual protox * cal dens p
+	~	kcal/Day
+	~		|
+
+total pri ox=
+	pri carbox kcal + pri fatox kcal + pri protox kcal
+	~	kcal/Day
+	~		|
+
+Ec=
+	-268
+	~	kcal/Day
+	~	double counted baseline metabolic activity
+	|
+
+resting metabolic rate=
+	metabolism of body cells + metabolism of turnovers + metabolism of conversions + Ec
+	~	kcal/Day
+	~		|
+
+Z=
+	Carb Term + Fat Term +Prot Term
+	~	Dmnl
+	~		|
+
+Weighting of oxidation for lipolysis=
+	4.23519
+	~	Dmnl
+	~		|
+
+Fat Term=
+	MAX( 0 , Weighting of oxidation for lipolysis * normalized lipolysis rate)
+	~	Dmnl
+	~		|
+
+Weighting of Oxidation for Glycogenolysis=
+	1.74429
+	~	Dmnl
+	~		|
+
+eff of glycogenolysis on carb oxidation=
+	Weighting of Oxidation for Glycogenolysis * Normalized Glycogenolysis
+	~	Dmnl
+	~		|
+
+eff of physical activity on prot oxidation=
+	Sensitivity to Physical Activity * EXP( - LN(Sensitivity to Physical Activity) * Normalized Activity Energy Per Body Weight\
+		 )
+	~	Dmnl
+	~		|
+
+Sensitivity of Oxidation to PI Changes=
+	15.0253
+	~	Dmnl
+	~	Makalede bu degiken 7.
+	|
+
+Sensitivity to Physical Activity=
+	4
+	~	Dmnl
+	~		|
+
+eff of prot intake on prot oxidation=
+	Weighting of Oxidation for Basal PI * ( 1 + Sensitivity of Oxidation to PI Changes *\
+		 Normalized Change in Protein Intake )
+	~	Dmnl
+	~		|
+
+eff of carb intake on carb oxidation=
+	Weighting of Oxidation for Basal CI * ( 1 + Sensitivity of Oxidation to CI Changes *\
+		 Normalized Change in Carbohydrate Intake )
+	~	Dmnl
+	~		|
+
+Weighting of Oxidation for Basal PI=
+	0.1
+	~	Dmnl
+	~	relative rate of exogenous to endogenous protein in balanced state (from \
+		model)
+	|
+
+Prot Term=
+	( Normalized Proteolysis + MAX( 0, eff of prot intake on prot oxidation )  ) * eff of physical activity on prot oxidation
+	~	Dmnl
+	~		|
+
+Sensitivity of Oxidation to CI Changes=
+	0.761188
+	~	Dmnl
+	~		|
+
+Weighting of Oxidation for Basal CI=
+	3.31414
+	~	Dmnl
+	~		|
+
+Carb Term=
+	eff of glycogenolysis on carb oxidation + MAX( 0 , eff of carb intake on carb oxidation\
+		 * ( carb / (0.1 + carb) )  )
+	~	Dmnl
+	~		|
+
+efficiency dnl=
+	0.8
+	~	Dmnl
+	~		|
+
+efficiency gng=
+	0.8
+	~	Dmnl
+	~		|
+
+metabolism of conversions=
+	( 1 - efficiency dnl ) * dnl + ( 1- efficiency gng ) * ( gng fat + gng protein )
+	~	kcal/Day
+	~		|
+
+shared energy expenditure=
+	total energy expenditure - gng protein - gng fat
+	~	kcal/Day
+	~		|
+
+dnl=
+	ci * effect of glycogen on DNL * cal dens c
+	~	kcal/Day
+	~		|
+
+dnl out=
+	min( dnl / cal dens c , carb / TIME STEP )
+	~	g/Day
+	~		|
+
+desired protox=
+	frac protox * shared energy expenditure
+	~	kcal/Day
+	~		|
+
+gng fat=
+	GNG Fat Endog + GNG Fat Exog
+	~	
+	~		|
+
+desired fatox=
+	frac fatox * shared energy expenditure
+	~	kcal/Day
+	~		|
+
+gng fat in=
+	gng fat / cal dens c
+	~	g/Day
+	~		|
+
+gng fat out=
+	min( gng fat / cal dens f , fat / TIME STEP )
+	~	g/Day
+	~		|
+
+gng protein out=
+	MAX( 0 , gng protein / cal dens p)
+	~	g/Day
+	~		|
+
+dnl in=
+	dnl / cal dens f
+	~	g/Day
+	~		|
+
+gng protein=
+	MAX( 0 , base gng p * ( norm p ratio - eff ci on gng p + eff pi on gng p ) )
+	~	kcal/Day
+	~		|
+
+eff ci on gng p=
+	0.506 * Normalized Change in Carbohydrate Intake
+	~	Dmnl
+	~		|
+
+gng protein in=
+	gng protein / cal dens c
+	~	g/Day
+	~		|
+
+actual protox=
+	desired protox / cal dens p
+	~	g/Day
+	~		|
+
+Baseline GNG Fat Endog=
+	base molar lipolysis * Mass of Glycerol * cal dens c
+	~	kcal/Day
+	~		|
+
+GNG Fat Endog=
+	Baseline GNG Fat Endog * normalized lipolysis rate
+	~	kcal/Day
+	~		|
+
+GNG Fat Exog=
+	Exog Glycerol Per Kcal Fat Intake * Fat Intake * cal dens c
+	~	kcal/Day
+	~		|
+
+Exog Glycerol Per Kcal Fat Intake=
+	Mass of Glycerol / ( cal dens f * mass tg )
+	~	g/kcal
+	~		|
+
+Hill DNL=
+	4
+	~	Dmnl
+	~		|
+
+K DNL=
+	2
+	~	Dmnl
+	~		|
+
+effect of glycogen on DNL=
+	normalized glycogen ratio ^ Hill DNL / 
+	( K DNL ^ Hill DNL + normalized glycogen ratio ^ Hill DNL )
+	~	Dmnl
+	~		|
+
+Change in Carbohydrate Intake=
+	Carbohydrate Intake - Baseline Carbohydrate Intake
+	~	kcal/Day
+	~		|
+
+Normalized Change in Carbohydrate Intake=
+	Change in Carbohydrate Intake / Baseline Carbohydrate Intake
+	~	Dmnl
+	~		|
+
+Normalized Change in Protein Intake=
+	Change in Protein Intake / Baseline Protein Intake
+	~	Dmnl
+	~		|
+
+norm p ratio=
+	protein / Baseline Protein
+	~	Dmnl
+	~		|
+
+Change in Protein Intake=
+	Protein Intake - Baseline Protein Intake
+	~	kcal/Day
+	~		|
+
+eff pi on gng p=
+	0.306 * Normalized Change in Protein Intake
+	~	Dmnl
+	~		|
+
+base gng p=
+	100
+	~	kcal/Day
+	~		|
+
+effect of carb intake on lipolysis=
+	1 + ( ( Lipol max - Lipol min )  * EXP( -K lip * ci * cal dens c / Baseline Carbohydrate Intake\
+		 )
+	+ Lipol min - 1 )
+	/ MAX( 1 , effect of obesity on lipolysis )
+	~	Dmnl
+	~		|
+
+lipolysis=
+	base molar lipolysis * normalized lipolysis rate * mass tg
+	~	g/Day
+	~		|
+
+thermic effect of food=
+	tef c * cal dens c * ci + tef f * Fat Intake + tef p * cal dens p * pi
+	~	kcal/Day
+	~		|
+
+tef p=
+	0.25
+	~	Dmnl
+	~		|
+
+tef c=
+	0.075
+	~	Dmnl
+	~		|
+
+tef f=
+	0.025
+	~	Dmnl
+	~		|
+
+metabolism of turnovers=
+	( deg cost p + dep cost p ) * proteolysis +
+	dep cost fat * lipolysis +
+	dep cost c * glycogenolysis
+	~	kcal/Day
+	~		|
+
+activ time=
+	IF THEN ELSE( Read From Data = 1, activ time data , activ time param )
+	~	Dmnl
+	~		|
+
+activ time data
+	~	Dmnl
+	~		|
+
+activ time param=
+	0
+	~	Dmnl
+	~		|
+
+Activity Efficiency=
+	1 + Thermogenesis Effect on PAE vs RMR * Adaptive Thermogenesis
+	~	Dmnl
+	~		|
+
+Activity Energy Per Body Weight=
+	Baseline Activity Energy Per Body Weight * ( 1 - 0.652218 * activ time )
+	~	kcal/(g*Day)
+	~		|
+
+Activity Energy Spent Per Body Weight=
+	Activity Energy Per Body Weight * Activity Efficiency
+	~	kcal/(g*Day)
+	~		|
+
+Adaptive Thermogenesis= INTEG (
+	thermogenesis adaptation,
+		0)
+	~	Dmnl
+	~		|
+
+physical activity energy=
+	Activity Energy Spent Per Body Weight * body weight
+	~	kcal/Day
+	~		|
+
+Therm const=
+	0.8
+	~	Dmnl
+	~		|
+
+Normalized Activity Energy Per Body Weight=
+	Activity Energy Per Body Weight / Baseline Activity Energy Per Body Weight
+	~	Dmnl
+	~		|
+
+thermogenesis adaptation=
+	( Therm const * Effect of Metabolizable Energy Intake on Thermogenesis - Adaptive Thermogenesis\
+		 ) / Delay in Adaptive Thermogenesis
+	~	1/Day
+	~		|
+
+Baseline Activity Energy Per Body Weight=
+	0.0256755
+	~	kcal/(g*Day)
+	~		|
+
+Thermogenesis Effect on PAE vs RMR=
+	0.52
+	~	Dmnl
+	~		|
+
+Effect of Metabolizable Energy Intake on Thermogenesis=
+	( Metabolizable Energy Intake - Baseline Metabolizable Energy Intake ) / Baseline Metabolizable Energy Intake
+	~	Dmnl
+	~		|
+
+Delay in Adaptive Thermogenesis=
+	7
+	~	Day
+	~		|
+
+Lean Tissues=
+	base bone mass + extracel water + cell mass
+	~	g
+	~		|
+
+metabolism of body cells=
+	Basal RMR of Lean Tissues * ( cell mass - mass brain ) + base rmr brain * mass brain\
+		 + base rmr fat * fat
+	~	kcal/Day
+	~		|
+
+cell mass=
+	intracel solids + carb + protein + intracel water
+	~	g
+	~		|
+
+Baseline Basal RMR of Lean Tissues=
+	0.0239374
+	~	kcal/(g*Day)
+	~		|
+
+Basal RMR Efficiency=
+	1 + ( 1 - Thermogenesis Effect on PAE vs RMR ) * Adaptive Thermogenesis
+	~	Dmnl
+	~		|
+
+base rmr fat=
+	0.0045
+	~	kcal/(g*Day)
+	~		|
+
+base rmr brain=
+	0.24
+	~	kcal/g/Day
+	~		|
+
+Basal RMR of Lean Tissues=
+	Baseline Basal RMR of Lean Tissues * Basal RMR Efficiency
+	~	kcal/g/Day
+	~		|
+
+body weight=
+	fat + Lean Tissues
+	~	g
+	~		|
+
+mass brain=
+	1400
+	~	g
+	~		|
+
+dep cost fat=
+	0.176744
+	~	kcal/g
+	~		|
+
+deg cost p=
+	0.172727
+	~	kcal/g
+	~		|
+
+dep cost p=
+	0.863636
+	~	kcal/g
+	~		|
+
+dep cost c=
+	0.211111
+	~	kcal/g
+	~		|
+
+effect of obesity on lipolysis=
+	(fat / Baseline Fat)^(2/3)
+	~	Dmnl
+	~		|
+
+K lip=
+	LN( ( Lipol max - Lipol min ) /
+	( 1 - Lipol min )
+	)
+	~	Dmnl
+	~		|
+
+base molar lipolysis=
+	0.16
+	~	mol/Day
+	~		|
+
+normalized lipolysis rate=
+	effect of carb intake on lipolysis * effect of obesity on lipolysis
+	~	Dmnl
+	~		|
+
+Lipol min=
+	0.9
+	~	Dmnl
+	~		|
+
+Lipol max=
+	3.1
+	~	Dmnl
+	~		|
+
+normalized glycogen ratio=
+	carb / base carb
+	~	Dmnl
+	~		|
+
+Normalized Glycogenolysis=
+	glycogenolysis / base deg c
+	~	Dmnl
+	~		|
+
+glycogenolysis=
+	base deg c * carb / base carb
+	~	g/Day
+	~		|
+
+proteolysis=
+	Baseline Proteolysis * protein / Baseline Protein
+	~	g/Day
+	~		|
+
+base deg c=
+	180
+	~	g/Day
+	~		|
+
+Normalized Proteolysis=
+	proteolysis / Baseline Proteolysis
+	~	Dmnl
+	~		|
+
+Aminoacid mass=
+	110
+	~	g/mol
+	~		|
+
+Baseline Proteolysis=
+	Molar Baseline Proteolysis * Aminoacid mass
+	~	g/Day
+	~		|
+
+Molar Baseline Proteolysis=
+	2.73
+	~	mol/Day
+	~		|
+
+total energy expenditure=
+	physical activity energy + resting metabolic rate + thermic effect of food
+	~	kcal/Day
+	~		|
+
+extracel water=
+	Baseline ECW
+	~	g
+	~		|
+
+protein hydration coefficient=
+	2
+	~	Dmnl
+	~		|
+
+glycogen hydration coefficient=
+	2.7
+	~	Dmnl
+	~		|
+
+intracel solids=
+	3967.28
+	~	g
+	~		|
+
+intracel water=
+	glycogen hydration coefficient * carb + protein hydration coefficient * protein + constant intracellular water
+	~	g
+	~		|
+
+constant intracellular water=
+	12051.9
+	~	g
+	~		|
+
+fi  =
+	Net Fat Intake / cal dens f
+	~	g/Day
+	~		|
+
+ci  = 
+	Carbohydrate Intake / cal dens c
+	~	g/Day
+	~		|
+
+pi  = 
+	Protein Intake / cal dens p
+	~	g/Day
+	~		|
+
+Baseline Bodyweight=
+	67533
+	~	g
+	~		|
+
+base bone mass=
+	0.04 * Baseline Bodyweight
+	~	g
+	~		|
+
+Baseline Carbohydrate Intake=
+	1811.51
+	~	kcal/Day
+	~		|
+
+Baseline ECW=
+	0.7 * 0.235 * Baseline Bodyweight
+	~	g
+	~		|
+
+Baseline Fat=
+	9050
+	~	g
+	~		|
+
+Baseline Fat Intake=
+	1332.52
+	~	kcal/Day
+	~		|
+
+base carb=
+	500
+	~	g
+	~		|
+
+Baseline Lean Mass=
+	Baseline Bodyweight - Baseline Fat
+	~	g
+	~		|
+
+Baseline Metabolizable Energy Intake=
+	Baseline Carbohydrate Intake + Baseline Fat Intake +Baseline Protein Intake
+	~	kcal/Day
+	~		|
+
+Baseline Protein=
+	Protein Fraction of Cell Mass * ( Baseline Lean Mass - base bone mass - Baseline ECW\
+		 )
+	~	g
+	~		|
+
+Baseline Protein Intake=
+	457.38
+	~	kcal/Day
+	~		|
+
+Molar Caloric Dens Glycerol=
+	cal dens c * Mass of Glycerol
+	~	kcal/mol
+	~		|
+
+cal dens c=
+	4.18
+	~	kcal/g
+	~		|
+
+cal dens f=
+	9.44
+	~	kcal/g
+	~		|
+
+cal dens p=
+	4.7
+	~	kcal/g
+	~		|
+
+Carbohydrate Intake=
+	IF THEN ELSE( Read From Data = 1,Carbohydrate Intake Data , Carbohydrate Intake Param\
+		 )
+	~	kcal/Day
+	~		|
+
+Carbohydrate Intake Data
+	~	kcal/Day
+	~		|
+
+Carbohydrate Intake Param=
+	1810
+	~	kcal/Day
+	~		|
+
+Protein Intake Data
+	~	kcal/Day
+	~		|
+
+Protein Intake Param=
+	460
+	~	kcal/Day
+	~		|
+
+Fat Intake=
+	IF THEN ELSE( Read From Data = 1, Fat Intake Data , Fat Intake Param )
+	~	kcal/Day
+	~		|
+
+Fat Intake Data
+	~	kcal/Day
+	~		|
+
+Fat Intake Param=
+	1350
+	~	kcal/Day
+	~		|
+
+Protein Fraction of Cell Mass=
+	0.2
+	~	Dmnl
+	~		|
+
+Molar Caloric Dens TG=
+	cal dens f * mass tg
+	~	kcal/mol
+	~		|
+
+Net Fat Intake=
+	3 * Mass of Fat Free Acid / mass tg * Fat Intake
+	~	kcal/Day
+	~		|
+
+mass tg=
+	860
+	~	g/mol
+	~		|
+
+Mass of Fat Free Acid=
+	( cal dens f * mass tg - cal dens c * Mass of Glycerol ) / ( 3 * cal dens f)
+	~	g/mol
+	~		|
+
+Metabolizable Energy Intake=
+	Carbohydrate Intake + Fat Intake + Protein Intake
+	~	kcal/Day
+	~		|
+
+Read From Data=
+	0
+	~	Dmnl
+	~		|
+
+Mass of Glycerol=
+	92
+	~	g/mol
+	~		|
+
+Protein Intake=
+	IF THEN ELSE( Read From Data = 1, Protein Intake Data , Protein Intake Param )
+	~	kcal/Day
+	~		|
+
+frac carbox=
+	Carb Term / Z
+	~	Dmnl
+	~		|
+
+frac fatox=
+	Fat Term / Z
+	~	Dmnl
+	~		|
+
+frac protox=
+	Prot Term / Z
+	~	Dmnl
+	~		|
+
+********************************************************
+	.Control
+********************************************************~
+		Simulation Control Parameters
+	|
+
+FINAL TIME  = 1000
+	~	Day
+	~	The final time for the simulation.
+	|
+
+INITIAL TIME  = 0
+	~	Day
+	~	The initial time for the simulation.
+	|
+
+SAVEPER  = 
+        TIME STEP
+	~	Day [0,?]
+	~	The frequency with which output is stored.
+	|
+
+TIME STEP  = 0.0625
+	~	Day [0,?]
+	~	The time step for the simulation.
+	|

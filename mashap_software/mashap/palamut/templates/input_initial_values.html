@@ -1,0 +1,21 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+<form action="." method="post">
+    {{ form.as_p }}
+    <input type="submit" value="Submit" name="submit">
+</form>
+<div>
+    <ul>
+        {% for var in initial_variables %}
+            <li>{{ var.name_out }} : {{var.description}} in [ {{var.unit}} ]</li>
+        {% endfor %}
+    </ul>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,72 @@
+body weight=
+	fat + lean tissues
+Units: g
+
+**************************************************************
+lean tissues=
+	base bone mass + extracel water + cell mass
+Units: g
+
+**************************************************************
+base bone mass=
+	0.04 * baseline bodyweight
+Units: g
+
+**************************************************************
+baseline bodyweight=
+	70000
+Units: g
+
+**************************************************************
+cell mass=
+	intracel solids + carb + protein + intracel water
+Units: g
+
+**************************************************************
+intracel solids=
+	3967.28
+Units: g
+
+**************************************************************
+intracel water=
+	glycogen hydration coefficient * carb + protein hydration coefficient * protein
+ + ciw
+Units: g
+
+**************************************************************
+glycogen hydration coefficient=
+	2.7
+Units: Dmnl
+
+**************************************************************
+protein hydration coefficient=
+	2
+Units: Dmnl
+
+**************************************************************
+ciw=
+	 fiew * baseline ecw - ( glycogen hydration coefficient * c init + protein hydration coefficient
+ * p init)
+Units: g
+
+**************************************************************
+fiew=
+	(1-fetw)/fetw
+Units: Dmnl
+
+**************************************************************
+baseline ecw=
+	fw * fetw * baseline bodyweight
+Units: g
+
+**************************************************************
+extracel water=
+	baseline ecw
+Units: g
+
+**************************************************************
+baseline ecw=
+	fw * fetw * baseline bodyweight
+Units: g
+
+**************************************************************

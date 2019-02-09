@@ -1,0 +1,2 @@
+geyikler = 1000.0
+tilki = 100.0

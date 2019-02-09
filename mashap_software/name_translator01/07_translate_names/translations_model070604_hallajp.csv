@@ -1,0 +1,75 @@
+desired protox,
+cal dens p,rho_p
+baseline proteolysis,
+molar baseline proteolysis,proteol_b
+proteolysis,proteol_rate
+norm p ratio,proteol
+normalized proteolysis,proteol
+activ time,activ_time
+frac carbox,carbfrac
+basal rmr efficiency,
+basal rmr of lean tissues,smr_l
+baseline basal rmr of lean tissues,smr_lb
+base rmr fat,smr_f
+base rmr brain,smr_brain
+basal rmr of lean tissues,smr_l
+aminoacid mass,aa_mass
+change in protein intake,dpin
+baseline fat intake,fin_b
+normalized change in protein intake,
+molar caloric dens glycerol,
+molar caloric dens tg,
+baseline metabolizable energy intake,me_b
+mass brain,mbrain
+mass of fat free acid,ffa_mass
+deg cost p,eps_p
+dep cost fat,eta_f
+dep cost c,eta_g
+dep cost p,eta_p
+metabolizable energy intake,me
+efficiency gng,gngeff
+efficiency dnl,dnleff
+normalized proteolysis,proteol
+baseline protein intake,pin_b
+protein intake,pin
+baseline carbohydrate intake,cin_b
+cal dens c,rho_c
+cal dens f,rho_f
+fat intake,fin
+carbohydrate intake,cin
+mass of glycerol,glycerol_mass
+mass tg,tg_mass
+net fat intake,
+ec,ec
+total energy expenditure,tee
+tef p,tef_p
+tef c,tef_c
+z,z
+thermic effect of food,tef
+tef f,tef_f
+metabolism of body cells,part of ebar
+metabolism of conversions,part of ebar
+metabolism of turnovers,part of ebar
+carb term,carb_term
+eff of glycogenolysis on carb oxidation,part of carb_term
+weighting of oxidation for glycogenolysis,wg
+normalized glycogenolysis,glycogenol
+glycogenolysis,glycogenol_rate
+normalized glycogen ratio,glycogenol
+eff of carb intake on carb oxidation,part of carb_term
+weighting of oxidation for basal ci,wci
+sensitivity of oxidation to ci changes,sci
+fat term,fat_term
+weighting of oxidation for lipolysis,wf
+frac fatox,fatfrac
+frac protox,protfrac
+prot term,prot_term
+eff of prot intake on prot oxidation,part of prot_term
+eff of physical activity on prot oxidation,part of prot_term
+sensitivity of oxidation to pi changes,spi
+weighting of oxidation for basal pi,wpi
+normalized activity energy per body weight,part of prot_term
+activity energy per body weight,activ_tsb
+activity energy spent per body weight,activ
+baseline activity energy per body weight,activ_b
+physical activity energy,part of ebar

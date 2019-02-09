@@ -1,0 +1,56 @@
+\sym{$w_{ci}$}{Weighting of oxidation for basal ci}
+\sym{$cal_c$}{Cal dens c}
+\sym{$f_b$}{Baseline fat}
+\sym{$p$}{Protein}
+\sym{${{Delta pi} over {pi_b}}$}{Normalized change in protein intake}
+\sym{$eff_{pi,pox}$}{Eff of prot intake on prot oxidation}
+\sym{$Delta pi$}{Change in protein intake}
+\sym{$act_{eng,bw}$}{Activity energy per body weight}
+\sym{$ci_b$}{Baseline carbohydrate intake}
+\sym{$p_b$}{Baseline protein}
+\sym{$Gamma_c$}{Coef of eff ci on gng p}
+\sym{$fi$}{Fat intake}
+\sym{$w_f$}{Weighting of oxidation for lipolysis}
+\sym{$d_{p,b}$}{Baseline proteolysis}
+\sym{$f_c$}{Frac carbox}
+\sym{$gng_{p,b}$}{Base gng p}
+\sym{$m_{tg}$}{Mass tg}
+\sym{$w_g$}{Weighting of oxidation for glycogenolysis}
+\sym{$n_{d_p}$}{Normalized proteolysis}
+\sym{$d_f$}{Lipolysis}
+\sym{$eff_{ci,d_f}$}{Effect of carb intake on lipolysis}
+\sym{$z$}{Z}
+\sym{$gng_f$}{Gng fat}
+\sym{$d_{f,mol,b}$}{Base molar lipolysis}
+\sym{$eff_{ci,cox}$}{Eff of carb intake on carb oxidation}
+\sym{$cal_p$}{Cal dens p}
+\sym{$s_{pi,ox}$}{Sensitivity of oxidation to pi changes}
+\sym{$n_{Delta pi}$}{Normalized change in protein intake}
+\sym{$eff_{dg,cox}$}{Eff of glycogenolysis on carb oxidation}
+\sym{$f$}{Fat}
+\sym{$dnl$}{Dnl}
+\sym{$c_b$}{Base carb}
+\sym{$s_{pae}$}{Sensitivity to physical activity}
+\sym{$pi_b$}{Baseline protein intake}
+\sym{$d_c$}{Glycogenolysis}
+\sym{$f_p$}{Frac protox}
+\sym{$k_{dnl}$}{K dnl}
+\sym{$w_{pi}$}{Weighting of oxidation for basal pi}
+\sym{$f_f$}{Frac fatox}
+\sym{$n_{d_f}$}{Normalized lipolysis rate}
+\sym{$c$}{Carb}
+\sym{$hill_{dnl}$}{Hill dnl}
+\sym{$n_{d_c}$}{Normalized glycogenolysis}
+\sym{$Delta ci$}{Change in carbohydrate intake}
+\sym{${ {Delta ci} over {ci_b} }$}{Normalized change in carbohydrate intake}
+\sym{$n_{Delta ci}$}{Normalized change in carbohydrate intake}
+\sym{$Gamma_p$}{Coef of eff pi on gng p}
+\sym{$m_g$}{Mass of glycerol}
+\sym{$d_{c,b}$}{Base deg c}
+\sym{$cal_f$}{Cal dens f}
+\sym{$gng_p$}{Gng protein}
+\sym{$ci$}{Carbohydrate intake}
+\sym{$eff_{act,pox}$}{Eff of physical activity on prot oxidation}
+\sym{$s_{ci}$}{Sensitivity of oxidation to ci changes}
+\sym{$d_p$}{Proteolysis}
+\sym{$act_{eng,bw,b}$}{Baseline activity energy per body weight}

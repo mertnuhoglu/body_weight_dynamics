@@ -1,0 +1,4 @@
+fat = +fi-actual_fatox+dnl_i-gng_fat_out-sec_fatox
+carb = ci+gng_fat_in+gngp_i-actual_carbox-dnl_out-sec_carbox
+protein = pi-gng_protein_out-actual_protox-sec_protox
+adaptive_thermogenesis = thermogenesis_adaptation

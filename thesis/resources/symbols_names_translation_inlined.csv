@@ -1,0 +1,75 @@
+symbol;long name
+$gng_p$;\lstinline|gng_protein|
+"$gng_{p;b}$";\lstinline|base_gng_p|
+$p$;\lstinline|protein|
+$p_b$;\lstinline|baseline_protein|
+$\Gamma_c$;\lstinline|0.5|
+$\Delta ci$;\lstinline|change_in_carbohydrate_intake|
+$ci_b$;\lstinline|baseline_carbohydrate_intake|
+$\Gamma_p$;\lstinline|0.3|
+$\Delta pi$;\lstinline|change_in_protein_intake|
+$pi_b$;\lstinline|baseline_protein_intake|
+${{\Delta pi} \over {pi_b}}$;\lstinline|normalized_change_in_protein_intake|
+${ {\Delta ci} \over {ci_b} }$;\lstinline|normalized_change_in_carbohydrate_intake|
+
+eqn gng_f:
+$gng_f$;\lstinline|gng_fat|
+$fi$;\lstinline|fat_intake|
+$cal_c$;\lstinline|cal_dens_c|
+$cal_f$;\lstinline|cal_dens_f|
+$cal_p$;\lstinline|cal_dens_p|
+$m_g$;\lstinline|mass_of_glycerol|
+$m_{tg}$;\lstinline|mass_tg|
+$d_f$;\lstinline|lipolysis|
+
+eqn dnl:
+$dnl$;\lstinline|dnl|
+$ci$;\lstinline|carbohydrate_intake|
+$c$;\lstinline|carb|
+$c_b$;\lstinline|base_carb|
+$hill_{dnl}$;\lstinline|hill_dnl|
+$k_{dnl}$;\lstinline|k_dnl|
+
+eqn d_p
+$d_p$;\lstinline|proteolysis|
+$d_{p,b}$;\lstinline|baseline_proteolysis|
+
+
+eqn d_f
+$d_f$;\lstinline|lipolysis|
+$d_{f,mol,b}$;\lstinline|base_molar_lipolysis|
+$f$;\lstinline|fat|
+$f_b$;\lstinline|baseline_fat|
+$eff_{ci,d_f}$;\lstinline|effect_of_carb_intake_on_lipolysis|
+
+eqn d_c
+$d_c$;\lstinline|glycogenolysis|
+$d_{c,b}$;\lstinline|base_deg_c|
+
+eqn fp_desc
+$f_p$;\lstinline|frac_protox|
+$n_{d_p}$;\lstinline|normalized_proteolysis|
+$eff_{pi,pox}$;\lstinline|eff_of_prot_intake_on_prot_oxidation|
+$eff_{act,pox}$;\lstinline|eff_of_physical_activity_on_prot_oxidation|
+$z$;\lstinline|z|
+$w_{pi}$;\lstinline|weighting_of_oxidation_for_basal_pi|
+$s_{pi,ox}$;\lstinline|sensitivity_of_oxidation_to_pi_changes|
+$n_{\Delta pi}$;\lstinline|normalized_change_in_protein_intake|
+$s_{pae}$;\lstinline|sensitivity_to_physical_activity|
+$act_{eng,bw}$;\lstinline|activity_energy_per_body_weight|
+$act_{eng,bw,b}$;\lstinline|baseline_activity_energy_per_body_weight|
+
+eqn ff_desc
+$f_f$;\lstinline|frac_fatox|
+$w_f$;\lstinline|weighting_of_oxidation_for_lipolysis|
+$n_{d_f}$;\lstinline|normalized_lipolysis_rate|
+
+eqn fc_desc
+$f_c$;\lstinline|frac_carbox|
+$eff_{dg,cox}$;\lstinline|eff_of_glycogenolysis_on_carb_oxidation|
+$eff_{ci,cox}$;\lstinline|eff_of_carb_intake_on_carb_oxidation|
+$w_g$;\lstinline|weighting_of_oxidation_for_glycogenolysis|
+$w_{ci}$;\lstinline|weighting_of_oxidation_for_basal_ci|
+$s_{ci}$;\lstinline|sensitivity_of_oxidation_to_ci_changes|
+$n_{d_c}$;\lstinline|normalized_glycogenolysis|
+$n_{\Delta ci}$;\lstinline|normalized_change_in_carbohydrate_intake|
