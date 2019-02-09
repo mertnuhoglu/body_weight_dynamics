@@ -1,0 +1,13 @@
+syntax: glob
+*.orig
+*.rej
+*~
+*.o
+*.pyc
+*.iml
+*.ipr
+*.iws
+tests/*.err
+
+syntax: regexp
+.*\#.*\#$
