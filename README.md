@@ -3,9 +3,10 @@ This repository contains all the source code and text of my MS thesis "Simulatio
 
 # Contents of the Repository
 
-- mashap_software: python source code of the simulation software 
+- mashap_software/mashap: python source code of the simulation software 
 - conference_paper: latex source code of the conference paper
 - thesis: latex source code of the thesis
+- mashap_software/mashap/palamut/tests/resources/model_long_07_06_01.mdl Vensim model file for the body weight dynamics
 
 # Download
 
